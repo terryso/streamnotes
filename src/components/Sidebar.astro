@@ -28,7 +28,7 @@ const popular = (await getArticles()).filter((a) => a.id !== exclude).slice(0, 4
         return (
           <li><a href={`/articles/${a.id}/`}>
             {img && <img src={img.cover.src800} alt="" width="96" height="54" loading="lazy" decoding="async" />}
-            <span>{a.data.title}</span>
+            <span>{a.data.cardTitle ?? a.data.title}</span>
           </a></li>
         );
       })}
