@@ -370,6 +370,59 @@
     }
    ],
    "og": "/images/obs-streaming-settings/og.jpg"
+  },
+  "enterprise-live-apaas": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "面向舞台的空会议室，成排座椅整齐摆放",
+    "credit": {
+     "creator": "Nilo Velez",
+     "source": "wordpress",
+     "source_name": "WordPress Photo Directory",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://wordpress.org/photos/photo/5176786995/",
+     "title": "An empty conference room with rows of chairs facing a stage"
+    },
+    "src": "/images/enterprise-live-apaas/cover.webp",
+    "src800": "/images/enterprise-live-apaas/cover-800.webp"
+   },
+   "og": "/images/enterprise-live-apaas/og.jpg",
+   "inline": [
+    {
+     "src": "/images/enterprise-live-apaas/inline-1.webp",
+     "w": 683,
+     "h": 1024,
+     "alt": "笔记本电脑屏幕上的源代码编辑界面",
+     "caption": "低代码与 API 让直播能力可以嵌进自有产品",
+     "credit": {
+      "creator": "markus spiske",
+      "source": "flickr",
+      "source_name": "Flickr",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.flickr.com/photos/125167502@N02/31906693748",
+      "title": "HTML PHP Javascript Source Code"
+     }
+    },
+    {
+     "src": "/images/enterprise-live-apaas/inline-2.webp",
+     "w": 1200,
+     "h": 800,
+     "alt": "面向讲台的空会议厅，棕色座椅成排排列",
+     "caption": "活动直播常需要把报名、观看与会后跟进串成一条路径",
+     "credit": {
+      "creator": "Nilo Velez",
+      "source": "wordpress",
+      "source_name": "WordPress Photo Directory",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://wordpress.org/photos/photo/268678e0be/",
+      "title": "An empty conference room with rows of brown chairs facing a stage"
+     }
+    }
+   ]
   }
  },
  "site": {
