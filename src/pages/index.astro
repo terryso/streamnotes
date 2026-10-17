@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Sidebar from '../components/Sidebar.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import Cta from '../components/Cta.astro';
+import { SITE_NAME, SITE_TAGLINE, SITE_DESCRIPTION } from '../consts';
+const posts = (await getCollection('articles', (e) => !e.data.draft)).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+---
+<Base campaign="home">
+  <section class="hero">
+    <h1>{SITE_NAME}：{SITE_TAGLINE}</h1>
+    <p>{SITE_DESCRIPTION}</p>
+  </section>
+  <div class="layout">
+    <section aria-label="最新文章">
+      <h2 style="margin-top:0">最新文章</h2>
+      <div class="card-list">{posts.map((p) => <ArticleCard entry={p} level={3} />)}</div>
+      <Cta campaign="home" medium="home" />
+    </section>
+    <Sidebar campaign="home" />
+  </div>
+</Base>

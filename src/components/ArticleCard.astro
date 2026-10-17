@@ -1,0 +1,14 @@
+---
+import { CATEGORIES } from '../consts';
+const { entry, level = 2 } = Astro.props;
+const d = entry.data;
+const H = level === 2 ? 'h2' : 'h3';
+---
+<article class="card">
+  <div class="meta">
+    <a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a>
+    <time datetime={d.pubDate.toISOString()}>{d.pubDate.toISOString().slice(0, 10)}</time>
+  </div>
+  <H><a href={`/articles/${entry.id}/`}>{d.title}</a></H>
+  <p>{d.description}</p>
+</article>

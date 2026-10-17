@@ -1,0 +1,16 @@
+---
+import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+interface Props { campaign: string; medium?: string; }
+const { campaign, medium = 'article' } = Astro.props;
+---
+<aside class="cta-block" aria-label="方案咨询">
+  <div class="cta-text">
+    <strong>正在规划企业直播或点播平台？</strong>
+    <p>可以先免费开通保利威（POLYV）账号，实际测试直播、点播、互动与视频加密等功能；也可以联系他们的方案顾问，结合业务场景做评估。</p>
+  </div>
+  <div class="cta-actions">
+    <a class="btn btn-primary" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通试用</a>
+    <a class="btn btn-ghost" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系方案顾问</a>
+  </div>
+  <p class="cta-note">咨询电话：{POLYV_PHONE}</p>
+</aside>

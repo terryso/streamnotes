@@ -1,0 +1,23 @@
+---
+import { CATEGORIES, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, utm } from '../consts';
+interface Props { campaign: string; medium?: string; }
+const { campaign, medium = 'sidebar' } = Astro.props;
+---
+<aside class="sidebar">
+  <section class="side-card side-cta">
+    <h3>企业视频方案</h3>
+    <p>直播、点播、研讨会、私有化部署——在真实环境里先试一试，再做决定。</p>
+    <a class="btn btn-primary btn-block" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通保利威</a>
+    <a class="btn btn-ghost btn-block" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">预约方案咨询</a>
+  </section>
+  <section class="side-card">
+    <h3>栏目</h3>
+    <ul class="side-list">
+      {Object.entries(CATEGORIES).map(([k, c]) => <li><a href={`/category/${k}/`}>{c.name}</a></li>)}
+    </ul>
+  </section>
+  <section class="side-card">
+    <h3>订阅</h3>
+    <p><a href="/rss.xml">RSS 订阅</a>，第一时间获取新文章。</p>
+  </section>
+</aside>
