@@ -1,17 +1,17 @@
 ---
-import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+import { CHECKLIST_URL } from '../consts';
 interface Props { campaign: string; medium?: string; }
 const { campaign, medium = 'article' } = Astro.props;
 ---
-<aside class="cta-end" aria-label="方案咨询">
+<aside class="cta-end" aria-label="继续阅读">
   <div class="cta-end__text">
     <span class="eyebrow">下一步</span>
     <h2 class="cta-end__title">正在规划企业直播或点播平台？</h2>
-    <p>可以先免费开通保利威（POLYV）账号，实测直播、点播、互动与视频加密等功能；也可以联系方案顾问，结合培训、营销或私有化等业务场景做评估。</p>
+    <p>可以先用选型清单梳理交付模式、安全合规、互动与数据等需求，再结合培训、营销或私有化等业务场景，对多家平台做实测对比。</p>
   </div>
   <div class="cta-end__actions">
-    <a class="btn btn-primary btn-lg" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通试用</a>
-    <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系方案顾问</a>
-    <span class="cta-end__note">咨询电话 {POLYV_PHONE}</span>
+    <a class="btn btn-primary btn-lg" href={CHECKLIST_URL}>查看选型清单</a>
+    <a class="btn btn-ghost-light btn-lg" href="/category/selection/">浏览方案选型</a>
+    <span class="cta-end__note"><a href="/rss.xml">通过 RSS 订阅新文章</a></span>
   </div>
 </aside>

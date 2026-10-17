@@ -39,7 +39,6 @@ button{font:inherit}
 .dot{color:#cbd5e1}
 .tag{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:999px;background:#eef2ff;color:var(--brand);font-size:12px;font-weight:600}
 .tag:hover{background:#e0e7ff}
-.tag-promo{background:#fff7ed;color:#c2410c}
 .tags{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-2);font-size:13px}
 .chip:hover{border-color:var(--brand);color:var(--brand)}
@@ -188,7 +187,6 @@ button{font:inherit}
 .credit a{color:#94a3b8;text-decoration:underline;text-underline-offset:2px}
 .layout--post{margin-top:40px;grid-template-columns:minmax(0,760px) 320px;justify-content:space-between}
 .post-main{min-width:0}
-.promo-note{font-size:14px;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:var(--radius-sm);padding:10px 14px;margin:0 0 20px}
 .tldr{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe;border-radius:var(--radius);padding:20px 22px;margin:0 0 28px}
 .tldr h2{font-size:16px;margin:0 0 10px;color:var(--brand-d)}
 .tldr ul{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;font-size:15px}

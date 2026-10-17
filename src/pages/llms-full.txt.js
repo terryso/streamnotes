@@ -5,7 +5,7 @@ export async function GET({ site }) {
   let out = `# ${SITE_NAME} 全文\n\n> ${SITE_DESCRIPTION}\n\n`;
   for (const p of posts) {
     const d = p.data;
-    out += `---\n\n# ${d.title}\n\nURL: ${new URL(`/articles/${p.id}/`, site).href}\n栏目: ${CATEGORIES[d.category].name}\n发布: ${d.pubDate.toISOString().slice(0, 10)}${d.promo ? '\n类型: 合作推荐（含保利威产品推荐）' : ''}\n\n摘要: ${d.description}\n\n## TL;DR\n\n${d.tldr.map((t) => `- ${t}`).join('\n')}\n\n${(p.body || '').trim()}\n\n`;
+    out += `---\n\n# ${d.title}\n\nURL: ${new URL(`/articles/${p.id}/`, site).href}\n栏目: ${CATEGORIES[d.category].name}\n发布: ${d.pubDate.toISOString().slice(0, 10)}\n\n摘要: ${d.description}\n\n## TL;DR\n\n${d.tldr.map((t) => `- ${t}`).join('\n')}\n\n${(p.body || '').trim()}\n\n`;
     if (d.faq.length) out += `## FAQ\n\n${d.faq.map((f) => `**问：${f.q}**\n\n答：${f.a}`).join('\n\n')}\n\n`;
     if (d.sources.length) out += `## 参考资料\n\n${d.sources.map((s) => `- ${s.title}: ${s.url}`).join('\n')}\n\n`;
   }

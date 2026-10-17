@@ -15,7 +15,7 @@ const mins = readingMinutes(entry.body);
       {img && <img src={img.cover.src800} alt="" width="800" height="450" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
     </a>
     <div class="acard__body">
-      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a>{d.promo && <span class="tag tag-promo">合作推荐</span>}</div>
+      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a></div>
       <H class="acard__title"><a href={href}>{d.title}</a></H>
       <p class="acard__desc">{d.description}</p>
       <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">·</span><span><Icon name="clock" size={14} /> {mins} 分钟</span></div>
@@ -27,7 +27,7 @@ const mins = readingMinutes(entry.body);
       {img && <img src={img.cover.src800} alt="" width="800" height="450" loading="lazy" decoding="async" />}
     </a>
     <div class="arow__body">
-      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a>{d.promo && <span class="tag tag-promo">合作推荐</span>}</div>
+      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a></div>
       <H class="arow__title"><a href={href}>{d.title}</a></H>
       <p class="arow__desc">{d.description}</p>
       <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">·</span><span>{mins} 分钟阅读</span></div>

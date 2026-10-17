@@ -21,8 +21,6 @@ faq:
 sources:
   - title: "Kirkpatrick Partners - The Kirkpatrick Model"
     url: https://www.kirkpatrickpartners.com/the-kirkpatrick-model/
-  - title: "保利威企业培训直播解决方案"
-    url: https://www.polyv.net/solution/training/
 related: [enterprise-live-platform-selection, vod-encryption-guide]
 ---
 
@@ -113,4 +111,4 @@ related: [enterprise-live-platform-selection, vod-encryption-guide]
 
 ## 五、小结
 
-培训直播不是把线下课搬到镜头前，而是一套“设计—交付—沉淀—评估”的完整流程。选平台时，可以对照本文流程检查是否具备权限控制、互动工具、回放加密和学习数据等能力。市面上已有一些服务商提供专门的培训直播方案（例如保利威的企业培训直播方案），可以结合自身流程进行试用评估。
+培训直播不是把线下课搬到镜头前，而是一套“设计—交付—沉淀—评估”的完整流程。选平台时，可以对照本文流程检查是否具备权限控制、互动工具、回放加密和学习数据等能力。市面上已有多家服务商提供专门的培训直播方案，建议结合自身流程挑选几家试用对比。

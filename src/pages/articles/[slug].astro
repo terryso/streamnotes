@@ -53,7 +53,7 @@ const c = img?.cover.credit;
       <nav class="breadcrumb" aria-label="面包屑">
         <ol><li><a href="/">首页</a></li><li><a href={`/category/${d.category}/`}>{cat.name}</a></li><li aria-current="page">正文</li></ol>
       </nav>
-      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{cat.name}</a>{d.promo && <span class="tag tag-promo">合作推荐</span>}</div>
+      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{cat.name}</a></div>
       <h1>{d.title}</h1>
       <p class="post-lead">{d.description}</p>
       <div class="byline">
@@ -74,7 +74,6 @@ const c = img?.cover.credit;
     )}
     <div class="container layout layout--post">
       <div class="post-main">
-        {d.promo && <p class="promo-note">说明：本文包含对保利威（POLYV）产品的推荐，产品信息均来自其官网公开资料，建议以官方最新说明为准。</p>}
         <section class="tldr" aria-label="要点速览">
           <h2>TL;DR 要点速览</h2>
           <ul>{d.tldr.map((t) => <li>{t}</li>)}</ul>

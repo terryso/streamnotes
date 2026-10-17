@@ -25,8 +25,6 @@ sources:
     url: https://www.w3.org/TR/encrypted-media/
   - title: "Apple Developer - FairPlay Streaming"
     url: https://developer.apple.com/streaming/fps/
-  - title: "保利威云点播产品页（安全合规方案）"
-    url: https://www.polyv.net/vod/
 related: [live-latency-protocols, private-deployment-polyv]
 ---
 
@@ -119,4 +117,4 @@ DRM 依托浏览器的 EME（Encrypted Media Extensions）接口和设备内的 
 | 知识付费课程 | 分片加密 + 一次性播放凭证 + URL 签名 + 跑马灯水印 |
 | 影视版权内容 | 多 DRM + CMAF + 暗水印 |
 
-如果团队不想自研整套体系，可以选择内置视频加密能力的点播平台。例如保利威云点播在官网介绍中提到，提供 AES 加密、URL 鉴权、视频水印、IP 黑白名单以及操作日志等保护能力，选型时可以对照上面的四层防线逐项确认。
+如果团队不想自研整套体系，可以选择内置视频加密能力的点播平台。选型时可以要求供应商逐项说明 AES 加密、URL 鉴权、视频水印、IP 黑白名单与操作日志等能力，并对照上面的四层防线确认。

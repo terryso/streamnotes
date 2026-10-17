@@ -21,10 +21,6 @@ faq:
 sources:
   - title: "NIST SP 800-145 - The NIST Definition of Cloud Computing"
     url: https://csrc.nist.gov/pubs/sp/800/145/final
-  - title: "保利威直播 aPaaS 方案介绍"
-    url: https://www.polyv.net/solution/apaas/
-  - title: "保利威视频私有云介绍"
-    url: https://www.polyv.net/private/
 related: [private-deployment-polyv, corporate-training-live]
 ---
 
@@ -102,4 +98,4 @@ related: [private-deployment-polyv, corporate-training-live]
 
 ## 五、结语
 
-没有“最好”的直播平台，只有“最合适”的交付模式。多数企业可以先从 SaaS 或 aPaaS 起步，验证业务价值后，再根据合规与集成需要评估专属云或私有化部署。像保利威这类同时提供 SaaS、aPaaS 和视频专属云的服务商，也方便企业在不同阶段之间平滑升级，选型时可以把它列入候选名单一并对比。
+没有“最好”的直播平台，只有“最合适”的交付模式。多数企业可以先从 SaaS 或 aPaaS 起步，验证业务价值后，再根据合规与集成需要评估专属云或私有化部署。选型时也可以关注服务商是否同时提供 SaaS、aPaaS 和专属云等多种交付模式，以便在不同阶段之间平滑升级。
