@@ -15,6 +15,20 @@ export type CategoryKey = keyof typeof CATEGORIES;
 // Neutral in-site checklist used by CTAs
 export const CHECKLIST_URL = '/articles/enterprise-live-platform-selection/';
 
+// Real POLYV (保利威) destination pages, verified on polyv.net
+export const POLYV_TRIAL = 'https://my.polyv.net/v3/register/';
+export const POLYV_CONTACT = 'https://www.polyv.net/company/';
+export const POLYV_CONTACT_HASH = '#contact-us';
+export const POLYV_PHONE = '400-638-8883';
+
+export function utm(base: string, campaign: string, medium = 'article', hash = '') {
+  const u = new URL(base);
+  u.searchParams.set('utm_source', 'contentsite');
+  u.searchParams.set('utm_medium', medium);
+  u.searchParams.set('utm_campaign', campaign);
+  return u.toString() + hash;
+}
+
 // Analytics / Search Console placeholders: set as env vars at build time (see OPERATIONS.md)
 export const GA4_ID = (import.meta.env.PUBLIC_GA4_ID || '').trim();
 export const GSC_VERIFICATION = (import.meta.env.PUBLIC_GSC_VERIFICATION || '').trim();

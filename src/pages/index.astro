@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import LeadBand from '../components/LeadBand.astro';
 import Icon from '../components/Icon.astro';
-import { SITE_NAME, SITE_TAGLINE, CATEGORIES, SCENARIOS, HOT_TAGS, CHECKLIST_URL } from '../consts';
+import { SITE_NAME, SITE_TAGLINE, CATEGORIES, SCENARIOS, HOT_TAGS, POLYV_TRIAL, utm } from '../consts';
 import { getArticles, imagesFor, siteImages } from '../lib/articles';
 const posts = await getArticles();
 const latest = posts.slice(0, 4);
@@ -24,7 +24,7 @@ const counts = Object.fromEntries(Object.keys(CATEGORIES).map((k) => [k, posts.f
       <p>面向企业技术与业务团队的直播点播知识库——协议与延迟、视频加密、平台选型、企业培训与营销直播实践，讲清原理，也给出可落地的清单。</p>
       <div class="hero__actions">
         <a class="btn btn-primary btn-lg" href="#all">浏览全部文章 <Icon name="arrow" size={18} /></a>
-        <a class="btn btn-ghost-light btn-lg" href={CHECKLIST_URL}>查看选型清单</a>
+        <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_TRIAL, 'home', 'hero')} target="_blank" rel="noopener sponsored">免费试用企业直播</a>
       </div>
       <ul class="hero__stats" aria-label="栏目">
         {Object.entries(CATEGORIES).map(([k, c]) => <li><a href={`/category/${k}/`}><strong>{counts[k]}</strong><span>{c.name}</span></a></li>)}

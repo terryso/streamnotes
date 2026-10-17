@@ -2,7 +2,7 @@ import { getCollection } from 'astro:content';
 import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, CATEGORIES } from '../consts';
 export async function GET({ site }) {
   const posts = (await getCollection('articles', (e) => !e.data.draft)).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
-  let out = `# ${SITE_NAME}（${SITE_NAME_EN}）\n\n> ${SITE_DESCRIPTION}\n\n语言：简体中文（zh-CN）。本站文章均附 TL;DR 要点、FAQ 与参考资料；内容保持中立，不含厂商赞助或推广。全文版本见 ${new URL('llms-full.txt', site).href}\n\n`;
+  let out = `# ${SITE_NAME}（${SITE_NAME_EN}）\n\n> ${SITE_DESCRIPTION}\n\n语言：简体中文（zh-CN）。本站文章均附 TL;DR 要点、FAQ 与参考资料；本站不由任何厂商赞助或运营。全文版本见 ${new URL('llms-full.txt', site).href}\n\n`;
   for (const [k, c] of Object.entries(CATEGORIES)) {
     const list = posts.filter((p) => p.data.category === k);
     if (!list.length) continue;

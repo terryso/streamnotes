@@ -1,5 +1,5 @@
 ---
-import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, HOT_TAGS, GA4_ID, GSC_VERIFICATION, CHECKLIST_URL } from '../consts';
+import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, HOT_TAGS, GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
 import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 interface Props {
@@ -111,7 +111,7 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
           <Icon name="search" size={16} />
           <input id="hsearch-q" name="q" type="search" placeholder="搜索直播、点播、私有化…" autocomplete="off" />
         </form>
-        <a class="btn btn-primary btn-sm header-cta" href="/rss.xml">订阅</a>
+        <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener sponsored">免费试用</a>
       </div>
     </div>
     <nav class="subnav" aria-label="栏目">
@@ -143,11 +143,11 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
         <ul>{HOT_TAGS.slice(0, 5).map((t) => <li><a href={`/search/?q=${encodeURIComponent(t)}`}>{t}</a></li>)}</ul>
       </section>
       <section>
-        <h2 class="footer-h">选型参考</h2>
+        <h2 class="footer-h">企业视频方案</h2>
         <ul>
-          <li><a href={CHECKLIST_URL}>企业直播平台选型清单</a></li>
-          <li><a href="/category/selection/">方案选型栏目</a></li>
-          <li><a href="/rss.xml">RSS 订阅</a></li>
+          <li><a href={utm(POLYV_TRIAL, campaign, 'footer')} target="_blank" rel="noopener sponsored">免费开通保利威直播/点播</a></li>
+          <li><a href={utm(POLYV_CONTACT, campaign, 'footer', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系保利威方案顾问</a></li>
+          <li>咨询电话 {POLYV_PHONE}</li>
         </ul>
       </section>
       <section>
@@ -166,7 +166,7 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
     <a href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="home" /><span>首页</span></a>
     <a href="/category/tutorial/" aria-current={path.startsWith('/category/') ? 'page' : undefined}><Icon name="grid" /><span>栏目</span></a>
     <a href="/search/" aria-current={path.startsWith('/search/') ? 'page' : undefined}><Icon name="search" /><span>搜索</span></a>
-    <a href="/rss.xml" class="tabbar__cta"><Icon name="rss" /><span>订阅</span></a>
+    <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored" class="tabbar__cta"><Icon name="chat" /><span>咨询</span></a>
   </nav>
 </body>
 </html>

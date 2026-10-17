@@ -1,5 +1,5 @@
 ---
-import { CATEGORIES, HOT_TAGS, CHECKLIST_URL } from '../consts';
+import { CATEGORIES, HOT_TAGS, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
 import { getArticles, imagesFor } from '../lib/articles';
 interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string }
 const { campaign, medium = 'sidebar', toc = [], exclude } = Astro.props;
@@ -7,11 +7,12 @@ const popular = (await getArticles()).filter((a) => a.id !== exclude).slice(0, 4
 ---
 <aside class="sidebar">
   <section class="side-cta">
-    <span class="eyebrow eyebrow--light">选型参考</span>
-    <h3>直播、点播、私有化，怎么选？</h3>
-    <p>先对照清单梳理需求，在真实网络和终端上实测，再做决定。</p>
-    <a class="btn btn-white btn-block" href={CHECKLIST_URL}>查看选型清单</a>
-    <a class="btn btn-ghost-light btn-block" href="/rss.xml">RSS 订阅新文章</a>
+    <span class="eyebrow eyebrow--light">企业视频方案</span>
+    <h3>直播、点播、私有化，一站式试用</h3>
+    <p>在真实网络和终端上先测一测，再做决定。</p>
+    <a class="btn btn-white btn-block" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通保利威</a>
+    <a class="btn btn-ghost-light btn-block" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">预约方案咨询</a>
+    <p class="side-cta__phone">咨询电话 {POLYV_PHONE}</p>
   </section>
   {toc.length > 0 && (
     <nav class="side-card side-toc" aria-label="文章目录">
@@ -27,7 +28,7 @@ const popular = (await getArticles()).filter((a) => a.id !== exclude).slice(0, 4
         return (
           <li><a href={`/articles/${a.id}/`}>
             {img && <img src={img.cover.src800} alt="" width="96" height="54" loading="lazy" decoding="async" />}
-            <span>{a.data.cardTitle ?? a.data.title}</span>
+            <span>{a.data.title}</span>
           </a></li>
         );
       })}

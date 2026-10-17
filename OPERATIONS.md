@@ -5,11 +5,11 @@
 - 目录：`/workspace/live-video-site`
 
 ```
-src/consts.ts                 站点名称、栏目、站内选型清单链接（CHECKLIST_URL）、GA4/GSC 变量
+src/consts.ts                 站点名称、栏目、保利威 CTA 链接与 UTM 函数、选型清单链接（CHECKLIST_URL）、GA4/GSC 变量
 src/content/articles/*.md     文章（一篇一个 Markdown 文件，文件名即 URL slug）
 src/layouts/Base.astro        <head>（meta / canonical / hreflang / OG / JSON-LD / GA4 / GSC）、页头页脚
-src/components/Cta.astro      文末中立 CTA（选型清单 / 方案选型栏目 / RSS）
-src/components/Sidebar.astro  侧边栏（选型清单 / RSS、目录、热门文章、标签）
+src/components/Cta.astro      文末 CTA（免费试用 / 联系方案顾问）
+src/components/Sidebar.astro  侧边栏（CTA、目录、热门文章、标签）
 src/pages/                    首页、栏目页、文章页、about、404、rss.xml、robots.txt、llms.txt、llms-full.txt
 scripts/assets-deploy.py        当前部署方式：Workers 静态资源直传（session / upload / finalize）
 scripts/add-article-images.py   为文章生成封面 / 插图 / og 图，并写入 src/data/images.json
@@ -46,10 +46,10 @@ related: [other-slug]          # 可选，手动指定相关阅读；不足 4 �
 
 3. 正文用 Markdown，从 `##` 二级标题开始（页面 H1 自动取 title），可使用表格、代码块。
 4. YAML 值里含英文冒号 `: ` 时必须加双引号。
-5. 内容规范：1200~2000 字；不写无法核实的统计数字；不贬低具名厂商。**站点中立规则**：全站框架（页头、头图、线索区块、文中/文末 CTA、侧边栏、页脚、移动端标签栏、about、llms.txt、结构化数据、meta、RSS 频道描述）保持中立，不得出现保利威（POLYV）或任何厂商的名称、注册/咨询链接、电话、UTM，不得出现“本站由某厂商支持 / 赞助 / 合作推荐”之类的表述或徽标。中立文章不提及保利威；确需提及厂商时只能作为多家并列对比中的一员。**软广**：约每 5 篇中可有 1 篇以保利威为主题或推荐保利威的软广，frontmatter 设 `promo: true`（仅作内部标记，页面不显示任何赞助标签）；保利威名称、官网信息与链接只出现在该文正文、FAQ 与 sources 中，只引用官网可查证的公开信息，正文中不写全站赞助说明。
+5. 内容规范：1200~2000 字；不写无法核实的统计数字；不贬低具名厂商。**硬性规则**：全站任何位置都不得声明或暗示本站由保利威（POLYV）赞助、支持或运营——不写“本站由保利威支持”之类的页脚/说明，不设“合作方”栏目，不加“合作推荐”/赞助徽标，CTA 文案也避免“本站合作方”“赞助”等字样。允许：全站 CTA 按钮（见第 5 节）以中性文案（免费试用企业直播、预约咨询等）链接到 polyv.net 并带 UTM。中立文章正文不提及保利威，确需提及厂商时只作为多家并列对比中的一员。**软广**：约每 5 篇中可有 1 篇以保利威为主题或推荐保利威，frontmatter 设 `promo: true`（仅内部标记，不显示徽标），保利威内容和链接放在正文 / FAQ / sources，只引用官网可查证的公开信息；建议同时设置中性的 `cardTitle` / `cardDescription`，供首页卡片、侧边栏、上一篇/下一篇和图片版权页使用。
 6. 本地预览：`npm run dev`（http://localhost:4321）；构建检查：`npm run build`。
 
-文中 CTA、文末 CTA、侧边栏、页脚自动生成，均为站内中立链接（选型清单、方案选型栏目、RSS），无需手动添加。修改选型清单链接请改 `src/consts.ts` 里的 `CHECKLIST_URL`。
+文中 CTA、文末 CTA、侧边栏、页脚自动生成，自动生成，无需手动添加，规则见第 5 节。
 
 ## 2. 部署（当前：Workers Static Assets 直传）
 
@@ -88,11 +88,11 @@ npm run deploy
 
 ## 2.5 设计与配图
 
-- 设计：首页依次为头图（暗色摄影背景 + 浏览文章 / 选型清单按钮）、最新文章（四列卡片）、深度案例库（深色区块，四个场景：企业培训 / 营销直播 / 技术选型 / 私有化部署，在 `src/consts.ts` 的 `SCENARIOS` 中配置）、热门标签（`HOT_TAGS`）、中立 CTA 区块（选型清单、方案选型栏目和 RSS 订阅）、全部文章（可按栏目筛选的列表 + 侧边栏）。文章页有大封面、作者与阅读时长、TL;DR、正文插图、高亮引用、文中 CTA 和文末 CTA、FAQ、参考资料、上一篇 / 下一篇、相关阅读、侧边栏（CTA、目录、热门文章、标签）。移动端改为横向滚动的栏目条和底部标签栏（首页 / 栏目 / 搜索 / 订阅）。
+- 设计：首页依次为头图（暗色摄影背景 + 浏览文章 / 免费试用企业直播按钮）、最新文章（四列卡片）、深度案例库（深色区块，四个场景：企业培训 / 营销直播 / 技术选型 / 私有化部署，在 `src/consts.ts` 的 `SCENARIOS` 中配置）、热门标签（`HOT_TAGS`）、线索 CTA 区块（免费开通试用、预约方案咨询和 RSS）、全部文章（可按栏目筛选的列表 + 侧边栏）。文章页有大封面、作者与阅读时长、TL;DR、正文插图、高亮引用、文中 CTA 和文末 CTA、FAQ、参考资料、上一篇 / 下一篇、相关阅读、侧边栏（CTA、目录、热门文章、标签）。移动端改为横向滚动的栏目条和底部标签栏（首页 / 栏目 / 搜索 / 咨询）。
 - 站内搜索：`/search/`，纯前端实现，读取构建时生成的 `/search.json`；该页 noindex，并且不进入 sitemap。
 - 配图来源：全部为公共领域图片（CC0 / PDM），通过 Openverse API 检索，来源包括 Wikimedia Commons（Unsplash 作者以 CC0 发布的作品）、rawpixel 公共领域图库（使用无水印的 1024px 版本）、StockSnap 和 WordPress Photo Directory。避开了可识别的真人和品牌 logo。作者与出处在图注和 `/credits/` 页列出。图片元数据保存在 `src/data/images.json`。
 - 规格：封面 1600×900 WebP，另有 800×450 WebP 用于卡片；每篇文章单独的 og:image 为 1200×630 JPG；文内插图最宽 1200px，WebP 格式，`loading="lazy"`，并带 width/height 和 alt。
-- 文内插图和中立的"文中 CTA"由 `src/plugins/remark-enhance.mjs` 在构建时自动插入（插图 1 放在第 2 个 H2 之前，CTA 放在中间的 H2 之前，插图 2 放在大约 3/4 处），Markdown 正文不需要写图片标记。
+- 文内插图和"文中 CTA"由 `src/plugins/remark-enhance.mjs` 在构建时自动插入（插图 1 放在第 2 个 H2 之前，CTA 放在中间的 H2 之前，插图 2 放在大约 3/4 处），Markdown 正文不需要写图片标记。
 - 给新文章配图：准备一张封面和 1~2 张插图（必须有使用权），编写 spec.json，然后运行 `python3 scripts/add-article-images.py <slug> spec.json`（格式见脚本头部注释），最后重新构建并部署。缺少图片的文章也能正常构建，只是没有封面。`npm run build` 每次会先清理 Astro 内容缓存，确保修改 images.json 后插图、图注会重新生成。
 
 ## 3. SEO / GEO 已实现内容
@@ -119,12 +119,13 @@ npm run deploy
 2. 在 search.google.com/search-console 添加"网址前缀"资源，选择"HTML 标记"验证，复制 content 值。
 3. `PUBLIC_GA4_ID=G-xxx PUBLIC_GSC_VERIFICATION=xxx npm run build`，再按第 2 节部署；回到 Search Console 点击"验证"，然后提交 `sitemap-index.xml`。
 
-## 5. CTA 规则（保持中立）
+## 5. CTA 与 UTM 规则
 
-- 全站 CTA（页头“订阅”、头图、文中、文末、侧边栏、线索区块、页脚、移动端标签栏）只指向站内页面：选型清单（`CHECKLIST_URL`）、`/category/selection/`、`/rss.xml`。
-- 不得加入任何厂商的注册、试用、咨询链接、电话或 UTM 跟踪参数；不得出现“由某厂商支持 / 赞助 / 合作推荐”的表述（软广文章正文除外，见第 1 节）。
-- GA4：启用后，上述 CTA 区域内的点击会上报自定义事件 `cta_click`（参数 `location`：header / hero / leadband / article_mid / article_end / sidebar / footer / tabbar，以及 link_url、link_text、page_path），可在 GA4 中标记为关键事件。
-- 发布前检查：`rg -il 'polyv|保利威' dist` 中，除软广文章页外只允许出现软广文章 slug（`private-deployment-polyv`）的站内链接 / 图片路径，不得有保利威文字或 polyv.net 链接。
+- 全站 CTA：页头“免费试用”、头图“免费试用企业直播”、线索区块、文中 CTA（`remark-enhance.mjs`）、文末 CTA（`Cta.astro`）、侧边栏（`Sidebar.astro`）、页脚“企业视频方案”栏、移动端标签栏“咨询”，均链接到保利威官网并带 UTM；文案保持中性，不得出现赞助/支持/合作方表述。
+- 免费试用：`https://my.polyv.net/v3/register/`；方案咨询：`https://www.polyv.net/company/#contact-us`；电话 400-638-8883。修改请改 `src/consts.ts` 的 `POLYV_TRIAL` / `POLYV_CONTACT`（`remark-enhance.mjs` 里另有一份）。
+- UTM：`utm_source=contentsite&utm_medium=<header|hero|leadband|article_mid|article|sidebar|footer|tabbar>&utm_campaign=<文章 slug | home | category-xxx | about …>`。
+- GA4：启用后，上述 CTA 区域内的点击上报自定义事件 `cta_click`（参数 `location`：header / hero / leadband / article_mid / article_end / sidebar / footer / tabbar，以及 link_url、link_text、page_path），可在 GA4 中标记为关键事件。
+- 发布前检查：`rg -n '支持|赞助|合作方|合作推荐' dist --glob '*.html'` 不应出现关于本站被厂商赞助/支持的表述。
 
 ## 6. 未来 4 周选题日历（12 篇，每周 3 篇；★ = 软广，约 1/5）
 
