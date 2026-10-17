@@ -11,15 +11,18 @@ src/layouts/Base.astro        <head>（meta / canonical / hreflang / OG / JSON-L
 src/components/Cta.astro      文章内 CTA 区块
 src/components/Sidebar.astro  侧边栏 CTA
 src/pages/                    首页、栏目页、文章页、about、404、rss.xml、robots.txt、llms.txt、llms-full.txt
-scripts/gen-embedded-worker.py  通过 Cloudflare MCP 部署用的脚本（当前线上使用的方式）
-scripts/gen-mcp-deploy.py       Workers 静态资源直传方式（目前在 MCP 沙箱里不可用，见下文）
+scripts/assets-deploy.py        当前部署方式：Workers 静态资源直传（session / upload / finalize）
+scripts/add-article-images.py   为文章生成封面 / 插图 / og 图，并写入 src/data/images.json
+src/data/images.json            全站图片元数据（尺寸、alt、图注、作者与许可）
+src/plugins/remark-enhance.mjs  构建时插入文内插图和文中 CTA
+scripts/gen-embedded-worker.py  旧部署方式（单脚本打包，已停用）
 wrangler.jsonc                用 wrangler CLI 部署时的配置
 ```
 
 ## 1. 新增一篇文章
 
 1. 在 `src/content/articles/` 新建 `<slug>.md`，slug 用英文小写加连字符（例：`webrtc-sfu-basics.md`），它会成为 URL `/articles/<slug>/` 以及 CTA 中的 `utm_campaign=<slug>`。
-2. 按下面的 frontmatter 模板填写（字段由 `src/content.config.ts` 校验，缺失必填项会导致构建失败）：
+2. 按第 2.5 节准备配图（封面 + 1~2 张插图），然后按下面的 frontmatter 模板填写（字段由 `src/content.config.ts` 校验，缺失必填项会导致构建失败）：
 
 ```yaml
 ---
@@ -49,32 +52,49 @@ related: [other-slug]          # 可选，手动指定相关阅读；不足 4 �
 
 文章内 CTA、侧边栏 CTA、页脚 CTA 自动生成，无需手动添加。修改 CTA 目标链接请改 `src/consts.ts` 里的 `POLYV_TRIAL` / `POLYV_CONTACT`。
 
-## 2. 部署
+## 2. 部署（当前：Workers Static Assets 直传）
 
 注意：本机器不要使用任何 HTTP/HTTPS 代理（不要设置 http_proxy/https_proxy），直接连接。
 
-### 方式 A（当前在用）：通过 Cloudflare MCP 连接器
+改版后站点含配图，约 3 MB / 60+ 个文件，超过"打包进单个 Worker 脚本"方案的体积上限，所以改用 **Workers 静态资源**（官方直传流程 https://developers.cloudflare.com/workers/static-assets/direct-upload/）。Worker `streamnotes` 挂载 ASSETS，并带一段很小的路由脚本：
+
+- 把 `*.workers.dev` 的请求 301 到 `https://streamnotes.terryso.dev`；
+- 没有扩展名、也不以 `/` 结尾的路径，301 到带斜杠的地址；
+- 其余请求交给静态资源（`html_handling: auto-trailing-slash`、`not_found_handling: 404-page`，`public/_headers` 里的缓存头会生效：`/images/*` 缓存 30 天）。
+
+完整步骤（账号 API 调用都走 Cloudflare MCP 连接器）：
 
 ```bash
 cd /workspace/live-video-site
+set -a; source .env; set +a          # 包含 PUBLIC_GA4_ID=G-TD51SPC7RZ
 npm run build
-python3 scripts/gen-embedded-worker.py > /workspace/agent-tools/deploy-embedded.js
+python3 scripts/assets-deploy.py session > /workspace/agent-tools/assets-session.js
 ```
-然后调用 MCP `user-Cloudflare` → `execute`，参数 `code` 设为 `"$file:/workspace/agent-tools/deploy-embedded.js"`，`account_id` 设为 `e81e236cdb3646d4fe1cf15bcd834cff`。
-脚本把 `dist/` 全部文件打包进一个 Worker 脚本（并内置 *.workers.dev → streamnotes.terryso.dev 的 301 跳转，主机名可用环境变量 CANONICAL_HOST 修改）（当前约 0.47 MB；Workers 免费版脚本上限为压缩后 3 MB，付费版 10 MB），覆盖同名 Worker 并确保 workers.dev 地址开启。缓存头和 404 处理写在脚本里（`/_astro/*` 长缓存，HTML 每次重新验证）。
-站点变大（图片较多）时，建议改用方式 B。
+1. MCP `user-Cloudflare` → `execute`，`code="$file:/workspace/agent-tools/assets-session.js"`，`account_id=e81e236cdb3646d4fe1cf15bcd834cff`（建议加 `write_to_file`），把返回的 JSON（`jwt`、`buckets`）保存为 `/workspace/agent-tools/assets-session.json`。
+2. `python3 scripts/assets-deploy.py upload` —— 在本机用上传会话签发的临时上传 JWT 上传需要更新的文件（未改动的文件不会重复上传）。这一步在 MCP 沙箱里做不了：沙箱的 `cloudflare.request()` 不能自定义 Authorization 头。
+3. `python3 scripts/assets-deploy.py finalize > /workspace/agent-tools/assets-finalize.js`，再用 MCP `execute` 执行它：发布 Worker（资源和路由脚本），并保持 workers.dev 开启（会 301 跳到正式域名）。Custom Domain 绑定不受影响。
 
-> 为什么不用 Workers 静态资源直传：直传流程中的文件上传步骤需要用上传会话签发的 JWT 作为 Bearer 鉴权，而 MCP `execute` 沙箱里的 `cloudflare.request()` 不支持自定义请求头，直接 fetch 返回 401。`scripts/gen-mcp-deploy.py` 保留备用。
+上传会话 JWT 大约 1 小时内有效，三步要连续执行。
 
-### 方式 B（推荐长期使用）：wrangler CLI
-
-需要用户提供 Cloudflare API Token（权限：Account → Workers Scripts: Edit），或在本机交互式执行 `npx wrangler login`。
+### 备选：wrangler CLI
+需要 Cloudflare API Token（权限：Workers Scripts: Edit）或 `npx wrangler login`：
 ```bash
-export CLOUDFLARE_ACCOUNT_ID=e81e236cdb3646d4fe1cf15bcd834cff
-export CLOUDFLARE_API_TOKEN=<token>      # 不要提交到仓库
-npm run deploy                           # = astro build + wrangler deploy（Workers Static Assets，读取 wrangler.jsonc）
+export CLOUDFLARE_ACCOUNT_ID=e81e236cdb3646d4fe1cf15bcd834cff CLOUDFLARE_API_TOKEN=<token>
+npm run deploy
 ```
-`wrangler.jsonc` 已配置 `not_found_handling: 404-page`；`public/_headers` 中的缓存头规则会自动生效。
+`wrangler.jsonc` 需要先补上 `"routes": [{ "pattern": "streamnotes.terryso.dev", "custom_domain": true }]`。注意：wrangler 部署的是纯静态资源，不含上面的 workers.dev 跳转脚本；如需保留跳转，在 wrangler.jsonc 里加 `main`、指向同样的路由脚本，并设置 `assets.binding` 和 `run_worker_first: true`。
+
+### 旧方案（已停用）
+`scripts/gen-embedded-worker.py` 会把 dist 打包进单个 Worker 脚本。只适合不到约 1 MB 的纯文字站点，保留仅供参考。
+
+## 2.5 设计与配图
+
+- 设计：首页依次为头图（暗色摄影背景 + CTA）、最新文章（四列卡片）、深度案例库（深色区块，四个场景：企业培训 / 营销直播 / 技术选型 / 私有化部署，在 `src/consts.ts` 的 `SCENARIOS` 中配置）、热门标签（`HOT_TAGS`）、线索 CTA 区块（替代邮件订阅，提供保利威免费开通、方案咨询和 RSS）、全部文章（可按栏目筛选的列表 + 侧边栏）。文章页有大封面、作者与阅读时长、TL;DR、正文插图、高亮引用、文中 CTA 和文末 CTA、FAQ、参考资料、上一篇 / 下一篇、相关阅读、侧边栏（CTA、目录、热门文章、标签）。移动端改为横向滚动的栏目条和底部标签栏（首页 / 栏目 / 搜索 / 咨询）。
+- 站内搜索：`/search/`，纯前端实现，读取构建时生成的 `/search.json`；该页 noindex，并且不进入 sitemap。
+- 配图来源：全部为公共领域图片（CC0 / PDM），通过 Openverse API 检索，来源包括 Wikimedia Commons（Unsplash 作者以 CC0 发布的作品）、rawpixel 公共领域图库（使用无水印的 1024px 版本）、StockSnap 和 WordPress Photo Directory。避开了可识别的真人和品牌 logo。作者与出处在图注和 `/credits/` 页列出。图片元数据保存在 `src/data/images.json`。
+- 规格：封面 1600×900 WebP，另有 800×450 WebP 用于卡片；每篇文章单独的 og:image 为 1200×630 JPG；文内插图最宽 1200px，WebP 格式，`loading="lazy"`，并带 width/height 和 alt。
+- 文内插图和"文中 CTA"由 `src/plugins/remark-enhance.mjs` 在构建时自动插入（插图 1 放在第 2 个 H2 之前，CTA 放在中间的 H2 之前，插图 2 放在大约 3/4 处），Markdown 正文不需要写图片标记。
+- 给新文章配图：准备一张封面和 1~2 张插图（必须有使用权），编写 spec.json，然后运行 `python3 scripts/add-article-images.py <slug> spec.json`（格式见脚本头部注释），最后重新构建并部署。缺少图片的文章也能正常构建，只是没有封面。`npm run build` 每次会先清理 Astro 内容缓存，确保修改 images.json 后插图、图注会重新生成。
 
 ## 3. SEO / GEO 已实现内容
 
@@ -84,7 +104,7 @@ npm run deploy                           # = astro build + wrangler deploy（Wor
 - `sitemap-index.xml`、`sitemap-0.xml`、`sitemap.xml`（副本）、`rss.xml`、`robots.txt`（明确允许 GPTBot、OAI-SearchBot、ChatGPT-User、ClaudeBot、Claude-Web、PerplexityBot、Google-Extended、Googlebot、Bingbot）。
 - `/llms.txt`（站点结构与文章索引）、`/llms-full.txt`（全部文章全文 + TL;DR + FAQ + 参考资料），构建时自动生成。
 - 每篇文章：TL;DR 要点、清晰的 H2/H3 结构、FAQ、参考资料、相关阅读（内链）。
-- 性能：零客户端 JS（GA4 未启用时）、CSS 内联、无外部字体，单页 HTML 约 15~30 KB。
+- 性能：CSS 内联、无外部字体；只有首页筛选和搜索页用到少量内联 JS；首屏图片 preload + fetchpriority=high，其余图片懒加载，并都设置了 width/height，避免布局抖动（CLS）。
 
 ## 4. Google Analytics 4 与 Search Console（待用户登录 Google 后配置）
 
@@ -105,7 +125,7 @@ npm run deploy                           # = astro build + wrangler deploy（Wor
 
 - 免费试用：`https://my.polyv.net/v3/register/`（保利威官网"我要免费开通"按钮的目标地址）
 - 方案咨询：`https://www.polyv.net/company/#contact-us`（保利威公司页"联系我们"）；电话 400-638-8883
-- UTM：`utm_source=contentsite&utm_medium=<article|sidebar|footer|home>&utm_campaign=<文章 slug | home | category-xxx>`
+- UTM：`utm_source=contentsite&utm_medium=<article|article_mid|sidebar|footer|header|hero|leadband|tabbar>&utm_campaign=<文章 slug | home | category-xxx>`
   （文章内 CTA 的 medium 为 `article`；侧边栏和页脚分别为 `sidebar` / `footer`，便于区分点击位置。）
 
 ## 6. 未来 4 周选题日历（12 篇，每周 3 篇；★ = 软广，约 1/5~1/4）

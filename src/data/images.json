@@ -1,0 +1,409 @@
+{
+ "articles": {
+  "live-latency-protocols": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "夜晚城市道路上的车流光轨，象征高速传输的数据流",
+    "credit": {
+     "creator": "Rich Lock richlock",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=61869285",
+     "title": "Rich Lock 2017-04-23 (Unsplash)",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/live-latency-protocols/cover.webp",
+    "src800": "/images/live-latency-protocols/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/live-latency-protocols/inline-1.webp",
+     "w": 1024,
+     "h": 779,
+     "alt": "架设在三脚架上的专业摄像机与监视器",
+     "caption": "直播链路从采集端开始，每个环节都会叠加延迟",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5907795/photo-image-public-domain-technology-camera",
+      "title": "Free video camera image",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    },
+    {
+     "src": "/images/live-latency-protocols/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "机房配线架上密集排布的网线",
+     "caption": "CDN 分发与回源链路同样影响首屏与延迟",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5927875/photo-image-background-public-domain-technology",
+      "title": "Free networking cables image",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    }
+   ],
+   "og": "/images/live-latency-protocols/og.jpg"
+  },
+  "vod-encryption-guide": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "暗色环境中带蓝色背光的键盘特写",
+    "credit": {
+     "creator": "Anas Alshanti otenteko",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=62067439",
+     "title": "Keyboard (Unsplash)",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/vod-encryption-guide/cover.webp",
+    "src800": "/images/vod-encryption-guide/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/vod-encryption-guide/inline-1.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "放在笔记本键盘上的两把挂锁",
+     "caption": "加密只是第一层，密钥下发鉴权才是关键",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5953585/free-public-domain-cc0-photo",
+      "title": null,
+      "source_name": "rawpixel 公共领域图库"
+     }
+    },
+    {
+     "src": "/images/vod-encryption-guide/inline-2.webp",
+     "w": 1024,
+     "h": 576,
+     "alt": "蓝色灯光照明的数据中心机柜通道",
+     "caption": "源文件存储与转码服务应部署在受控环境中",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5906639/photo-image-light-desktop-wallpapers-public-domain",
+      "title": "Free computer server room image",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    }
+   ],
+   "og": "/images/vod-encryption-guide/og.jpg"
+  },
+  "enterprise-live-platform-selection": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "明亮的会议室，白色长桌与墙面白板",
+    "credit": {
+     "creator": "Breather breather",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=61682253",
+     "title": "File:White conference room (Unsplash).jpg",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/enterprise-live-platform-selection/cover.webp",
+    "src800": "/images/enterprise-live-platform-selection/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/enterprise-live-platform-selection/inline-1.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "贴满便利贴的项目规划白板",
+     "caption": "先梳理场景优先级，再进入平台评估",
+     "credit": {
+      "creator": "Startup Stock Photos",
+      "source": "stocksnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/whiteboard-post-itnotes-YR89OQFMT1",
+      "title": "Whiteboard Post-Itnotes",
+      "source_name": "StockSnap"
+     }
+    },
+    {
+     "src": "/images/enterprise-live-platform-selection/inline-2.webp",
+     "w": 960,
+     "h": 641,
+     "alt": "两人在笔记本电脑旁记录与讨论",
+     "caption": "跨部门参与试用与验收，能减少上线后的返工",
+     "credit": {
+      "creator": "Helloquence",
+      "source": "stocksnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/writing-papers-Y01VDYAX63",
+      "title": "Writing Papers",
+      "source_name": "StockSnap"
+     }
+    }
+   ],
+   "og": "/images/enterprise-live-platform-selection/og.jpg"
+  },
+  "corporate-training-live": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "简洁明亮的白色办公与培训空间",
+    "credit": {
+     "creator": "Breather breather",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=61681790",
+     "title": "File:White office space (Unsplash).jpg",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/corporate-training-live/cover.webp",
+    "src800": "/images/corporate-training-live/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/corporate-training-live/inline-1.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "笔记本电脑屏幕上显示数据图表，旁边放着咖啡",
+     "caption": "课后学习数据是评估培训效果的基础",
+     "credit": {
+      "creator": "Negative Space",
+      "source": "stocksnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/analytics-charts-RCFX768X06",
+      "title": "Analytics Charts",
+      "source_name": "StockSnap"
+     }
+    },
+    {
+     "src": "/images/corporate-training-live/inline-2.webp",
+     "w": 1024,
+     "h": 797,
+     "alt": "摆放整齐的电脑培训教室",
+     "caption": "线下培训的组织经验同样适用于线上直播课",
+     "credit": {
+      "creator": "Carol M Highsmith",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/434035/free-photo-image-classroom-computers-80s",
+      "title": "Computer training room 80s",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    }
+   ],
+   "og": "/images/corporate-training-live/og.jpg"
+  },
+  "ai-in-live-vod": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "黑白螺旋状的抽象建筑结构",
+    "credit": {
+     "creator": "Samuel Zeller samuelzeller",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=58789816",
+     "title": "Abstract spiral pattern (Unsplash)",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/ai-in-live-vod/cover.webp",
+    "src800": "/images/ai-in-live-vod/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/ai-in-live-vod/inline-1.webp",
+     "w": 1024,
+     "h": 679,
+     "alt": "电路板芯片与元器件微距特写",
+     "caption": "AI 能力正在成为视频平台的基础设施",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5966842/computer-circuit-board-macro",
+      "title": "Computer Circuit Board Macro",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    },
+    {
+     "src": "/images/ai-in-live-vod/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "屏幕上滚动的程序代码",
+     "caption": "字幕、摘要与审核等能力多通过 API 集成到业务系统",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5916657/image-public-domain-computer-free",
+      "title": "Free computer code screen image",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    }
+   ],
+   "og": "/images/ai-in-live-vod/og.jpg"
+  },
+  "private-deployment-polyv": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "仰视角度下的玻璃幕墙高层写字楼",
+    "credit": {
+     "creator": "Sean Pollock",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=81234433",
+     "title": "Towering buildings (Unsplash)",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/private-deployment-polyv/cover.webp",
+    "src800": "/images/private-deployment-polyv/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/private-deployment-polyv/inline-1.webp",
+     "w": 1024,
+     "h": 680,
+     "alt": "整齐排列的服务器机柜通道",
+     "caption": "私有化部署意味着视频平台运行在机构自有环境中",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/6042704/photo-image-public-domain-free",
+      "title": "Front Franklin Cray XT4 racks",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    },
+    {
+     "src": "/images/private-deployment-polyv/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "配线架上整齐排布的蓝色网线",
+     "caption": "与内网系统集成需要提前规划网络与权限",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "source": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5927852/photo-image-background-public-domain-technology",
+      "title": "Free networking cables image",
+      "source_name": "rawpixel 公共领域图库"
+     }
+    }
+   ],
+   "og": "/images/private-deployment-polyv/og.jpg"
+  },
+  "obs-streaming-settings": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "紫色灯光下的桌面直播工作台与显示器",
+    "credit": {
+     "creator": "Redd Angelo reddangelo16",
+     "source": "wikimedia",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=61802715",
+     "title": "Desktop purple neon light (Unsplash)",
+     "source_name": "Wikimedia Commons"
+    },
+    "src": "/images/obs-streaming-settings/cover.webp",
+    "src800": "/images/obs-streaming-settings/cover-800.webp"
+   },
+   "inline": [
+    {
+     "src": "/images/obs-streaming-settings/inline-1.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "三脚架上的相机，取景屏亮起",
+     "caption": "画面清晰度取决于码率、分辨率与编码器的匹配",
+     "credit": {
+      "creator": "Kaique Rocha",
+      "source": "stocksnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/technology-photography-QF22B8A0PW",
+      "title": "Technology Photography",
+      "source_name": "StockSnap"
+     }
+    },
+    {
+     "src": "/images/obs-streaming-settings/inline-2.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "直播桌面上的电容麦克风",
+     "caption": "清晰的声音往往比高清画面更影响观看体验",
+     "credit": {
+      "creator": "Maciej Korsan",
+      "source": "stocksnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/microphone-audio-IQVHQYS3GL",
+      "title": "Microphone Audio",
+      "source_name": "StockSnap"
+     }
+    }
+   ],
+   "og": "/images/obs-streaming-settings/og.jpg"
+  }
+ },
+ "site": {
+  "hero": {
+   "src": "/images/hero.webp",
+   "src900": "/images/hero-900.webp",
+   "w": 2000,
+   "h": 1125,
+   "alt": "暗色背景中的两台摄像机剪影",
+   "credit": {
+    "creator": "Florian Klauer florianklauer",
+    "source": "wikimedia",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+    "landing": "https://commons.wikimedia.org/w/index.php?curid=62067974",
+    "title": "Photo camera and video camera (Unsplash)",
+    "source_name": "Wikimedia Commons"
+   }
+  },
+  "band": {
+   "src": "/images/band.webp",
+   "src900": "/images/band-900.webp",
+   "w": 1800,
+   "h": 599,
+   "alt": "深蓝色渐变的舞台灯光背景",
+   "credit": {
+    "creator": "Nilo Velez",
+    "source": "wordpress",
+    "license": "CC0",
+    "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+    "landing": "https://wordpress.org/photos/photo/73767858c6/",
+    "title": "Stage lighting featuring a gradient background transitioning from dark blue to lighter blue and purple hues, creating a soft, abstract effect.",
+    "source_name": "WordPress Photo Directory"
+   }
+  }
+ }
+}

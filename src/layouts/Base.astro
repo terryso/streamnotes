@@ -1,27 +1,34 @@
 ---
-import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, utm } from '../consts';
+import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, HOT_TAGS, GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
   ogType?: 'website' | 'article';
+  ogImage?: string;
+  ogImageAlt?: string;
   jsonLd?: object[];
   campaign?: string;
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  preloadImage?: string;
+  active?: string;
 }
-const { title, description = SITE_DESCRIPTION, ogType = 'website', jsonLd = [], campaign = 'site', publishedTime, modifiedTime, noindex = false } = Astro.props;
+const { title, description = SITE_DESCRIPTION, ogType = 'website', ogImage = '/og-default.png', ogImageAlt, jsonLd = [], campaign = 'site', publishedTime, modifiedTime, noindex = false, preloadImage, active } = Astro.props;
 const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - ${SITE_TAGLINE}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
-const ogImage = new URL('/og-default.png', Astro.site).toString();
+const ogImageUrl = new URL(ogImage, Astro.site).toString();
 const siteUrl = Astro.site!.toString();
 const baseLd = [
   { '@context': 'https://schema.org', '@type': 'Organization', '@id': siteUrl + '#org', name: SITE_NAME, alternateName: SITE_NAME_EN, url: siteUrl, logo: new URL('/logo.png', Astro.site).toString() },
-  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': siteUrl + '#website', name: SITE_NAME, url: siteUrl, inLanguage: 'zh-CN', description: SITE_DESCRIPTION, publisher: { '@id': siteUrl + '#org' } },
+  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': siteUrl + '#website', name: SITE_NAME, url: siteUrl, inLanguage: 'zh-CN', description: SITE_DESCRIPTION, publisher: { '@id': siteUrl + '#org' },
+    potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: siteUrl + 'search/?q={search_term_string}' }, 'query-input': 'required name=search_term_string' } },
 ];
 const allLd = [...baseLd, ...jsonLd];
 const path = Astro.url.pathname;
+const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) || active === p;
 ---
 <!doctype html>
 <html lang="zh-CN">
@@ -33,26 +40,28 @@ const path = Astro.url.pathname;
   <link rel="canonical" href={canonical} />
   <link rel="alternate" hreflang="zh-CN" href={canonical} />
   <link rel="alternate" hreflang="x-default" href={canonical} />
-  <meta name="robots" content={noindex ? "noindex,follow" : "index,follow,max-image-preview:large"} />
+  <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'} />
   <meta property="og:site_name" content={SITE_NAME} />
   <meta property="og:locale" content="zh_CN" />
   <meta property="og:type" content={ogType} />
   <meta property="og:title" content={title ?? SITE_NAME} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  {ogImageAlt && <meta property="og:image:alt" content={ogImageAlt} />}
   {publishedTime && <meta property="article:published_time" content={publishedTime} />}
   {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title ?? SITE_NAME} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
-  <meta name="theme-color" content="#0f5bd8" />
+  <meta name="twitter:image" content={ogImageUrl} />
+  <meta name="theme-color" content="#0b1220" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="alternate" type="application/rss+xml" title={SITE_NAME} href="/rss.xml" />
   <link rel="sitemap" href="/sitemap-index.xml" />
+  {preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
   {GSC_VERIFICATION && <meta name="google-site-verification" content={GSC_VERIFICATION} />}
   {allLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   {GA4_ID && (
@@ -76,43 +85,81 @@ const path = Astro.url.pathname;
   <header class="site-header">
     <div class="container header-inner">
       <a class="brand" href="/" aria-label={`${SITE_NAME} 首页`}>
-        <span class="brand-mark" aria-hidden="true">▶</span>
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
         <span class="brand-name">{SITE_NAME}</span>
         <span class="brand-en">{SITE_NAME_EN}</span>
       </a>
-      <nav aria-label="主导航">
-        <ul class="nav">
+      <nav class="mainnav" aria-label="主导航">
+        <ul>
+          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>首页</a></li>
           {Object.entries(CATEGORIES).map(([k, c]) => (
-            <li><a href={`/category/${k}/`} aria-current={path.startsWith(`/category/${k}/`) ? 'page' : undefined}>{c.name}</a></li>
+            <li><a href={`/category/${k}/`} aria-current={isActive(`/category/${k}/`) ? 'page' : undefined}>{c.name}</a></li>
           ))}
+          <li><a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>关于</a></li>
         </ul>
       </nav>
+      <div class="header-actions">
+        <form class="hsearch" action="/search/" method="get" role="search">
+          <label class="sr-only" for="hsearch-q">搜索文章</label>
+          <Icon name="search" size={16} />
+          <input id="hsearch-q" name="q" type="search" placeholder="搜索直播、点播、私有化…" autocomplete="off" />
+        </form>
+        <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener sponsored">免费试用</a>
+      </div>
     </div>
+    <nav class="subnav" aria-label="栏目">
+      <div class="subnav__scroll">
+        <a href="/" aria-current={path === '/' ? 'page' : undefined}>推荐</a>
+        {Object.entries(CATEGORIES).map(([k, c]) => <a href={`/category/${k}/`} aria-current={isActive(`/category/${k}/`) ? 'page' : undefined}>{c.name}</a>)}
+        <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>关于</a>
+      </div>
+    </nav>
   </header>
-  <main id="main" class="container">
+
+  <main id="main">
     <slot />
   </main>
+
   <footer class="site-footer">
     <div class="container footer-grid">
-      <section>
-        <p class="footer-brand">{SITE_NAME} · {SITE_NAME_EN}</p>
+      <section class="footer-brand">
+        <a class="brand brand--light" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span><span class="brand-name">{SITE_NAME}</span></a>
         <p>{SITE_DESCRIPTION}</p>
+        <p class="footer-links-inline"><a href="/rss.xml">RSS</a><a href="/sitemap-index.xml">Sitemap</a><a href="/llms.txt">llms.txt</a></p>
       </section>
       <section>
         <h2 class="footer-h">栏目</h2>
         <ul>{Object.entries(CATEGORIES).map(([k, c]) => <li><a href={`/category/${k}/`}>{c.name}</a></li>)}</ul>
       </section>
       <section>
+        <h2 class="footer-h">热门专题</h2>
+        <ul>{HOT_TAGS.slice(0, 5).map((t) => <li><a href={`/search/?q=${encodeURIComponent(t)}`}>{t}</a></li>)}</ul>
+      </section>
+      <section>
         <h2 class="footer-h">企业视频方案</h2>
         <ul>
           <li><a href={utm(POLYV_TRIAL, campaign, 'footer')} target="_blank" rel="noopener sponsored">免费开通保利威直播/点播</a></li>
           <li><a href={utm(POLYV_CONTACT, campaign, 'footer', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系保利威方案顾问</a></li>
+          <li>咨询电话 {POLYV_PHONE}</li>
+        </ul>
+      </section>
+      <section>
+        <h2 class="footer-h">关于</h2>
+        <ul>
           <li><a href="/about/">关于本站</a></li>
-          <li><a href="/rss.xml">RSS</a> · <a href="/sitemap-index.xml">Sitemap</a> · <a href="/llms.txt">llms.txt</a></li>
+          <li><a href="/credits/">图片版权说明</a></li>
+          <li><a href="/search/">站内搜索</a></li>
         </ul>
       </section>
     </div>
     <div class="container footer-bottom">© {new Date().getFullYear()} {SITE_NAME}。本站内容由保利威（POLYV）支持，文中涉及保利威的推荐内容已标注。</div>
   </footer>
+
+  <nav class="tabbar" aria-label="快捷导航">
+    <a href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="home" /><span>首页</span></a>
+    <a href="/category/tutorial/" aria-current={path.startsWith('/category/') ? 'page' : undefined}><Icon name="grid" /><span>栏目</span></a>
+    <a href="/search/" aria-current={path.startsWith('/search/') ? 'page' : undefined}><Icon name="search" /><span>搜索</span></a>
+    <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored" class="tabbar__cta"><Icon name="chat" /><span>咨询</span></a>
+  </nav>
 </body>
 </html>

@@ -1,32 +1,37 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { render } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Cta from '../../components/Cta.astro';
 import Sidebar from '../../components/Sidebar.astro';
-import { CATEGORIES, SITE_NAME } from '../../consts';
+import ArticleCard from '../../components/ArticleCard.astro';
+import Icon from '../../components/Icon.astro';
+import { CATEGORIES, SITE_NAME, AUTHOR } from '../../consts';
+import { getArticles, imagesFor, readingMinutes, fmtDate } from '../../lib/articles';
 
 export async function getStaticPaths() {
-  const all = (await getCollection('articles', (e) => !e.data.draft)).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
-  return all.map((entry) => ({ params: { slug: entry.id }, props: { entry, all } }));
+  const all = await getArticles();
+  return all.map((entry, i) => ({ params: { slug: entry.id }, props: { entry, all, newer: all[i - 1] ?? null, older: all[i + 1] ?? null } }));
 }
-const { entry, all } = Astro.props;
-const { Content } = await render(entry);
+const { entry, all, newer, older } = Astro.props;
+const { Content, headings } = await render(entry);
 const d = entry.data;
 const cat = CATEGORIES[d.category];
 const site = Astro.site!.toString();
 const url = new URL(`/articles/${entry.id}/`, Astro.site).toString();
-const fmt = (x: Date) => x.toISOString().slice(0, 10);
-const relatedIds = d.related.length ? d.related : [];
-let related = relatedIds.map((id) => all.find((a) => a.id === id)).filter(Boolean) as typeof all;
-for (const a of all) { if (related.length >= 4) break; if (a.id !== entry.id && !related.includes(a) && a.data.category === d.category) related.push(a); }
-for (const a of all) { if (related.length >= 4) break; if (a.id !== entry.id && !related.includes(a)) related.push(a); }
+const img = imagesFor(entry.id);
+const mins = readingMinutes(entry.body);
+let related = d.related.map((id) => all.find((a) => a.id === id)).filter(Boolean) as typeof all;
+for (const a of all) { if (related.length >= 3) break; if (a.id !== entry.id && !related.includes(a) && a.data.category === d.category) related.push(a); }
+for (const a of all) { if (related.length >= 3) break; if (a.id !== entry.id && !related.includes(a)) related.push(a); }
+related = related.slice(0, 3);
+const imageUrls = img ? [new URL(img.og, Astro.site).toString(), new URL(img.cover.src, Astro.site).toString()] : [new URL('/og-default.png', Astro.site).toString()];
 const jsonLd: object[] = [
   {
     '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.description,
     datePublished: d.pubDate.toISOString(), dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
-    inLanguage: 'zh-CN', mainEntityOfPage: url, url, image: new URL('/og-default.png', Astro.site).toString(),
-    articleSection: cat.name, keywords: d.tags.join(','),
-    author: { '@type': 'Organization', name: `${SITE_NAME}编辑部`, url: site },
+    inLanguage: 'zh-CN', mainEntityOfPage: url, url, image: imageUrls,
+    articleSection: cat.name, keywords: d.tags.join(','), timeRequired: `PT${mins}M`,
+    author: { '@type': 'Organization', name: AUTHOR, url: site },
     publisher: { '@id': site + '#org' },
     citation: d.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
   },
@@ -39,46 +44,66 @@ const jsonLd: object[] = [
   },
 ];
 if (d.faq.length) jsonLd.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const c = img?.cover.credit;
 ---
-<Base title={d.title} description={d.description} ogType="article" jsonLd={jsonLd} campaign={entry.id} publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()}>
-  <div class="layout">
-    <article class="article">
+<Base title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={img?.cover.alt} jsonLd={jsonLd} campaign={entry.id}
+  publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={`/category/${d.category}/`}>
+  <article class="post">
+    <header class="post-head container">
       <nav class="breadcrumb" aria-label="面包屑">
         <ol><li><a href="/">首页</a></li><li><a href={`/category/${d.category}/`}>{cat.name}</a></li><li aria-current="page">正文</li></ol>
       </nav>
-      <header>
-        <h1>{d.title}</h1>
-        <div class="meta">
-          <a class="tag" href={`/category/${d.category}/`}>{cat.name}</a>
-          <time datetime={d.pubDate.toISOString()}>发布于 {fmt(d.pubDate)}</time>
-          {d.updatedDate && <time datetime={d.updatedDate.toISOString()}>更新于 {fmt(d.updatedDate)}</time>}
-          {d.promo && <span class="tag tag-promo">合作推荐</span>}
-        </div>
+      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{cat.name}</a>{d.promo && <span class="tag tag-promo">合作推荐</span>}</div>
+      <h1>{d.title}</h1>
+      <p class="post-lead">{d.description}</p>
+      <div class="byline">
+        <span class="avatar" aria-hidden="true">流</span>
+        <span class="byline__who"><strong>{AUTHOR}</strong>
+          <span class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time>{d.updatedDate && <><span class="dot">·</span><span>更新于 {fmtDate(d.updatedDate)}</span></>}<span class="dot">·</span><span><Icon name="clock" size={14} /> {mins} 分钟阅读</span></span>
+        </span>
+      </div>
+    </header>
+    {img && (
+      <figure class="post-cover container">
+        <picture>
+          <source media="(max-width: 700px)" srcset={img.cover.src800} />
+          <img src={img.cover.src} alt={img.cover.alt} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
+        </picture>
+        <figcaption><span class="credit">封面图片：{c?.landing ? <a href={c.landing} target="_blank" rel="noopener nofollow">{c.creator}</a> : c?.creator} · {c?.license}</span></figcaption>
+      </figure>
+    )}
+    <div class="container layout layout--post">
+      <div class="post-main">
         {d.promo && <p class="promo-note">说明：本文包含对保利威（POLYV）产品的推荐，产品信息均来自其官网公开资料，建议以官方最新说明为准。</p>}
-      </header>
-      <section class="tldr" aria-label="要点速览">
-        <h2>TL;DR 要点速览</h2>
-        <ul>{d.tldr.map((t) => <li>{t}</li>)}</ul>
-      </section>
-      <Content />
-      <Cta campaign={entry.id} />
-      {d.faq.length > 0 && (
-        <section class="faq">
-          <h2>常见问题（FAQ）</h2>
-          {d.faq.map((f) => (<details><summary>{f.q}</summary><p>{f.a}</p></details>))}
+        <section class="tldr" aria-label="要点速览">
+          <h2>TL;DR 要点速览</h2>
+          <ul>{d.tldr.map((t) => <li>{t}</li>)}</ul>
         </section>
-      )}
-      {d.sources.length > 0 && (
-        <section class="sources">
-          <h2>参考资料</h2>
-          <ol>{d.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ol>
-        </section>
-      )}
-      <section class="related">
-        <h2>相关阅读</h2>
-        <ul>{related.map((a) => <li><a href={`/articles/${a.id}/`}>{a.data.title}</a></li>)}</ul>
-      </section>
-    </article>
-    <Sidebar campaign={entry.id} />
-  </div>
+        <div class="prose"><Content /></div>
+        <Cta campaign={entry.id} />
+        {d.faq.length > 0 && (
+          <section class="faq">
+            <h2>常见问题（FAQ）</h2>
+            {d.faq.map((f, i) => (<details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+          </section>
+        )}
+        {d.sources.length > 0 && (
+          <section class="sources">
+            <h2>参考资料</h2>
+            <ol>{d.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ol>
+          </section>
+        )}
+        <div class="post-tags">{d.tags.map((t) => <a class="chip" href={`/search/?q=${encodeURIComponent(t)}`}># {t}</a>)}</div>
+        <nav class="prevnext" aria-label="上一篇和下一篇">
+          {older ? <a class="prevnext__item" href={`/articles/${older.id}/`} rel="prev"><span>上一篇</span><strong>{older.data.title}</strong></a> : <span />}
+          {newer ? <a class="prevnext__item prevnext__item--next" href={`/articles/${newer.id}/`} rel="next"><span>下一篇</span><strong>{newer.data.title}</strong></a> : <span />}
+        </nav>
+      </div>
+      <Sidebar campaign={entry.id} toc={headings} exclude={entry.id} />
+    </div>
+    <section class="section container related" aria-labelledby="rel-h">
+      <div class="section-head"><h2 id="rel-h">相关阅读</h2></div>
+      <div class="grid3">{related.map((a) => <ArticleCard entry={a} />)}</div>
+    </section>
+  </article>
 </Base>

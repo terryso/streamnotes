@@ -1,23 +1,41 @@
 ---
-import { CATEGORIES, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, utm } from '../consts';
-interface Props { campaign: string; medium?: string; }
-const { campaign, medium = 'sidebar' } = Astro.props;
+import { CATEGORIES, HOT_TAGS, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+import { getArticles, imagesFor } from '../lib/articles';
+interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string }
+const { campaign, medium = 'sidebar', toc = [], exclude } = Astro.props;
+const popular = (await getArticles()).filter((a) => a.id !== exclude).slice(0, 4);
 ---
 <aside class="sidebar">
-  <section class="side-card side-cta">
-    <h3>企业视频方案</h3>
-    <p>直播、点播、研讨会、私有化部署——在真实环境里先试一试，再做决定。</p>
-    <a class="btn btn-primary btn-block" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通保利威</a>
-    <a class="btn btn-ghost btn-block" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">预约方案咨询</a>
+  <section class="side-cta">
+    <span class="eyebrow eyebrow--light">企业视频方案</span>
+    <h3>直播、点播、私有化，一站式试用</h3>
+    <p>在真实网络和终端上先测一测，再做决定。</p>
+    <a class="btn btn-white btn-block" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通保利威</a>
+    <a class="btn btn-ghost-light btn-block" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">预约方案咨询</a>
+    <p class="side-cta__phone">咨询电话 {POLYV_PHONE}</p>
+  </section>
+  {toc.length > 0 && (
+    <nav class="side-card side-toc" aria-label="文章目录">
+      <h3>目录</h3>
+      <ol>{toc.filter((h) => h.depth === 2).map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}</ol>
+    </nav>
+  )}
+  <section class="side-card">
+    <h3>热门文章</h3>
+    <ol class="side-pop">
+      {popular.map((a, i) => {
+        const img = imagesFor(a.id);
+        return (
+          <li><a href={`/articles/${a.id}/`}>
+            {img && <img src={img.cover.src800} alt="" width="96" height="54" loading="lazy" decoding="async" />}
+            <span>{a.data.title}</span>
+          </a></li>
+        );
+      })}
+    </ol>
   </section>
   <section class="side-card">
-    <h3>栏目</h3>
-    <ul class="side-list">
-      {Object.entries(CATEGORIES).map(([k, c]) => <li><a href={`/category/${k}/`}>{c.name}</a></li>)}
-    </ul>
-  </section>
-  <section class="side-card">
-    <h3>订阅</h3>
-    <p><a href="/rss.xml">RSS 订阅</a>，第一时间获取新文章。</p>
+    <h3>热门标签</h3>
+    <div class="tags">{HOT_TAGS.map((t) => <a class="chip" href={`/search/?q=${encodeURIComponent(t)}`}>{t}</a>)}</div>
   </section>
 </aside>

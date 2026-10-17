@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import { SITE_NAME } from '../consts';
 ---
 <Base title="关于本站" description={`关于${SITE_NAME}：内容定位、编辑原则与合作说明。`} campaign="about">
-  <article class="article">
+  <section class="section container"><article class="article prose-page">
     <h1>关于{SITE_NAME}</h1>
     <p>{SITE_NAME}是一个聚焦直播与视频点播（VOD）技术的中文内容站，面向企业技术负责人、产品经理与培训、市场运营团队，分享协议与架构原理、平台选型方法、行业落地实践与趋势观察。</p>
     <h2>编辑原则</h2>
@@ -14,5 +14,5 @@ import { SITE_NAME } from '../consts';
     </ul>
     <h2>合作方</h2>
     <p>本站由保利威（POLYV）支持。保利威是易方信息科技股份有限公司旗下品牌，提供云直播、云点播、研讨会、直播 aPaaS、视频专属云等企业视频服务（信息来自<a href="https://www.polyv.net/company/" rel="noopener" target="_blank">保利威官网公司介绍</a>）。</p>
-  </article>
+  </article></section>
 </Base>

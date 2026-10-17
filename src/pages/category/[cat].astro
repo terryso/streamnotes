@@ -1,15 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../../layouts/Base.astro';
 import Sidebar from '../../components/Sidebar.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
+import LeadBand from '../../components/LeadBand.astro';
 import { CATEGORIES } from '../../consts';
+import { getArticles } from '../../lib/articles';
 export function getStaticPaths() {
   return Object.keys(CATEGORIES).map((cat) => ({ params: { cat } }));
 }
 const { cat } = Astro.params as { cat: keyof typeof CATEGORIES };
 const c = CATEGORIES[cat];
-const posts = (await getCollection('articles', (e) => !e.data.draft && e.data.category === cat)).sort((a, b) => +b.data.pubDate - +a.data.pubDate);
+const posts = (await getArticles()).filter((e) => e.data.category === cat);
 const site = Astro.site!.toString();
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
@@ -20,15 +21,20 @@ const jsonLd = [
 ];
 ---
 <Base title={c.name} description={c.desc} jsonLd={jsonLd} campaign={`category-${cat}`}>
-  <div class="layout">
-    <section>
+  <section class="pagehead">
+    <div class="container">
       <nav class="breadcrumb" aria-label="面包屑"><ol><li><a href="/">首页</a></li><li aria-current="page">{c.name}</li></ol></nav>
-      <h1 style="margin:4px 0 4px">{c.name}</h1>
-      <p style="color:var(--c-muted);margin-top:0">{c.desc}</p>
-      <div class="card-list">
-        {posts.length ? posts.map((p) => <ArticleCard entry={p} />) : <p>本栏目文章即将上线。</p>}
+      <h1>{c.name}</h1>
+      <p>{c.desc}</p>
+    </div>
+  </section>
+  <section class="section container">
+    <div class="layout">
+      <div class="alist">
+        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={2} />) : <p class="empty">本栏目文章即将上线。</p>}
       </div>
-    </section>
-    <Sidebar campaign={`category-${cat}`} />
-  </div>
+      <Sidebar campaign={`category-${cat}`} />
+    </div>
+  </section>
+  <LeadBand campaign={`category-${cat}`} />
 </Base>

@@ -29,3 +29,15 @@ export function utm(base: string, campaign: string, medium = 'article', hash = '
 // Analytics / Search Console placeholders: set as env vars at build time (see OPERATIONS.md)
 export const GA4_ID = (import.meta.env.PUBLIC_GA4_ID || '').trim();
 export const GSC_VERIFICATION = (import.meta.env.PUBLIC_GSC_VERIFICATION || '').trim();
+
+export const AUTHOR = '流媒笔记编辑部';
+
+// Scenario topics for the "深度案例库" band (enterprise live/VOD focus)
+export const SCENARIOS = [
+  { key: 'training', name: '企业培训', desc: '内训、经销商赋能与知识沉淀', href: '/articles/corporate-training-live/', image: 'corporate-training-live' },
+  { key: 'marketing', name: '营销直播', desc: '研讨会获客、报名留资与转化', href: '/articles/enterprise-live-platform-selection/', image: 'enterprise-live-platform-selection' },
+  { key: 'tech', name: '技术选型', desc: '协议、延迟、加密与架构取舍', href: '/category/tutorial/', image: 'live-latency-protocols' },
+  { key: 'private', name: '私有化部署', desc: '金融政企的安全合规与集成', href: '/articles/private-deployment-polyv/', image: 'private-deployment-polyv' },
+] as const;
+
+export const HOT_TAGS = ['企业培训', '营销直播', '私有化部署', '低延迟直播', '视频加密', 'WebRTC', 'HLS', 'AI字幕', '直播平台选型', 'OBS'];
