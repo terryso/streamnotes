@@ -94,8 +94,8 @@ const c = img?.cover.credit;
         )}
         <div class="post-tags">{d.tags.map((t) => <a class="chip" href={`/search/?q=${encodeURIComponent(t)}`}># {t}</a>)}</div>
         <nav class="prevnext" aria-label="上一篇和下一篇">
-          {older ? <a class="prevnext__item" href={`/articles/${older.id}/`} rel="prev"><span>上一篇</span><strong>{older.data.title}</strong></a> : <span />}
-          {newer ? <a class="prevnext__item prevnext__item--next" href={`/articles/${newer.id}/`} rel="next"><span>下一篇</span><strong>{newer.data.title}</strong></a> : <span />}
+          {older ? <a class="prevnext__item" href={`/articles/${older.id}/`} rel="prev"><span>上一篇</span><strong>{older.data.cardTitle ?? older.data.title}</strong></a> : <span />}
+          {newer ? <a class="prevnext__item prevnext__item--next" href={`/articles/${newer.id}/`} rel="next"><span>下一篇</span><strong>{newer.data.cardTitle ?? newer.data.title}</strong></a> : <span />}
         </nav>
       </div>
       <Sidebar campaign={entry.id} toc={headings} exclude={entry.id} />

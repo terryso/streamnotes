@@ -2,7 +2,7 @@
 import Base from '../layouts/Base.astro';
 import images from '../data/images.json';
 import { getCollection } from 'astro:content';
-const titles = Object.fromEntries((await getCollection('articles', (e) => !e.data.draft)).map((e) => [e.id, e.data.title]));
+const titles = Object.fromEntries((await getCollection('articles', (e) => !e.data.draft)).map((e) => [e.id, e.data.cardTitle ?? e.data.title]));
 const rows: any[] = [];
 for (const [k, v] of Object.entries((images as any).site)) rows.push({ where: k === 'hero' ? '首页头图' : '首页案例库背景', ...(v as any) });
 for (const [slug, rec] of Object.entries((images as any).articles)) {

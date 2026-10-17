@@ -11,6 +11,8 @@ const articles = defineCollection({
     category: z.enum(['tutorial', 'selection', 'industry', 'news']),
     tags: z.array(z.string()).default([]),
     promo: z.boolean().default(false),
+    cardTitle: z.string().optional(),       // neutral title for site-wide listings (promo articles)
+    cardDescription: z.string().optional(), // neutral summary for site-wide listings
     draft: z.boolean().default(false),
     tldr: z.array(z.string()).min(1),
     faq: z.array(z.object({ q: z.string(), a: z.string() })).default([]),

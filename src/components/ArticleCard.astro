@@ -16,8 +16,8 @@ const mins = readingMinutes(entry.body);
     </a>
     <div class="acard__body">
       <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a></div>
-      <H class="acard__title"><a href={href}>{d.title}</a></H>
-      <p class="acard__desc">{d.description}</p>
+      <H class="acard__title"><a href={href}>{d.cardTitle ?? d.title}</a></H>
+      <p class="acard__desc">{d.cardDescription ?? d.description}</p>
       <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">·</span><span><Icon name="clock" size={14} /> {mins} 分钟</span></div>
     </div>
   </article>
@@ -28,8 +28,8 @@ const mins = readingMinutes(entry.body);
     </a>
     <div class="arow__body">
       <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{CATEGORIES[d.category].name}</a></div>
-      <H class="arow__title"><a href={href}>{d.title}</a></H>
-      <p class="arow__desc">{d.description}</p>
+      <H class="arow__title"><a href={href}>{d.cardTitle ?? d.title}</a></H>
+      <p class="arow__desc">{d.cardDescription ?? d.description}</p>
       <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">·</span><span>{mins} 分钟阅读</span></div>
     </div>
   </article>

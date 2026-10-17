@@ -72,6 +72,17 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', GA4_ID);
+        var CTA_ZONES = [['.site-header','header'],['.hero','hero'],['.leadband','leadband'],['.cta-inline','article_mid'],['.cta-end','article_end'],['.side-cta','sidebar'],['.site-footer','footer'],['.tabbar','tabbar']];
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[href]');
+          if (!a) return;
+          for (var i = 0; i < CTA_ZONES.length; i++) {
+            if (a.closest(CTA_ZONES[i][0]) && (a.classList.contains('btn') || CTA_ZONES[i][1] !== 'header')) {
+              gtag('event', 'cta_click', { location: CTA_ZONES[i][1], link_url: a.href, link_text: (a.textContent || '').trim().slice(0, 60), page_path: location.pathname });
+              return;
+            }
+          }
+        });
       </script>
     </>
   )}
@@ -121,7 +132,7 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
       <section class="footer-brand">
         <a class="brand brand--light" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span><span class="brand-name">{SITE_NAME}</span></a>
         <p>{SITE_DESCRIPTION}</p>
-        <p class="footer-links-inline"><a href="/rss.xml">RSS</a><a href="/sitemap-index.xml">Sitemap</a><a href="/llms.txt">llms.txt</a></p>
+        <p class="footer-links-inline"><a href="/rss.xml">RSS</a><a href="/llms.txt">llms.txt</a></p>
       </section>
       <section>
         <h2 class="footer-h">栏目</h2>

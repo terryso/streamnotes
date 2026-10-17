@@ -60,7 +60,8 @@ elif mode == 'finalize':
     code = ("export default { async fetch(request, env) { const url = new URL(request.url);"
             " if (url.hostname !== %s && url.hostname.endsWith('.workers.dev')) { return Response.redirect('https://' + %s + url.pathname + url.search, 301); }"
             " const last = url.pathname.split('/').pop(); if (last && !last.includes('.')) { return Response.redirect(url.origin + url.pathname + '/' + url.search, 301); }"
-            " return env.ASSETS.fetch(request); } };") % (json.dumps(CANONICAL_HOST), json.dumps(CANONICAL_HOST))
+            " const res = await env.ASSETS.fetch(request); if (url.pathname.endsWith('.txt') && res.ok) { const h = new Headers(res.headers); h.set('Content-Type', 'text/plain; charset=utf-8'); return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h }); }"
+            " return res; } };") % (json.dumps(CANONICAL_HOST), json.dumps(CANONICAL_HOST))
     metadata = {'main_module': 'index.js', 'compatibility_date': '2026-10-01',
                 'assets': {'jwt': token, 'config': {'html_handling': 'auto-trailing-slash', 'not_found_handling': '404-page', 'run_worker_first': True, '_headers': headers}},
                 'bindings': [{'type': 'assets', 'name': 'ASSETS'}]}
