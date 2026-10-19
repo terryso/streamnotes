@@ -181,7 +181,7 @@ button{font:inherit}
 .avatar{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--brand-2),#4f46e5);color:#fff;font-weight:800;flex-shrink:0}
 .byline__who{display:flex;flex-direction:column;justify-content:center;gap:3px;font-size:15px;line-height:1.3;color:var(--ink);min-width:0}
 .post-head .byline .meta,.byline .meta{margin:0;line-height:1.4}
-.post-cover{max-width:var(--maxw);margin-top:24px}
+.post-cover{margin:0 0 28px}
 .post-cover img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:18px;background:var(--soft)}
 .post-cover figcaption,.figure figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
 .credit{display:block;font-size:12px;color:#94a3b8}
@@ -331,9 +331,7 @@ button{font:inherit}
   .arow__desc{display:none}
   .pagehead{padding:28px 0 24px}
   .post-head{padding-top:24px}
-  .post-cover{padding-left:0;padding-right:0;margin-top:16px}
-  .post-cover img{border-radius:0}
-  .post-cover figcaption{padding:0 var(--pad)}
+  .post-cover{margin:0 0 20px}
   .layout--post{margin-top:28px}
   .prose{font-size:16px;line-height:1.85}
   .prose blockquote{padding:18px 16px 18px 46px;font-size:16px}

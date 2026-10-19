@@ -63,17 +63,17 @@ const c = img?.cover.credit;
         </span>
       </div>
     </header>
-    {img && (
-      <figure class="post-cover container">
-        <picture>
-          <source media="(max-width: 700px)" srcset={img.cover.src800} />
-          <img src={img.cover.src} alt={img.cover.alt} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
-        </picture>
-        <figcaption><span class="credit">封面图片：{c?.landing ? <a href={c.landing} target="_blank" rel="noopener nofollow">{c.creator}</a> : c?.creator} · {c?.license}</span></figcaption>
-      </figure>
-    )}
     <div class="container layout layout--post">
       <div class="post-main">
+        {img && (
+          <figure class="post-cover">
+            <picture>
+              <source media="(max-width: 700px)" srcset={img.cover.src800} />
+              <img src={img.cover.src} alt={img.cover.alt} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
+            </picture>
+            <figcaption><span class="credit">封面图片：{c?.landing ? <a href={c.landing} target="_blank" rel="noopener nofollow">{c.creator}</a> : c?.creator} · {c?.license}</span></figcaption>
+          </figure>
+        )}
         <section class="tldr" aria-label="要点速览">
           <h2>TL;DR 要点速览</h2>
           <ul>{d.tldr.map((t) => <li>{t}</li>)}</ul>
