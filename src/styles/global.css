@@ -173,7 +173,7 @@ button{font:inherit}
 .search-status{color:var(--muted);margin:0 0 8px}
 
 /* ---------- article ---------- */
-.post-head{max-width:900px;padding-top:40px;text-align:left}
+.post-head{padding-top:40px;text-align:left}
 .post-head .meta{margin:18px 0 0}
 .post-head h1{font-size:clamp(28px,3.8vw,44px);line-height:1.25;margin:14px 0 14px;letter-spacing:-.02em}
 .post-lead{font-size:clamp(16px,1.6vw,19px);color:var(--muted);margin:0 0 22px;line-height:1.7}
@@ -186,7 +186,7 @@ button{font:inherit}
 .post-cover figcaption,.figure figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
 .credit{display:block;font-size:12px;color:#94a3b8}
 .credit a{color:#94a3b8;text-decoration:underline;text-underline-offset:2px}
-.layout--post{margin-top:40px;grid-template-columns:minmax(0,760px) 320px;justify-content:space-between}
+.layout--post{margin-top:40px;grid-template-columns:minmax(0,1fr) 320px}
 .post-main{min-width:0}
 .tldr{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe;border-radius:var(--radius);padding:20px 22px;margin:0 0 28px}
 .tldr h2{font-size:16px;margin:0 0 10px;color:var(--brand-d)}
