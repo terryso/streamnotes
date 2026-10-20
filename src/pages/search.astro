@@ -34,7 +34,7 @@ import { HOT_TAGS } from '../consts';
         status.textContent = terms.length ? ('“' + q + '” 共找到 ' + res.length + ' 篇文章') : ('全部文章 ' + res.length + ' 篇');
         box.innerHTML = res.map(function (x) { var a = x.a; return '<article class="arow"><a class="arow__media" href="' + a.u + '" tabindex="-1" aria-hidden="true">' + (a.i ? '<img src="' + a.i + '" alt="" width="800" height="450" loading="lazy">' : '') + '</a><div class="arow__body"><div class="meta"><span class="tag">' + esc(a.c) + '</span></div><h2 class="arow__title"><a href="' + a.u + '" title="' + esc(a.t) + '">' + esc(a.t) + '</a></h2><p class="arow__desc">' + esc(a.d) + '</p></div></article>'; }).join('');
       }
-      fetch('/search.json').then(function (r) { return r.json(); }).then(function (d) { run(d, q); });
+      fetch('/search.json').then(function (r) { return r.json(); }).then(function (d) { run(d.filter(function (a) { return a.lang !== 'en'; }), q); });
     })();
   </script>
 </Base>

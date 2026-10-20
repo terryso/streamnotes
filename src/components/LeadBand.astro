@@ -1,20 +1,24 @@
 ---
 import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, utm } from '../consts';
+import { SITE_EN, type Locale } from '../lib/i18n';
 import Icon from './Icon.astro';
-interface Props { campaign: string }
-const { campaign } = Astro.props;
+interface Props { campaign: string; locale?: Locale }
+const { campaign, locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
 ---
-<section class="leadband" aria-label="获取企业视频方案">
+<section class="leadband" aria-label={isEn ? 'Enterprise video options' : '获取企业视频方案'}>
   <div class="container leadband__inner">
     <div class="leadband__text">
-      <span class="eyebrow eyebrow--light">企业直播 · 点播 · 私有化</span>
-      <h2>把直播用在培训、营销与客户服务上</h2>
-      <p>免费开通保利威账号，用真实业务场景测试开播、互动、权限与加密；需要定制或私有化部署，可预约方案顾问一对一沟通。</p>
+      <span class="eyebrow eyebrow--light">{isEn ? 'Enterprise live · VOD · private deploy' : '企业直播 · 点播 · 私有化'}</span>
+      <h2>{isEn ? 'Put livestreaming to work in training, marketing, and customer success' : '把直播用在培训、营销与客户服务上'}</h2>
+      <p>{isEn
+        ? 'Open a free trial account to test go-live, interaction, access control, and encryption on real scenarios. Need customization or on-prem? Book time with a solutions advisor.'
+        : '免费开通保利威账号，用真实业务场景测试开播、互动、权限与加密；需要定制或私有化部署，可预约方案顾问一对一沟通。'}</p>
     </div>
     <div class="leadband__actions">
-      <a class="btn btn-white btn-lg" href={utm(POLYV_TRIAL, campaign, 'leadband')} target="_blank" rel="noopener sponsored">免费开通试用</a>
-      <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_CONTACT, campaign, 'leadband', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">预约方案咨询</a>
-      <a class="leadband__rss" href="/rss.xml"><Icon name="rss" size={16} /> 通过 RSS 订阅新文章</a>
+      <a class="btn btn-white btn-lg" href={utm(POLYV_TRIAL, campaign, 'leadband')} target="_blank" rel="noopener">{isEn ? SITE_EN.freeTrial : '免费开通试用'}</a>
+      <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_CONTACT, campaign, 'leadband', POLYV_CONTACT_HASH)} target="_blank" rel="noopener">{isEn ? SITE_EN.contactAdvisor : '预约方案咨询'}</a>
+      <a class="leadband__rss" href="/rss.xml"><Icon name="rss" size={16} /> {isEn ? 'Subscribe via RSS' : '通过 RSS 订阅新文章'}</a>
     </div>
   </div>
 </section>

@@ -429,6 +429,7 @@
     "w": 1360,
     "h": 765,
     "alt": "明亮整洁、配有吊塔和无影灯的现代手术室",
+    "altEn": "A bright, modern operating room with pendant lights and surgical lamps",
     "credit": {
      "creator": "Yazan.shawahneh",
      "title": "Operating room Saudi Hospital",
@@ -448,7 +449,9 @@
      "w": 960,
      "h": 613,
      "alt": "白色桌面上的听诊器和笔记本电脑",
+     "altEn": "Stethoscope and laptop on a white desk",
      "caption": "线上学术会议和继续教育正在成为医务人员的常规学习方式",
+     "captionEn": "Online academic meetings and CME are becoming routine for clinicians",
      "credit": {
       "creator": "Negative Space",
       "title": "Stethoscope Medical",
@@ -464,7 +467,9 @@
      "w": 1024,
      "h": 404,
      "alt": "座椅整齐排列的空阶梯报告厅",
+     "altEn": "Empty tiered lecture hall with ordered seats",
      "caption": "同一场会议，现场与线上观众的观看权限可以分级设置",
+     "captionEn": "The same event can tier viewing rights for on-site and remote audiences",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "title": "Auditorium interior",

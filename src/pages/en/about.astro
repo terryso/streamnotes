@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import { SITE_EN } from '../../lib/i18n';
+---
+<Base locale="en" title="About" description={SITE_EN.description} campaign="en-about" hreflangZh="/about/" hreflangEn="/en/about/">
+  <section class="pagehead">
+    <div class="container">
+      <h1>About {SITE_EN.name}</h1>
+      <p>{SITE_EN.description}</p>
+    </div>
+  </section>
+  <section class="section container prose" style="max-width:720px">
+    <p>{SITE_EN.name} ({SITE_EN.nameZh}) is an independent content site about enterprise live streaming and video-on-demand. We publish practical guides on protocols and latency, encryption, platform selection, and industry use cases.</p>
+    <p>Chinese is the default language of the site. English editions of selected articles live under <code>/en/articles/&lt;slug&gt;/</code>. This site is not sponsored or operated by any vendor.</p>
+    <p><a href="/" hreflang="zh-CN" lang="zh-CN">Visit the Chinese site</a> · <a href="/credits/">Image credits</a></p>
+  </section>
+</Base>

@@ -1,17 +1,21 @@
 ---
 import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
-interface Props { campaign: string; medium?: string; }
-const { campaign, medium = 'article' } = Astro.props;
+import { SITE_EN, type Locale } from '../lib/i18n';
+interface Props { campaign: string; medium?: string; locale?: Locale; }
+const { campaign, medium = 'article', locale = 'zh' } = Astro.props;
+const isEn = locale === 'en';
 ---
-<aside class="cta-end" aria-label="方案咨询">
+<aside class="cta-end" aria-label={isEn ? 'Next steps' : '方案咨询'}>
   <div class="cta-end__text">
-    <span class="eyebrow">下一步</span>
-    <h2 class="cta-end__title">正在规划企业直播或点播平台？</h2>
-    <p>可以先免费开通保利威（POLYV）账号，实测直播、点播、互动与视频加密等功能；也可以联系方案顾问，结合培训、营销或私有化等业务场景做评估。</p>
+    <span class="eyebrow">{isEn ? 'Next step' : '下一步'}</span>
+    <h2 class="cta-end__title">{isEn ? 'Planning an enterprise live or VOD platform?' : '正在规划企业直播或点播平台？'}</h2>
+    <p>{isEn
+      ? 'Start with a free trial account to try live streaming, VOD, interaction, and video encryption in a real environment—or talk with an advisor about training, marketing, or private-deployment scenarios.'
+      : '可以先免费开通保利威（POLYV）账号，实测直播、点播、互动与视频加密等功能；也可以联系方案顾问，结合培训、营销或私有化等业务场景做评估。'}</p>
   </div>
   <div class="cta-end__actions">
-    <a class="btn btn-primary btn-lg" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">免费开通试用</a>
-    <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系方案顾问</a>
-    <span class="cta-end__note">咨询电话 {POLYV_PHONE}</span>
+    <a class="btn btn-primary btn-lg" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener">{isEn ? SITE_EN.freeTrial : '免费开通试用'}</a>
+    <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener">{isEn ? SITE_EN.contactAdvisor : '联系方案顾问'}</a>
+    <span class="cta-end__note">{isEn ? `${SITE_EN.footerPhone} ${POLYV_PHONE}` : `咨询电话 ${POLYV_PHONE}`}</span>
   </div>
 </aside>

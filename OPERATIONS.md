@@ -6,7 +6,9 @@
 
 ```
 src/consts.ts                 站点名称、栏目、保利威 CTA 链接与 UTM 函数、选型清单链接（CHECKLIST_URL）、GA4/GSC 变量
-src/content/articles/*.md     文章（一篇一个 Markdown 文件，文件名即 URL slug）
+src/content/articles/*.md     中文文章（一篇一个 Markdown，文件名即 slug → /articles/<slug>/）
+src/content/articles-en/*.md  英文 twin（同 slug → /en/articles/<slug>/）
+src/pages/en/                 英文首页、栏目、文章、about、search
 src/layouts/Base.astro        <head>（meta / canonical / hreflang / OG / JSON-LD / GA4 / GSC）、页头页脚
 src/components/Cta.astro      文末 CTA（免费试用 / 联系方案顾问）
 src/components/Sidebar.astro  侧边栏（CTA、目录、热门文章、标签）
@@ -50,6 +52,16 @@ related: [other-slug]          # 可选，手动指定相关阅读；不足 4 �
 6. 本地预览：`npm run dev`（http://localhost:4321）；构建检查：`npm run build`。
 
 文中 CTA、文末 CTA、侧边栏、页脚自动生成，自动生成，无需手动添加，规则见第 5 节。
+
+### 1.1 英文版（English twin）
+
+- 中文仍是默认站：`/articles/<slug>/`。英文对应页：`/en/articles/<slug>/`（同一 conceptual slug）。
+- 新文章：在 `src/content/articles/` 写中文后，尽量同步在 `src/content/articles-en/` 放同名 Markdown（同一 frontmatter 结构，正文为英文技术文）。配图复用 `images.json` 里同一 slug；可为 cover/inline 加 `altEn` / `captionEn`。
+- 路由与 chrome：`src/pages/en/**`、`locale` prop on Base / cards / CTA / sidebar。有中英双份时文章页与头栏会出语言切换。
+- 不要求一夜之间全站双语；存量中文可暂不翻译。首页英文列表目前只展示已有 EN 文。
+- 中立性：英文版同样不得出现“本站由保利威赞助/支持/运营”等表述。
+- 自动发布例行：此后新文应尽量同时产出 EN twin（人工或流水线），不要只发中文。
+
 
 ## 2. 部署（当前：Workers Static Assets 直传）
 

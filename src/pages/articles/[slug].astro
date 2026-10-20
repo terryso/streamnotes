@@ -6,7 +6,8 @@ import Sidebar from '../../components/Sidebar.astro';
 import ArticleCard from '../../components/ArticleCard.astro';
 import Icon from '../../components/Icon.astro';
 import { CATEGORIES, SITE_NAME, AUTHOR } from '../../consts';
-import { getArticles, imagesFor, readingMinutes, fmtDate } from '../../lib/articles';
+import { getArticles, hasEnTwin, imagesFor, readingMinutes, fmtDate, coverAlt } from '../../lib/articles';
+import { SITE_EN, articlePath } from '../../lib/i18n';
 
 export async function getStaticPaths() {
   const all = await getArticles();
@@ -18,6 +19,8 @@ const d = entry.data;
 const cat = CATEGORIES[d.category];
 const site = Astro.site!.toString();
 const url = new URL(`/articles/${entry.id}/`, Astro.site).toString();
+const enExists = await hasEnTwin(entry.id);
+const enUrl = enExists ? `/en/articles/${entry.id}/` : undefined;
 const img = imagesFor(entry.id);
 const mins = readingMinutes(entry.body);
 let related = d.related.map((id) => all.find((a) => a.id === id)).filter(Boolean) as typeof all;
@@ -46,14 +49,18 @@ const jsonLd: object[] = [
 if (d.faq.length) jsonLd.push({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
 const c = img?.cover.credit;
 ---
-<Base title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={img?.cover.alt} jsonLd={jsonLd} campaign={entry.id}
-  publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={`/category/${d.category}/`}>
+<Base title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={coverAlt(entry.id, 'zh')} jsonLd={jsonLd} campaign={entry.id}
+  publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={`/category/${d.category}/`}
+  locale="zh" hreflangZh={`/articles/${entry.id}/`} hreflangEn={enUrl}>
   <article class="post">
     <header class="post-head container">
       <nav class="breadcrumb" aria-label="面包屑">
         <ol><li><a href="/">首页</a></li><li><a href={`/category/${d.category}/`}>{cat.name}</a></li><li aria-current="page">正文</li></ol>
       </nav>
-      <div class="meta"><a class="tag" href={`/category/${d.category}/`}>{cat.name}</a></div>
+      <div class="meta">
+        <a class="tag" href={`/category/${d.category}/`}>{cat.name}</a>
+        {enExists && <a class="lang-chip" href={articlePath(entry.id, 'en')} hreflang="en" lang="en">{SITE_EN.langSwitchToEn}</a>}
+      </div>
       <h1>{d.title}</h1>
       <p class="post-lead">{d.description}</p>
       <div class="byline">
@@ -69,7 +76,7 @@ const c = img?.cover.credit;
           <figure class="post-cover">
             <picture>
               <source media="(max-width: 700px)" srcset={img.cover.src800} />
-              <img src={img.cover.src} alt={img.cover.alt} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
+              <img src={img.cover.src} alt={coverAlt(entry.id, 'zh')} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
             </picture>
             <figcaption><span class="credit">封面图片：{c?.landing ? <a href={c.landing} target="_blank" rel="noopener nofollow">{c.creator}</a> : c?.creator} · {c?.license}</span></figcaption>
           </figure>

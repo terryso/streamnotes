@@ -1,7 +1,12 @@
 ---
-import { SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, HOT_TAGS, GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+import {
+  SITE_NAME, SITE_NAME_EN, SITE_DESCRIPTION, SITE_TAGLINE, CATEGORIES, HOT_TAGS,
+  GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm,
+} from '../consts';
+import { SITE_EN, categoryLabel, homePath, categoryPath, type Locale } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 import '../styles/global.css';
+
 interface Props {
   title?: string;
   description?: string;
@@ -15,37 +20,99 @@ interface Props {
   noindex?: boolean;
   preloadImage?: string;
   active?: string;
+  locale?: Locale;
+  /** Absolute or site-relative URLs for hreflang twins */
+  hreflangZh?: string;
+  hreflangEn?: string;
 }
-const { title, description = SITE_DESCRIPTION, ogType = 'website', ogImage = '/og-default.png', ogImageAlt, jsonLd = [], campaign = 'site', publishedTime, modifiedTime, noindex = false, preloadImage, active } = Astro.props;
-const fullTitle = title ? `${title} | ${SITE_NAME}` : `${SITE_NAME} - ${SITE_TAGLINE}`;
+
+const {
+  title,
+  description,
+  ogType = 'website',
+  ogImage = '/og-default.png',
+  ogImageAlt,
+  jsonLd = [],
+  campaign = 'site',
+  publishedTime,
+  modifiedTime,
+  noindex = false,
+  preloadImage,
+  active,
+  locale = 'zh',
+  hreflangZh,
+  hreflangEn,
+} = Astro.props;
+
+const isEn = locale === 'en';
+const siteName = isEn ? SITE_EN.name : SITE_NAME;
+const siteTagline = isEn ? SITE_EN.tagline : SITE_TAGLINE;
+const siteDesc = description ?? (isEn ? SITE_EN.description : SITE_DESCRIPTION);
+const fullTitle = title ? `${title} | ${siteName}` : `${siteName} - ${siteTagline}`;
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 const ogImageUrl = new URL(ogImage, Astro.site).toString();
 const siteUrl = Astro.site!.toString();
+const htmlLang = isEn ? 'en' : 'zh-CN';
+const ogLocale = isEn ? 'en_US' : 'zh_CN';
+const home = homePath(locale);
+const aboutHref = isEn ? '/en/about/' : '/about/';
+const searchHref = isEn ? '/en/search/' : '/search/';
+const zhHref = hreflangZh ? new URL(hreflangZh, Astro.site).toString() : (!isEn ? canonical : undefined);
+const enHref = hreflangEn ? new URL(hreflangEn, Astro.site).toString() : (isEn ? canonical : undefined);
+const xDefault = zhHref || canonical;
+
 const baseLd = [
-  { '@context': 'https://schema.org', '@type': 'Organization', '@id': siteUrl + '#org', name: SITE_NAME, alternateName: SITE_NAME_EN, url: siteUrl, logo: new URL('/logo.png', Astro.site).toString() },
-  { '@context': 'https://schema.org', '@type': 'WebSite', '@id': siteUrl + '#website', name: SITE_NAME, url: siteUrl, inLanguage: 'zh-CN', description: SITE_DESCRIPTION, publisher: { '@id': siteUrl + '#org' },
-    potentialAction: { '@type': 'SearchAction', target: { '@type': 'EntryPoint', urlTemplate: siteUrl + 'search/?q={search_term_string}' }, 'query-input': 'required name=search_term_string' } },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': siteUrl + '#org',
+    name: SITE_NAME,
+    alternateName: SITE_NAME_EN,
+    url: siteUrl,
+    logo: new URL('/logo.png', Astro.site).toString(),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': siteUrl + '#website',
+    name: SITE_NAME,
+    alternateName: SITE_NAME_EN,
+    url: siteUrl,
+    inLanguage: ['zh-CN', 'en'],
+    description: SITE_DESCRIPTION,
+    publisher: { '@id': siteUrl + '#org' },
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: { '@type': 'EntryPoint', urlTemplate: siteUrl + 'search/?q={search_term_string}' },
+      'query-input': 'required name=search_term_string',
+    },
+  },
 ];
 const allLd = [...baseLd, ...jsonLd];
 const path = Astro.url.pathname;
-const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) || active === p;
+const isActive = (p: string) => (p === '/' || p === '/en/' ? path === p : path.startsWith(p)) || active === p;
+const hotTags = isEn ? SITE_EN.hotTags : HOT_TAGS;
+const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
 ---
 <!doctype html>
-<html lang="zh-CN">
+<html lang={htmlLang}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>{fullTitle}</title>
-  <meta name="description" content={description} />
+  <meta name="description" content={siteDesc} />
   <link rel="canonical" href={canonical} />
-  <link rel="alternate" hreflang="zh-CN" href={canonical} />
-  <link rel="alternate" hreflang="x-default" href={canonical} />
+  {zhHref && <link rel="alternate" hreflang="zh-CN" href={zhHref} />}
+  {enHref && <link rel="alternate" hreflang="en" href={enHref} />}
+  <link rel="alternate" hreflang="x-default" href={xDefault} />
   <meta name="robots" content={noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large'} />
-  <meta property="og:site_name" content={SITE_NAME} />
-  <meta property="og:locale" content="zh_CN" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:locale" content={ogLocale} />
+  {isEn && zhHref && <meta property="og:locale:alternate" content="zh_CN" />}
+  {!isEn && enHref && <meta property="og:locale:alternate" content="en_US" />}
   <meta property="og:type" content={ogType} />
-  <meta property="og:title" content={title ?? SITE_NAME} />
-  <meta property="og:description" content={description} />
+  <meta property="og:title" content={title ?? siteName} />
+  <meta property="og:description" content={siteDesc} />
   <meta property="og:url" content={canonical} />
   <meta property="og:image" content={ogImageUrl} />
   <meta property="og:image:width" content="1200" />
@@ -54,8 +121,8 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
   {publishedTime && <meta property="article:published_time" content={publishedTime} />}
   {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title ?? SITE_NAME} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:title" content={title ?? siteName} />
+  <meta name="twitter:description" content={siteDesc} />
   <meta name="twitter:image" content={ogImageUrl} />
   <meta name="theme-color" content="#0b1220" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -88,37 +155,59 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
   )}
 </head>
 <body>
-  <a class="skip" href="#main">跳到正文</a>
+  <a class="skip" href="#main">{isEn ? SITE_EN.skipToContent : '跳到正文'}</a>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/" aria-label={`${SITE_NAME} 首页`}>
+      <a class="brand" href={home} aria-label={`${siteName} ${isEn ? 'home' : '首页'}`}>
         <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
-        <span class="brand-name">{SITE_NAME}</span>
-        <span class="brand-en">{SITE_NAME_EN}</span>
+        {isEn ? (
+          <>
+            <span class="brand-name">{SITE_EN.name}</span>
+            <span class="brand-en">{SITE_EN.nameZh}</span>
+          </>
+        ) : (
+          <>
+            <span class="brand-name">{SITE_NAME}</span>
+            <span class="brand-en">{SITE_NAME_EN}</span>
+          </>
+        )}
       </a>
-      <nav class="mainnav" aria-label="主导航">
+      <nav class="mainnav" aria-label={isEn ? 'Main' : '主导航'}>
         <ul>
-          <li><a href="/" aria-current={path === '/' ? 'page' : undefined}>首页</a></li>
-          {Object.entries(CATEGORIES).map(([k, c]) => (
-            <li><a href={`/category/${k}/`} aria-current={isActive(`/category/${k}/`) ? 'page' : undefined}>{c.name}</a></li>
+          <li><a href={home} aria-current={path === home ? 'page' : undefined}>{isEn ? SITE_EN.navHome : '首页'}</a></li>
+          {catKeys.map((k) => (
+            <li>
+              <a href={categoryPath(k, locale)} aria-current={isActive(categoryPath(k, locale)) ? 'page' : undefined}>
+                {categoryLabel(k, locale).name}
+              </a>
+            </li>
           ))}
-          <li><a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>关于</a></li>
+          <li><a href={aboutHref} aria-current={isActive(aboutHref) ? 'page' : undefined}>{isEn ? SITE_EN.navAbout : '关于'}</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <form class="hsearch" action="/search/" method="get" role="search">
-          <label class="sr-only" for="hsearch-q">搜索文章</label>
+        <form class="hsearch" action={searchHref} method="get" role="search">
+          <label class="sr-only" for="hsearch-q">{isEn ? SITE_EN.searchLabel : '搜索文章'}</label>
           <Icon name="search" size={16} />
-          <input id="hsearch-q" name="q" type="search" placeholder="搜索直播、点播、私有化…" autocomplete="off" />
+          <input id="hsearch-q" name="q" type="search" placeholder={isEn ? SITE_EN.searchPlaceholder : '搜索直播、点播、私有化…'} autocomplete="off" />
         </form>
-        <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener sponsored">免费试用</a>
+        <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener">{isEn ? SITE_EN.freeTrial : '免费试用'}</a>
+        {(zhHref || enHref) && (
+          <a class="lang-switch" href={isEn ? (zhHref || '/') : (enHref || '/en/')} hreflang={isEn ? 'zh-CN' : 'en'} lang={isEn ? 'zh-CN' : 'en'}>
+            {isEn ? SITE_EN.langSwitchToZh : SITE_EN.langSwitchToEn}
+          </a>
+        )}
       </div>
     </div>
-    <nav class="subnav" aria-label="栏目">
+    <nav class="subnav" aria-label={isEn ? 'Topics' : '栏目'}>
       <div class="subnav__scroll">
-        <a href="/" aria-current={path === '/' ? 'page' : undefined}>推荐</a>
-        {Object.entries(CATEGORIES).map(([k, c]) => <a href={`/category/${k}/`} aria-current={isActive(`/category/${k}/`) ? 'page' : undefined}>{c.name}</a>)}
-        <a href="/about/" aria-current={isActive('/about/') ? 'page' : undefined}>关于</a>
+        <a href={home} aria-current={path === home ? 'page' : undefined}>{isEn ? 'Featured' : '推荐'}</a>
+        {catKeys.map((k) => (
+          <a href={categoryPath(k, locale)} aria-current={isActive(categoryPath(k, locale)) ? 'page' : undefined}>
+            {categoryLabel(k, locale).name}
+          </a>
+        ))}
+        <a href={aboutHref} aria-current={isActive(aboutHref) ? 'page' : undefined}>{isEn ? SITE_EN.navAbout : '关于'}</a>
       </div>
     </nav>
   </header>
@@ -130,43 +219,48 @@ const isActive = (p: string) => (p === '/' ? path === '/' : path.startsWith(p)) 
   <footer class="site-footer">
     <div class="container footer-grid">
       <section class="footer-brand">
-        <a class="brand brand--light" href="/"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span><span class="brand-name">{SITE_NAME}</span></a>
-        <p>{SITE_DESCRIPTION}</p>
+        <a class="brand brand--light" href={home}>
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
+          <span class="brand-name">{siteName}</span>
+        </a>
+        <p>{isEn ? SITE_EN.description : SITE_DESCRIPTION}</p>
         <p class="footer-links-inline"><a href="/rss.xml">RSS</a><a href="/llms.txt">llms.txt</a></p>
       </section>
       <section>
-        <h2 class="footer-h">栏目</h2>
-        <ul>{Object.entries(CATEGORIES).map(([k, c]) => <li><a href={`/category/${k}/`}>{c.name}</a></li>)}</ul>
+        <h2 class="footer-h">{isEn ? SITE_EN.footerColumns : '栏目'}</h2>
+        <ul>{catKeys.map((k) => <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a></li>)}</ul>
       </section>
       <section>
-        <h2 class="footer-h">热门专题</h2>
-        <ul>{HOT_TAGS.slice(0, 5).map((t) => <li><a href={`/search/?q=${encodeURIComponent(t)}`}>{t}</a></li>)}</ul>
+        <h2 class="footer-h">{isEn ? SITE_EN.footerHot : '热门专题'}</h2>
+        <ul>{hotTags.slice(0, 5).map((t) => <li><a href={`${searchHref}?q=${encodeURIComponent(t)}`}>{t}</a></li>)}</ul>
       </section>
       <section>
-        <h2 class="footer-h">企业视频方案</h2>
+        <h2 class="footer-h">{isEn ? SITE_EN.footerSolutions : '企业视频方案'}</h2>
         <ul>
-          <li><a href={utm(POLYV_TRIAL, campaign, 'footer')} target="_blank" rel="noopener sponsored">免费开通保利威直播/点播</a></li>
-          <li><a href={utm(POLYV_CONTACT, campaign, 'footer', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">联系保利威方案顾问</a></li>
-          <li>咨询电话 {POLYV_PHONE}</li>
+          <li><a href={utm(POLYV_TRIAL, campaign, 'footer')} target="_blank" rel="noopener">{isEn ? SITE_EN.footerTrial : '免费开通保利威直播/点播'}</a></li>
+          <li><a href={utm(POLYV_CONTACT, campaign, 'footer', POLYV_CONTACT_HASH)} target="_blank" rel="noopener">{isEn ? SITE_EN.footerContact : '联系保利威方案顾问'}</a></li>
+          <li>{isEn ? `${SITE_EN.footerPhone} ${POLYV_PHONE}` : `咨询电话 ${POLYV_PHONE}`}</li>
         </ul>
       </section>
       <section>
-        <h2 class="footer-h">关于</h2>
+        <h2 class="footer-h">{isEn ? SITE_EN.footerAbout : '关于'}</h2>
         <ul>
-          <li><a href="/about/">关于本站</a></li>
-          <li><a href="/credits/">图片版权说明</a></li>
-          <li><a href="/search/">站内搜索</a></li>
+          <li><a href={aboutHref}>{isEn ? SITE_EN.footerAboutSite : '关于本站'}</a></li>
+          <li><a href="/credits/">{isEn ? SITE_EN.footerCredits : '图片版权说明'}</a></li>
+          <li><a href={searchHref}>{isEn ? SITE_EN.footerSearch : '站内搜索'}</a></li>
+          {!isEn && <li><a href="/en/">English</a></li>}
+          {isEn && <li><a href="/" hreflang="zh-CN" lang="zh-CN">中文站</a></li>}
         </ul>
       </section>
     </div>
-    <div class="container footer-bottom">© {new Date().getFullYear()} {SITE_NAME}。专注直播与点播技术的独立内容站。</div>
+    <div class="container footer-bottom">© {new Date().getFullYear()} {siteName}. {isEn ? SITE_EN.footerCopy : '专注直播与点播技术的独立内容站。'}</div>
   </footer>
 
-  <nav class="tabbar" aria-label="快捷导航">
-    <a href="/" aria-current={path === '/' ? 'page' : undefined}><Icon name="home" /><span>首页</span></a>
-    <a href="/category/tutorial/" aria-current={path.startsWith('/category/') ? 'page' : undefined}><Icon name="grid" /><span>栏目</span></a>
-    <a href="/search/" aria-current={path.startsWith('/search/') ? 'page' : undefined}><Icon name="search" /><span>搜索</span></a>
-    <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored" class="tabbar__cta"><Icon name="chat" /><span>咨询</span></a>
+  <nav class="tabbar" aria-label={isEn ? 'Quick nav' : '快捷导航'}>
+    <a href={home} aria-current={path === home ? 'page' : undefined}><Icon name="home" /><span>{isEn ? SITE_EN.tabHome : '首页'}</span></a>
+    <a href={categoryPath('tutorial', locale)} aria-current={path.includes('/category/') ? 'page' : undefined}><Icon name="grid" /><span>{isEn ? SITE_EN.tabTopics : '栏目'}</span></a>
+    <a href={searchHref} aria-current={path.includes('/search/') ? 'page' : undefined}><Icon name="search" /><span>{isEn ? SITE_EN.tabSearch : '搜索'}</span></a>
+    <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener" class="tabbar__cta"><Icon name="chat" /><span>{isEn ? SITE_EN.tabConsult : '咨询'}</span></a>
   </nav>
 </body>
 </html>
