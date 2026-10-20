@@ -423,6 +423,59 @@
      }
     }
    ]
+  },
+  "medical-conference-surgery-live": {
+   "cover": {
+    "w": 1360,
+    "h": 765,
+    "alt": "明亮整洁、配有吊塔和无影灯的现代手术室",
+    "credit": {
+     "creator": "Yazan.shawahneh",
+     "title": "Operating room Saudi Hospital",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=185786830"
+    },
+    "src": "/images/medical-conference-surgery-live/cover.webp",
+    "src800": "/images/medical-conference-surgery-live/cover-800.webp"
+   },
+   "og": "/images/medical-conference-surgery-live/og.jpg",
+   "inline": [
+    {
+     "src": "/images/medical-conference-surgery-live/inline-1.webp",
+     "w": 960,
+     "h": 613,
+     "alt": "白色桌面上的听诊器和笔记本电脑",
+     "caption": "线上学术会议和继续教育正在成为医务人员的常规学习方式",
+     "credit": {
+      "creator": "Negative Space",
+      "title": "Stethoscope Medical",
+      "source": "stocksnap",
+      "source_name": "StockSnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/stethoscope-medical-9M1HWW2JFV"
+     }
+    },
+    {
+     "src": "/images/medical-conference-surgery-live/inline-2.webp",
+     "w": 1024,
+     "h": 404,
+     "alt": "座椅整齐排列的空阶梯报告厅",
+     "caption": "同一场会议，现场与线上观众的观看权限可以分级设置",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Auditorium interior",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/6041588/photo-image-public-domain-room-interior"
+     }
+    }
+   ]
   }
  },
  "site": {
