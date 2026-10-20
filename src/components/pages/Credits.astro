@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import images from '../../data/images.json';
+import { getArticlesFor } from '../../lib/articles';
+import { ui, creditText, type Locale } from '../../lib/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui(locale);
+const titles = Object.fromEntries((await getArticlesFor(locale)).map((e) => [e.id, e.data.cardTitle ?? e.data.title]));
+const rows: any[] = [];
+for (const [k, v] of Object.entries((images as any).site)) rows.push({ where: k === 'hero' ? t.credHero : t.credBand, ...(v as any) });
+for (const [slug, rec] of Object.entries((images as any).articles)) {
+  if (!titles[slug]) continue;
+  const r = rec as any;
+  rows.push({ where: t.credCover(titles[slug]), ...r.cover });
+  r.inline.forEach((x: any, i: number) => rows.push({ where: t.credInline(titles[slug], i + 1), ...x }));
+}
+---
+<Base locale={locale} title={t.credTitle} description={t.credDesc} campaign={locale === 'en' ? 'en-credits' : 'credits'}>
+  <section class="pagehead"><div class="container"><h1>{t.credTitle}</h1><p>{t.credIntro}</p></div></section>
+  <section class="section container">
+    <div class="table-wrap">
+      <table class="credits">
+        <thead><tr><th>{t.credWhere}</th><th>{t.credAuthor}</th><th>{t.credSource}</th><th>{t.credLicense}</th></tr></thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr><td>{r.where}</td><td>{creditText(r.credit.creator, locale)}</td><td>{r.credit.landing ? <a href={r.credit.landing} target="_blank" rel="noopener nofollow">{creditText(r.credit.source_name, locale)}</a> : creditText(r.credit.source_name, locale)}</td><td>{r.credit.license_url ? <a href={r.credit.license_url} target="_blank" rel="noopener nofollow">{r.credit.license}</a> : r.credit.license}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</Base>

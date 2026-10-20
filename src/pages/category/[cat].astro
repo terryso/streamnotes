@@ -1,40 +1,9 @@
 ---
-import Base from '../../layouts/Base.astro';
-import Sidebar from '../../components/Sidebar.astro';
-import ArticleCard from '../../components/ArticleCard.astro';
-import LeadBand from '../../components/LeadBand.astro';
+import CategoryPage from '../../components/pages/CategoryPage.astro';
 import { CATEGORIES } from '../../consts';
-import { getArticles } from '../../lib/articles';
 export function getStaticPaths() {
   return Object.keys(CATEGORIES).map((cat) => ({ params: { cat } }));
 }
 const { cat } = Astro.params as { cat: keyof typeof CATEGORIES };
-const c = CATEGORIES[cat];
-const posts = (await getArticles()).filter((e) => e.data.category === cat);
-const site = Astro.site!.toString();
-const jsonLd = [
-  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: '首页', item: site },
-    { '@type': 'ListItem', position: 2, name: c.name, item: new URL(`/category/${cat}/`, Astro.site).toString() },
-  ] },
-  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: c.desc, inLanguage: 'zh-CN' },
-];
 ---
-<Base title={c.name} description={c.desc} jsonLd={jsonLd} campaign={`category-${cat}`}>
-  <section class="pagehead">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="面包屑"><ol><li><a href="/">首页</a></li><li aria-current="page">{c.name}</li></ol></nav>
-      <h1>{c.name}</h1>
-      <p>{c.desc}</p>
-    </div>
-  </section>
-  <section class="section container">
-    <div class="layout">
-      <div class="alist">
-        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={2} />) : <p class="empty">本栏目文章即将上线。</p>}
-      </div>
-      <Sidebar campaign={`category-${cat}`} />
-    </div>
-  </section>
-  <LeadBand campaign={`category-${cat}`} />
-</Base>
+<CategoryPage cat={cat} locale="zh" />

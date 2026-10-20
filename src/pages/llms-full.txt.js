@@ -1,6 +1,7 @@
 import { getCollection } from 'astro:content';
 import { SITE_NAME, SITE_DESCRIPTION, CATEGORIES } from '../consts';
-import { CATEGORIES_EN, SITE_EN } from '../lib/i18n';
+import { CATEGORIES_EN, ui } from '../lib/i18n';
+const SITE_EN = { name: ui('en').siteName, description: ui('en').description };
 
 export async function GET({ site }) {
   const posts = (await getCollection('articles', (e) => !e.data.draft)).sort((a, b) => +b.data.pubDate - +a.data.pubDate);

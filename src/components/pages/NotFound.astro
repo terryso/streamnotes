@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ui, homePath, type Locale } from '../../lib/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui(locale);
+---
+<Base locale={locale} title={t.nfTitle} description={t.nfDesc} campaign={locale === 'en' ? 'en-404' : '404'} noindex zhPath="/" enPath="/en/">
+  <section class="section container"><article class="article prose-page"><h1>{t.nfTitle}</h1><p>{t.nfBody}<a href={homePath(locale)}>{t.nfHome}</a>{locale === 'zh' ? '。' : '.'}</p></article></section>
+</Base>

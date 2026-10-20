@@ -1,15 +1,10 @@
 ---
-import { categoryLabel, articlePath, categoryPath, SITE_EN, type Locale } from '../lib/i18n';
+import { ui, categoryLabel, articlePath, categoryPath, type Locale } from '../lib/i18n';
 import { imagesFor, fmtDate, readingMinutes, type AnyArticle } from '../lib/articles';
 import Icon from './Icon.astro';
-interface Props {
-  entry: AnyArticle;
-  variant?: 'card' | 'row';
-  level?: 2 | 3;
-  eager?: boolean;
-  locale?: Locale;
-}
+interface Props { entry: AnyArticle; variant?: 'card' | 'row'; level?: 2 | 3; eager?: boolean; locale?: Locale }
 const { entry, variant = 'card', level = 3, eager = false, locale = 'zh' } = Astro.props;
+const t = ui(locale);
 const d = entry.data;
 const img = imagesFor(entry.id);
 const H = level === 2 ? 'h2' : 'h3';
@@ -17,8 +12,7 @@ const href = articlePath(entry.id, locale);
 const catHref = categoryPath(d.category, locale);
 const catName = categoryLabel(d.category, locale).name;
 const mins = readingMinutes(entry.body);
-const minsLabel = locale === 'en' ? SITE_EN.readingMins(mins) : `${mins} 鍒嗛挓`;
-const minsLabelRow = locale === 'en' ? SITE_EN.readingMins(mins) : `${mins} 鍒嗛挓闃呰`;
+const title = d.cardTitle ?? d.title;
 ---
 {variant === 'card' ? (
   <article class="acard">
@@ -27,9 +21,9 @@ const minsLabelRow = locale === 'en' ? SITE_EN.readingMins(mins) : `${mins} 鍒嗛
     </a>
     <div class="acard__body">
       <div class="meta"><a class="tag" href={catHref}>{catName}</a></div>
-      <H class="acard__title"><a href={href}>{d.cardTitle ?? d.title}</a></H>
+      <H class="acard__title"><a href={href}>{title}</a></H>
       <p class="acard__desc">{d.cardDescription ?? d.description}</p>
-      <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">路</span><span><Icon name="clock" size={14} /> {minsLabel}</span></div>
+      <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">路</span><span><Icon name="clock" size={14} /> {t.minsShort(mins)}</span></div>
     </div>
   </article>
 ) : (
@@ -39,9 +33,9 @@ const minsLabelRow = locale === 'en' ? SITE_EN.readingMins(mins) : `${mins} 鍒嗛
     </a>
     <div class="arow__body">
       <div class="meta"><a class="tag" href={catHref}>{catName}</a></div>
-      <H class="arow__title"><a href={href} title={d.cardTitle ?? d.title}>{d.cardTitle ?? d.title}</a></H>
+      <H class="arow__title"><a href={href} title={title}>{title}</a></H>
       <p class="arow__desc">{d.cardDescription ?? d.description}</p>
-      <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">路</span><span>{minsLabelRow}</span></div>
+      <div class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time><span class="dot">路</span><span>{t.minsLong(mins)}</span></div>
     </div>
   </article>
 )}

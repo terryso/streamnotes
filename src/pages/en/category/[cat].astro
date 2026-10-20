@@ -1,45 +1,9 @@
 ---
-import Base from '../../../layouts/Base.astro';
-import Sidebar from '../../../components/Sidebar.astro';
-import ArticleCard from '../../../components/ArticleCard.astro';
-import LeadBand from '../../../components/LeadBand.astro';
+import CategoryPage from '../../../components/pages/CategoryPage.astro';
 import { CATEGORIES } from '../../../consts';
-import { getArticlesEn } from '../../../lib/articles';
-import { SITE_EN, categoryLabel, categoryPath, homePath } from '../../../lib/i18n';
-
 export function getStaticPaths() {
   return Object.keys(CATEGORIES).map((cat) => ({ params: { cat } }));
 }
 const { cat } = Astro.params as { cat: keyof typeof CATEGORIES };
-const c = categoryLabel(cat, 'en');
-const posts = (await getArticlesEn()).filter((e) => e.data.category === cat);
-const site = Astro.site!.toString();
-const jsonLd = [
-  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
-    { '@type': 'ListItem', position: 1, name: SITE_EN.breadcrumbHome, item: new URL(homePath('en'), Astro.site).toString() },
-    { '@type': 'ListItem', position: 2, name: c.name, item: new URL(categoryPath(cat, 'en'), Astro.site).toString() },
-  ] },
-  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: c.desc, inLanguage: 'en' },
-];
 ---
-<Base locale="en" title={c.name} description={c.desc} jsonLd={jsonLd} campaign={`en-category-${cat}`}
-  hreflangZh={`/category/${cat}/`} hreflangEn={categoryPath(cat, 'en')}>
-  <section class="pagehead">
-    <div class="container">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <ol><li><a href={homePath('en')}>{SITE_EN.breadcrumbHome}</a></li><li aria-current="page">{c.name}</li></ol>
-      </nav>
-      <h1>{c.name}</h1>
-      <p>{c.desc}</p>
-    </div>
-  </section>
-  <section class="section container">
-    <div class="layout">
-      <div class="alist">
-        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={2} locale="en" />) : <p class="empty">{SITE_EN.emptyCategory}</p>}
-      </div>
-      <Sidebar campaign={`en-category-${cat}`} locale="en" />
-    </div>
-  </section>
-  <LeadBand campaign={`en-category-${cat}`} locale="en" />
-</Base>
+<CategoryPage cat={cat} locale="en" />

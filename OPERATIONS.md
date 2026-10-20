@@ -8,7 +8,10 @@
 src/consts.ts                 站点名称、栏目、保利威 CTA 链接与 UTM 函数、选型清单链接（CHECKLIST_URL）、GA4/GSC 变量
 src/content/articles/*.md     中文文章（一篇一个 Markdown，文件名即 slug → /articles/<slug>/）
 src/content/articles-en/*.md  英文 twin（同 slug → /en/articles/<slug>/）
-src/pages/en/                 英文首页、栏目、文章、about、search
+src/pages/en/                 英文孪生路由（首页、栏目、文章、关于、图片版权、搜索、404、RSS）
+src/components/pages/         中英共用的页面模板（按 locale 渲染）
+src/lib/i18n.ts               全站界面文案字典、路径与孪生页工具
+scripts/crawl-check.py        发布后的双语抓取检查
 src/layouts/Base.astro        <head>（meta / canonical / hreflang / OG / JSON-LD / GA4 / GSC）、页头页脚
 src/components/Cta.astro      文末 CTA（免费试用 / 联系方案顾问）
 src/components/Sidebar.astro  侧边栏（CTA、目录、热门文章、标签）
@@ -53,15 +56,15 @@ related: [other-slug]          # 可选，手动指定相关阅读；不足 4 �
 
 文中 CTA、文末 CTA、侧边栏、页脚自动生成，自动生成，无需手动添加，规则见第 5 节。
 
-### 1.1 英文版（English twin）
+### 1.1 中英双语（全站）
 
-- 中文仍是默认站：`/articles/<slug>/`。英文对应页：`/en/articles/<slug>/`（同一 conceptual slug）。
-- 新文章：在 `src/content/articles/` 写中文后，尽量同步在 `src/content/articles-en/` 放同名 Markdown（同一 frontmatter 结构，正文为英文技术文）。配图复用 `images.json` 里同一 slug；可为 cover/inline 加 `altEn` / `captionEn`。
-- 路由与 chrome：`src/pages/en/**`、`locale` prop on Base / cards / CTA / sidebar。有中英双份时文章页与头栏会出语言切换。
-- 不要求一夜之间全站双语；存量中文可暂不翻译。首页英文列表目前只展示已有 EN 文。
-- 中立性：英文版同样不得出现“本站由保利威赞助/支持/运营”等表述。
-- 自动发布例行：此后新文应尽量同时产出 EN twin（人工或流水线），不要只发中文。
-
+- 全站双语：每个中文页面都有英文孪生页，路径规则为 `/<path>` ↔ `/en/<path>`（文章 `/articles/<slug>/` ↔ `/en/articles/<slug>/`，栏目、关于、图片版权、搜索、404、RSS 同理）。页头、移动端栏目条、页脚、文章标签行都有语言切换，直接跳到孪生页。
+- 内容：中文在 `src/content/articles/`，英文在 `src/content/articles-en/`，**同名同 slug**，frontmatter 结构相同（title/description/tags/tldr/faq/sources/related/promo/cardTitle/cardDescription 全部翻译）。英文正文里的站内链接写 `/en/articles/...`。
+- 配图：复用 `images.json` 的同一 slug，每张图都要补 `altEn`（封面、插图、site 图）和 `captionEn`（插图）。
+- 界面文案：全部在 `src/lib/i18n.ts` 的 `UI.zh` / `UI.en` 字典里；页面模板在 `src/components/pages/`（Home / CategoryPage / ArticlePage / About / Credits / Search / NotFound），`src/pages/` 与 `src/pages/en/` 只是传入 `locale` 的薄路由。
+- **自动发布例行（必须）**：每篇新中文文章必须同时发布英文孪生（同 slug）。缺英文版时构建会打印 `[i18n] ... has no en twin` 警告，切换按钮回退到英文首页、hreflang 只指向自身，但这只是兜底，不应长期存在。
+- 发布后运行 `python3 scripts/crawl-check.py`：抓取 sitemap 中所有中英 URL（另含搜索、RSS、llms 文件），检查 200、hreflang 成对、canonical、html lang / og:locale、切换链接指向孪生页且为 200、英文页无残留中文 UI（白名单：流媒笔记、中文），以及中英 404。全部通过才算发布完成。
+- 中立性：英文版同样不得出现“本站由保利威赞助/支持/运营”等表述；软广文章（`promo: true`）英文版保留同样的软广属性和中性 cardTitle。
 
 ## 2. 部署（当前：Workers Static Assets 直传）
 

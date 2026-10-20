@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ui, type Locale } from '../../lib/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui(locale);
+const n = t.siteName;
+---
+<Base locale={locale} title={t.aboutTitle} description={t.aboutDesc} campaign={locale === 'en' ? 'en-about' : 'about'}>
+  <section class="section container"><article class="article prose-page">
+    {locale === 'zh' ? (
+      <>
+        <h1>关于{n}</h1>
+        <p>{n}是一个聚焦直播与视频点播（VOD）技术的中文内容站，面向企业技术负责人、产品经理与培训、市场运营团队，分享协议与架构原理、平台选型方法、行业落地实践与趋势观察。</p>
+        <p>本站全部文章提供中英双语版本，可通过页面顶部的语言切换在两种语言间对照阅读。</p>
+        <h2>编辑原则</h2>
+        <ul>
+          <li>技术内容以公开标准、官方文档为依据，并在文末列出参考资料。</li>
+          <li>不发布无法核实的统计数据，不贬低任何具体厂商。</li>
+          <li>保持独立：本站不由任何厂商赞助或运营；部分页面的“免费试用”“预约咨询”按钮会跳转至第三方厂商官网。</li>
+        </ul>
+      </>
+    ) : (
+      <>
+        <h1>About {n}</h1>
+        <p>{n} ({t.siteNameAlt}) is a publication focused on live streaming and video-on-demand (VOD) technology. We write for enterprise technology leads, product managers, and training and marketing teams, covering protocol and architecture fundamentals, platform selection methods, real-world industry practice, and market trends.</p>
+        <p>Every article is available in both Chinese and English. Use the language switch at the top of any page to move between the two editions.</p>
+        <h2>Editorial principles</h2>
+        <ul>
+          <li>Technical content is grounded in public standards and official documentation, with sources listed at the end of each article.</li>
+          <li>We do not publish statistics we cannot verify, and we do not disparage any specific vendor.</li>
+          <li>Independence: this site is not sponsored or operated by any vendor. On some pages, “free trial” and “book a consultation” buttons link to a third-party vendor’s website.</li>
+        </ul>
+      </>
+    )}
+  </article></section>
+</Base>

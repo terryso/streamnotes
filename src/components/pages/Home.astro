@@ -1,0 +1,109 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../Sidebar.astro';
+import ArticleCard from '../ArticleCard.astro';
+import LeadBand from '../LeadBand.astro';
+import Icon from '../Icon.astro';
+import { CATEGORIES, POLYV_TRIAL, utm } from '../../consts';
+import { ui, categoryLabel, categoryPath, pagePath, scenarios, type Locale } from '../../lib/i18n';
+import { getArticlesFor, imagesFor, siteImages, imgAlt } from '../../lib/articles';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui(locale);
+const campaign = locale === 'en' ? 'en-home' : 'home';
+const posts = await getArticlesFor(locale);
+const latest = posts.slice(0, 4);
+const hero = siteImages.hero;
+const band = siteImages.band;
+const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
+const counts = Object.fromEntries(catKeys.map((k) => [k, posts.filter((p) => p.data.category === k).length]));
+const searchHref = pagePath('/search/', locale);
+---
+<Base locale={locale} campaign={campaign} preloadImage={hero.src900}>
+  <section class="hero">
+    <picture class="hero__bg">
+      <source media="(max-width: 700px)" srcset={hero.src900} />
+      <img src={hero.src} alt={imgAlt(hero, locale)} width={hero.w} height={hero.h} fetchpriority="high" decoding="async" />
+    </picture>
+    <div class="container hero__inner">
+      <span class="eyebrow eyebrow--light">{t.heroEyebrow}</span>
+      <h1>{t.homeTitle(t.siteName, t.tagline)}</h1>
+      <p>{t.heroLead}</p>
+      <div class="hero__actions">
+        <a class="btn btn-primary btn-lg" href="#all">{t.heroBrowse} <Icon name="arrow" size={18} /></a>
+        <a class="btn btn-ghost-light btn-lg" href={utm(POLYV_TRIAL, campaign, 'hero')} target="_blank" rel="noopener sponsored">{t.heroTrial}</a>
+      </div>
+      <ul class="hero__stats" aria-label={t.statsAria}>
+        {catKeys.map((k) => <li><a href={categoryPath(k, locale)}><strong>{counts[k]}</strong><span>{categoryLabel(k, locale).name}</span></a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="latest-h">
+    <div class="section-head">
+      <h2 id="latest-h">{t.latest}</h2>
+      <a class="more" href="#all">{t.viewAll} <Icon name="arrow" size={16} /></a>
+    </div>
+    <div class="grid4">{latest.map((p, i) => <ArticleCard entry={p} eager={i < 2} locale={locale} />)}</div>
+  </section>
+
+  <section class="caseband" aria-labelledby="case-h">
+    <img class="caseband__bg" src={band.src} alt="" width={band.w} height={band.h} loading="lazy" decoding="async" />
+    <div class="container">
+      <div class="section-head section-head--light">
+        <div>
+          <span class="eyebrow eyebrow--light">{t.caseEyebrow}</span>
+          <h2 id="case-h">{t.caseTitle}</h2>
+        </div>
+        <p class="caseband__lead">{t.caseLead}</p>
+      </div>
+      <div class="casegrid">
+        {scenarios(locale).map((s) => {
+          const img = imagesFor(s.image);
+          return (
+            <a class="casecard" href={s.href}>
+              {img && <img src={img.cover.src800} alt="" width="800" height="450" loading="lazy" decoding="async" />}
+              <span class="casecard__shade" />
+              <span class="casecard__text"><strong>{s.name}</strong><span>{s.desc}</span></span>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section container" aria-labelledby="tags-h">
+    <div class="section-head"><h2 id="tags-h">{t.hotTagsTitle}</h2></div>
+    <div class="tags tags--lg">{t.hotTags.map((tag) => <a class="chip chip--lg" href={`${searchHref}?q=${encodeURIComponent(tag)}`}># {tag}</a>)}</div>
+  </section>
+
+  <LeadBand campaign={campaign} locale={locale} />
+
+  <section class="section container" id="all" aria-labelledby="all-h">
+    <div class="layout">
+      <div>
+        <div class="section-head"><h2 id="all-h">{t.allTitle}</h2></div>
+        <div class="tabs" role="tablist" aria-label={t.filterAria}>
+          <button type="button" role="tab" aria-selected="true" data-filter="all">{t.filterAll}</button>
+          {catKeys.map((k) => <button type="button" role="tab" aria-selected="false" data-filter={k}>{categoryLabel(k, locale).name}</button>)}
+        </div>
+        <div class="alist" id="alist">{posts.map((p) => <ArticleCard entry={p} variant="row" locale={locale} />)}</div>
+        <noscript><p>{t.noscriptBrowse}{catKeys.map((k) => <a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name} </a>)}</p></noscript>
+      </div>
+      <Sidebar campaign={campaign} locale={locale} />
+    </div>
+  </section>
+  <script is:inline>
+    (function () {
+      var tabs = document.querySelectorAll('.tabs [data-filter]');
+      var rows = document.querySelectorAll('#alist .arow');
+      tabs.forEach(function (t) {
+        t.addEventListener('click', function () {
+          var f = t.getAttribute('data-filter');
+          tabs.forEach(function (x) { x.setAttribute('aria-selected', x === t ? 'true' : 'false'); });
+          rows.forEach(function (r) { r.hidden = !(f === 'all' || r.getAttribute('data-category') === f); });
+        });
+      });
+    })();
+  </script>
+</Base>

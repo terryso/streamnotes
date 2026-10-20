@@ -30,10 +30,11 @@ function isArticle(fp) {
 
 function figure(img, en) {
   const c = img.credit || {};
-  const creditLabel = en ? 'Image:' : '图片：';
+  const creditLabel = en ? 'Image: ' : '图片：';
+  const loc = (s) => (en ? String(s || '').replace('rawpixel 公共领域图库', 'rawpixel Public Domain') : s);
   const credit = c.landing
-    ? `${creditLabel}<a href="${esc(c.landing)}" target="_blank" rel="noopener nofollow">${esc(c.creator)}</a> · ${esc(c.source_name || c.source)} · ${esc(c.license)}`
-    : `${creditLabel}${esc(c.creator)} · ${esc(c.license)}`;
+    ? `${creditLabel}<a href="${esc(c.landing)}" target="_blank" rel="noopener nofollow">${esc(loc(c.creator))}</a> · ${esc(loc(c.source_name || c.source))} · ${esc(c.license)}`
+    : `${creditLabel}${esc(loc(c.creator))} · ${esc(c.license)}`;
   const caption = en && img.captionEn ? img.captionEn : (img.caption || '');
   const alt = en && img.altEn ? img.altEn : (img.alt || '');
   return `<figure class="figure"><img src="${img.src}" alt="${esc(alt)}" width="${img.w}" height="${img.h}" loading="lazy" decoding="async" /><figcaption>${esc(caption)}<span class="credit">${credit}</span></figcaption></figure>`;
@@ -41,7 +42,7 @@ function figure(img, en) {
 
 function midCta(slug, en) {
   if (en) {
-    return `<aside class="cta-inline" aria-label="Next steps"><div class="cta-inline__text"><span class="eyebrow">Enterprise video</span><strong>Want to try this in your own scenario?</strong><p>Open a free trial account to exercise live streaming, VOD, interaction, and video encryption on a real setup.</p></div><div class="cta-inline__actions"><a class="btn btn-primary" href="${utm(POLYV_TRIAL, 'en-' + slug, 'article_mid')}" target="_blank" rel="noopener">Free trial</a><a class="btn btn-ghost" href="${utm(POLYV_CONTACT, 'en-' + slug, 'article_mid', '#contact-us')}" target="_blank" rel="noopener">Talk to an advisor</a></div></aside>`;
+    return `<aside class="cta-inline" aria-label="Next steps"><div class="cta-inline__text"><span class="eyebrow">Enterprise video</span><strong>Want to test this in your own scenario?</strong><p>You can open a free POLYV account and try live streaming, VOD, interaction, and video encryption hands-on.</p></div><div class="cta-inline__actions"><a class="btn btn-primary" href="${utm(POLYV_TRIAL, 'en-' + slug, 'article_mid')}" target="_blank" rel="noopener sponsored">Start a free trial</a><a class="btn btn-ghost" href="${utm(POLYV_CONTACT, 'en-' + slug, 'article_mid', '#contact-us')}" target="_blank" rel="noopener sponsored">Talk to an advisor</a></div></aside>`;
   }
   return `<aside class="cta-inline" aria-label="方案咨询"><div class="cta-inline__text"><span class="eyebrow">企业视频方案</span><strong>想在自己的业务场景里实测一下？</strong><p>保利威（POLYV）可免费开通账号，可直接体验直播、点播、互动与视频加密等功能。</p></div><div class="cta-inline__actions"><a class="btn btn-primary" href="${utm(POLYV_TRIAL, slug, 'article_mid')}" target="_blank" rel="noopener sponsored">免费开通试用</a><a class="btn btn-ghost" href="${utm(POLYV_CONTACT, slug, 'article_mid', '#contact-us')}" target="_blank" rel="noopener sponsored">联系方案顾问</a></div></aside>`;
 }

@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import { ui, pagePath, type Locale } from '../../lib/i18n';
+interface Props { locale: Locale }
+const { locale } = Astro.props;
+const t = ui(locale);
+const searchHref = pagePath('/search/', locale);
+const cfg = { lang: locale, found: t.searchFound, allTpl: t.searchAll };
+---
+<Base locale={locale} title={t.searchTitle} description={t.searchDesc} campaign={locale === 'en' ? 'en-search' : 'search'} noindex>
+  <section class="pagehead">
+    <div class="container">
+      <h1>{t.searchTitle}</h1>
+      <form class="bigsearch" action={searchHref} method="get" role="search">
+        <label class="sr-only" for="q">{t.searchInputLabel}</label>
+        <input id="q" name="q" type="search" placeholder={t.searchBigPlaceholder} autocomplete="off" />
+        <button class="btn btn-primary" type="submit">{t.searchButton}</button>
+      </form>
+      <div class="tags">{t.hotTags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`}>{tag}</a>)}</div>
+    </div>
+  </section>
+  <section class="section container">
+    <p id="status" class="search-status" aria-live="polite"></p>
+    <div id="results" class="alist"></div>
+  </section>
+  <script is:inline define:vars={{ cfg }}>
+    (function () {
+      var q = new URLSearchParams(location.search).get('q') || '';
+      var input = document.getElementById('q'); input.value = q;
+      var status = document.getElementById('status'), box = document.getElementById('results');
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      function run(data, q) {
+        var terms = q.toLowerCase().split(/\s+/).filter(Boolean);
+        var res = data.map(function (a) {
+          var hay = (a.t + ' ' + a.d + ' ' + a.g.join(' ') + ' ' + a.c).toLowerCase(), body = a.k.toLowerCase(), s = 0;
+          terms.forEach(function (t) { if (hay.indexOf(t) >= 0) s += 3; if (body.indexOf(t) >= 0) s += 1; if (hay.indexOf(t) < 0 && body.indexOf(t) < 0) s -= 100; });
+          return { a: a, s: s };
+        }).filter(function (x) { return !terms.length || x.s > 0; }).sort(function (x, y) { return y.s - x.s; });
+        status.textContent = terms.length ? cfg.found.replace('{q}', q).replace('{n}', res.length) : cfg.allTpl.replace('{n}', res.length);
+        box.innerHTML = res.map(function (x) { var a = x.a; return '<article class="arow"><a class="arow__media" href="' + a.u + '" tabindex="-1" aria-hidden="true">' + (a.i ? '<img src="' + a.i + '" alt="" width="800" height="450" loading="lazy">' : '') + '</a><div class="arow__body"><div class="meta"><span class="tag">' + esc(a.c) + '</span></div><h2 class="arow__title"><a href="' + a.u + '" title="' + esc(a.t) + '">' + esc(a.t) + '</a></h2><p class="arow__desc">' + esc(a.d) + '</p></div></article>'; }).join('');
+      }
+      fetch('/search.json').then(function (r) { return r.json(); }).then(function (d) { run(d.filter(function (a) { return a.lang === cfg.lang; }), q); });
+    })();
+  </script>
+</Base>

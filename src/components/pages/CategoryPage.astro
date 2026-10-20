@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Sidebar from '../Sidebar.astro';
+import ArticleCard from '../ArticleCard.astro';
+import LeadBand from '../LeadBand.astro';
+import { CATEGORIES } from '../../consts';
+import { getArticlesFor } from '../../lib/articles';
+import { ui, categoryLabel, categoryPath, homePath, type Locale } from '../../lib/i18n';
+interface Props { cat: keyof typeof CATEGORIES; locale: Locale }
+const { cat, locale } = Astro.props;
+const t = ui(locale);
+const c = categoryLabel(cat, locale);
+const posts = (await getArticlesFor(locale)).filter((e) => e.data.category === cat);
+const campaign = `${locale === 'en' ? 'en-' : ''}category-${cat}`;
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: t.crumbHome, item: new URL(homePath(locale), Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: c.name, item: new URL(categoryPath(cat, locale), Astro.site).toString() },
+  ] },
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: c.desc, inLanguage: t.htmlLang },
+];
+---
+<Base locale={locale} title={c.name} description={c.desc} jsonLd={jsonLd} campaign={campaign}>
+  <section class="pagehead">
+    <div class="container">
+      <nav class="breadcrumb" aria-label={t.crumbAria}><ol><li><a href={homePath(locale)}>{t.crumbHome}</a></li><li aria-current="page">{c.name}</li></ol></nav>
+      <h1>{c.name}</h1>
+      <p>{c.desc}</p>
+    </div>
+  </section>
+  <section class="section container">
+    <div class="layout">
+      <div class="alist">
+        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={2} locale={locale} />) : <p class="empty">{t.emptyCategory}</p>}
+      </div>
+      <Sidebar campaign={campaign} locale={locale} />
+    </div>
+  </section>
+  <LeadBand campaign={campaign} locale={locale} />
+</Base>

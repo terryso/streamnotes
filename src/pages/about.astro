@@ -1,16 +1,4 @@
 ---
-import Base from '../layouts/Base.astro';
-import { SITE_NAME } from '../consts';
+import About from '../components/pages/About.astro';
 ---
-<Base title="关于本站" description={`关于${SITE_NAME}：内容定位、编辑原则与中立声明。`} campaign="about">
-  <section class="section container"><article class="article prose-page">
-    <h1>关于{SITE_NAME}</h1>
-    <p>{SITE_NAME}是一个聚焦直播与视频点播（VOD）技术的中文内容站，面向企业技术负责人、产品经理与培训、市场运营团队，分享协议与架构原理、平台选型方法、行业落地实践与趋势观察。</p>
-    <h2>编辑原则</h2>
-    <ul>
-      <li>技术内容以公开标准、官方文档为依据，并在文末列出参考资料。</li>
-      <li>不发布无法核实的统计数据，不贬低任何具体厂商。</li>
-      <li>保持独立：本站不由任何厂商赞助或运营；部分页面的“免费试用”“预约咨询”按钮会跳转至第三方厂商官网。</li>
-    </ul>
-  </article></section>
-</Base>
+<About locale="zh" />

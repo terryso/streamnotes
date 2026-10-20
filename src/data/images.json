@@ -5,6 +5,7 @@
     "w": 1600,
     "h": 900,
     "alt": "夜晚城市道路上的车流光轨，象征高速传输的数据流",
+    "altEn": "Light trails of traffic on a city road at night, evoking fast-moving data",
     "credit": {
      "creator": "Rich Lock richlock",
      "source": "wikimedia",
@@ -23,7 +24,9 @@
      "w": 1024,
      "h": 779,
      "alt": "架设在三脚架上的专业摄像机与监视器",
+     "altEn": "Professional video camera and monitor mounted on a tripod",
      "caption": "直播链路从采集端开始，每个环节都会叠加延迟",
+     "captionEn": "The live pipeline starts at capture, and every stage adds latency",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -39,7 +42,9 @@
      "w": 1024,
      "h": 683,
      "alt": "机房配线架上密集排布的网线",
+     "altEn": "Dense network cabling on a server-room patch panel",
      "caption": "CDN 分发与回源链路同样影响首屏与延迟",
+     "captionEn": "CDN delivery and origin fetches also affect startup time and latency",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -58,6 +63,7 @@
     "w": 1600,
     "h": 900,
     "alt": "暗色环境中带蓝色背光的键盘特写",
+    "altEn": "Close-up of a blue-backlit keyboard in a dark room",
     "credit": {
      "creator": "Anas Alshanti otenteko",
      "source": "wikimedia",
@@ -76,7 +82,9 @@
      "w": 1024,
      "h": 683,
      "alt": "放在笔记本键盘上的两把挂锁",
+     "altEn": "Two padlocks resting on a laptop keyboard",
      "caption": "加密只是第一层，密钥下发鉴权才是关键",
+     "captionEn": "Encryption is only the first layer; authenticated key delivery is what really matters",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -92,7 +100,9 @@
      "w": 1024,
      "h": 576,
      "alt": "蓝色灯光照明的数据中心机柜通道",
+     "altEn": "Data-center rack aisle lit in blue",
      "caption": "源文件存储与转码服务应部署在受控环境中",
+     "captionEn": "Source storage and transcoding should run in a controlled environment",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -111,6 +121,7 @@
     "w": 1600,
     "h": 900,
     "alt": "明亮的会议室，白色长桌与墙面白板",
+    "altEn": "Bright meeting room with a long white table and a wall whiteboard",
     "credit": {
      "creator": "Breather breather",
      "source": "wikimedia",
@@ -129,7 +140,9 @@
      "w": 960,
      "h": 640,
      "alt": "贴满便利贴的项目规划白板",
+     "altEn": "Project-planning whiteboard covered in sticky notes",
      "caption": "先梳理场景优先级，再进入平台评估",
+     "captionEn": "Prioritize your scenarios before you evaluate platforms",
      "credit": {
       "creator": "Startup Stock Photos",
       "source": "stocksnap",
@@ -145,7 +158,9 @@
      "w": 960,
      "h": 641,
      "alt": "两人在笔记本电脑旁记录与讨论",
+     "altEn": "Two people taking notes and talking beside a laptop",
      "caption": "跨部门参与试用与验收，能减少上线后的返工",
+     "captionEn": "Cross-functional trials and sign-off reduce rework after launch",
      "credit": {
       "creator": "Helloquence",
       "source": "stocksnap",
@@ -164,6 +179,7 @@
     "w": 1600,
     "h": 900,
     "alt": "简洁明亮的白色办公与培训空间",
+    "altEn": "Clean, bright white office and training space",
     "credit": {
      "creator": "Breather breather",
      "source": "wikimedia",
@@ -182,7 +198,9 @@
      "w": 960,
      "h": 640,
      "alt": "笔记本电脑屏幕上显示数据图表，旁边放着咖啡",
+     "altEn": "Laptop showing data charts next to a cup of coffee",
      "caption": "课后学习数据是评估培训效果的基础",
+     "captionEn": "Post-session learning data is the foundation for evaluating training impact",
      "credit": {
       "creator": "Negative Space",
       "source": "stocksnap",
@@ -198,7 +216,9 @@
      "w": 1024,
      "h": 797,
      "alt": "摆放整齐的电脑培训教室",
+     "altEn": "Neatly arranged computer training classroom",
      "caption": "线下培训的组织经验同样适用于线上直播课",
+     "captionEn": "What works for organizing in-person training also applies to live online sessions",
      "credit": {
       "creator": "Carol M Highsmith",
       "source": "rawpixel",
@@ -217,6 +237,7 @@
     "w": 1600,
     "h": 900,
     "alt": "黑白螺旋状的抽象建筑结构",
+    "altEn": "Abstract black-and-white spiral architectural structure",
     "credit": {
      "creator": "Samuel Zeller samuelzeller",
      "source": "wikimedia",
@@ -235,7 +256,9 @@
      "w": 1024,
      "h": 679,
      "alt": "电路板芯片与元器件微距特写",
+     "altEn": "Macro shot of chips and components on a circuit board",
      "caption": "AI 能力正在成为视频平台的基础设施",
+     "captionEn": "AI capabilities are becoming core video-platform infrastructure",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -251,7 +274,9 @@
      "w": 1024,
      "h": 683,
      "alt": "屏幕上滚动的程序代码",
+     "altEn": "Program code scrolling on a screen",
      "caption": "字幕、摘要与审核等能力多通过 API 集成到业务系统",
+     "captionEn": "Captions, summaries, and moderation are usually wired into business systems via APIs",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -270,6 +295,7 @@
     "w": 1600,
     "h": 900,
     "alt": "仰视角度下的玻璃幕墙高层写字楼",
+    "altEn": "Glass-curtain-wall office tower seen from below",
     "credit": {
      "creator": "Sean Pollock",
      "source": "wikimedia",
@@ -288,7 +314,9 @@
      "w": 1024,
      "h": 680,
      "alt": "整齐排列的服务器机柜通道",
+     "altEn": "Aisle of neatly aligned server racks",
      "caption": "私有化部署意味着视频平台运行在机构自有环境中",
+     "captionEn": "Private deployment means the video platform runs in the organization's own environment",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -304,7 +332,9 @@
      "w": 1024,
      "h": 683,
      "alt": "配线架上整齐排布的蓝色网线",
+     "altEn": "Neatly routed blue network cables on a patch panel",
      "caption": "与内网系统集成需要提前规划网络与权限",
+     "captionEn": "Integrating with intranet systems means planning network access and permissions up front",
      "credit": {
       "creator": "rawpixel 公共领域图库",
       "source": "rawpixel",
@@ -323,6 +353,7 @@
     "w": 1600,
     "h": 900,
     "alt": "紫色灯光下的桌面直播工作台与显示器",
+    "altEn": "Desktop streaming setup and monitors under purple light",
     "credit": {
      "creator": "Redd Angelo reddangelo16",
      "source": "wikimedia",
@@ -341,7 +372,9 @@
      "w": 960,
      "h": 640,
      "alt": "三脚架上的相机，取景屏亮起",
+     "altEn": "Camera on a tripod with its viewfinder screen lit",
      "caption": "画面清晰度取决于码率、分辨率与编码器的匹配",
+     "captionEn": "Picture clarity depends on matching bitrate, resolution, and encoder",
      "credit": {
       "creator": "Kaique Rocha",
       "source": "stocksnap",
@@ -357,7 +390,9 @@
      "w": 960,
      "h": 640,
      "alt": "直播桌面上的电容麦克风",
+     "altEn": "Condenser microphone on a streaming desk",
      "caption": "清晰的声音往往比高清画面更影响观看体验",
+     "captionEn": "Clear audio often matters more to viewers than an HD picture",
      "credit": {
       "creator": "Maciej Korsan",
       "source": "stocksnap",
@@ -376,6 +411,7 @@
     "w": 1600,
     "h": 900,
     "alt": "面向舞台的空会议室，成排座椅整齐摆放",
+    "altEn": "Empty conference room facing a stage, with neat rows of chairs",
     "credit": {
      "creator": "Nilo Velez",
      "source": "wordpress",
@@ -395,7 +431,9 @@
      "w": 683,
      "h": 1024,
      "alt": "笔记本电脑屏幕上的源代码编辑界面",
+     "altEn": "Source-code editor on a laptop screen",
      "caption": "低代码与 API 让直播能力可以嵌进自有产品",
+     "captionEn": "Low-code tools and APIs let you embed live streaming in your own product",
      "credit": {
       "creator": "markus spiske",
       "source": "flickr",
@@ -411,7 +449,9 @@
      "w": 1200,
      "h": 800,
      "alt": "面向讲台的空会议厅，棕色座椅成排排列",
+     "altEn": "Empty hall facing a podium, with rows of brown seats",
      "caption": "活动直播常需要把报名、观看与会后跟进串成一条路径",
+     "captionEn": "Event livestreams often chain registration, viewing, and follow-up into one journey",
      "credit": {
       "creator": "Nilo Velez",
       "source": "wordpress",
@@ -490,6 +530,7 @@
    "w": 2000,
    "h": 1125,
    "alt": "暗色背景中的两台摄像机剪影",
+   "altEn": "Silhouettes of two cameras against a dark background",
    "credit": {
     "creator": "Florian Klauer florianklauer",
     "source": "wikimedia",
@@ -506,6 +547,7 @@
    "w": 1800,
    "h": 599,
    "alt": "深蓝色渐变的舞台灯光背景",
+   "altEn": "Deep-blue gradient stage-lighting background",
    "credit": {
     "creator": "Nilo Velez",
     "source": "wordpress",

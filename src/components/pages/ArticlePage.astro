@@ -1,0 +1,118 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Cta from '../Cta.astro';
+import Sidebar from '../Sidebar.astro';
+import ArticleCard from '../ArticleCard.astro';
+import Icon from '../Icon.astro';
+import { imagesFor, readingMinutes, fmtDate, coverAlt, getArticlesFor, type AnyArticle } from '../../lib/articles';
+import { ui, categoryLabel, articlePath, categoryPath, homePath, pagePath, creditText, type Locale } from '../../lib/i18n';
+interface Props { entry: AnyArticle; all: AnyArticle[]; newer: AnyArticle | null; older: AnyArticle | null; locale: Locale }
+const { entry, all, newer, older, locale } = Astro.props;
+const t = ui(locale);
+const { Content, headings } = await render(entry);
+const d = entry.data;
+const cat = categoryLabel(d.category, locale);
+const site = Astro.site!.toString();
+const url = new URL(articlePath(entry.id, locale), Astro.site).toString();
+const img = imagesFor(entry.id);
+const alt = coverAlt(entry.id, locale);
+const mins = readingMinutes(entry.body);
+const campaign = locale === 'en' ? `en-${entry.id}` : entry.id;
+let related = d.related.map((id) => all.find((a) => a.id === id)).filter(Boolean) as AnyArticle[];
+for (const a of all) { if (related.length >= 3) break; if (a.id !== entry.id && !related.includes(a) && a.data.category === d.category) related.push(a); }
+for (const a of all) { if (related.length >= 3) break; if (a.id !== entry.id && !related.includes(a)) related.push(a); }
+related = related.slice(0, 3);
+const imageUrls = img ? [new URL(img.og, Astro.site).toString(), new URL(img.cover.src, Astro.site).toString()] : [new URL('/og-default.png', Astro.site).toString()];
+const otherLocale: Locale = locale === 'en' ? 'zh' : 'en';
+const hasTwin = (await getArticlesFor(otherLocale)).some((a) => a.id === entry.id);
+if (!hasTwin) console.warn(`[i18n] ${locale} article "${entry.id}" has no ${otherLocale} twin — add src/content/${otherLocale === 'en' ? 'articles-en' : 'articles'}/${entry.id}.md`);
+const twinHref = hasTwin ? articlePath(entry.id, otherLocale) : homePath(otherLocale);
+const jsonLd: object[] = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article', headline: d.title, description: d.description,
+    datePublished: d.pubDate.toISOString(), dateModified: (d.updatedDate ?? d.pubDate).toISOString(),
+    inLanguage: t.htmlLang, mainEntityOfPage: url, url, image: imageUrls,
+    articleSection: cat.name, keywords: d.tags.join(','), timeRequired: `PT${mins}M`,
+    author: { '@type': 'Organization', name: t.author, url: site },
+    publisher: { '@id': site + '#org' },
+    translationOfWork: locale === 'en' && hasTwin ? { '@id': new URL(articlePath(entry.id, 'zh'), Astro.site).toString() } : undefined,
+    workTranslation: locale === 'zh' && hasTwin ? { '@id': new URL(articlePath(entry.id, 'en'), Astro.site).toString() } : undefined,
+    citation: d.sources.map((s) => ({ '@type': 'CreativeWork', name: s.title, url: s.url })),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t.crumbHome, item: new URL(homePath(locale), Astro.site).toString() },
+      { '@type': 'ListItem', position: 2, name: cat.name, item: new URL(categoryPath(d.category, locale), Astro.site).toString() },
+      { '@type': 'ListItem', position: 3, name: d.title, item: url },
+    ],
+  },
+];
+if (d.faq.length) jsonLd.push({ '@context': 'https://schema.org', '@type': 'FAQPage', inLanguage: t.htmlLang, mainEntity: d.faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) });
+const c = img?.cover.credit;
+const searchHref = pagePath('/search/', locale);
+---
+<Base locale={locale} title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={alt} jsonLd={jsonLd} campaign={campaign}
+  publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={categoryPath(d.category, locale)}
+  noTwin={!hasTwin} zhPath={locale === 'en' ? twinHref : undefined} enPath={locale === 'zh' ? twinHref : undefined}>
+  <article class="post">
+    <header class="post-head container">
+      <nav class="breadcrumb" aria-label={t.crumbAria}>
+        <ol><li><a href={homePath(locale)}>{t.crumbHome}</a></li><li><a href={categoryPath(d.category, locale)}>{cat.name}</a></li><li aria-current="page">{t.crumbArticle}</li></ol>
+      </nav>
+      <div class="meta">
+        <a class="tag" href={categoryPath(d.category, locale)}>{cat.name}</a>
+        <a class="lang-chip" href={twinHref} hreflang={t.switchHreflang} lang={t.switchLang} data-lang-switch>{t.switchLabel}</a>
+      </div>
+      <h1>{d.title}</h1>
+      <p class="post-lead">{d.description}</p>
+      <div class="byline">
+        <span class="avatar" aria-hidden="true">{t.avatar}</span>
+        <span class="byline__who"><strong>{t.author}</strong>
+          <span class="meta meta--muted"><time datetime={d.pubDate.toISOString()}>{fmtDate(d.pubDate)}</time>{d.updatedDate && <><span class="dot">·</span><span>{t.updated(fmtDate(d.updatedDate))}</span></>}<span class="dot">·</span><span><Icon name="clock" size={14} /> {t.minsLong(mins)}</span></span>
+        </span>
+      </div>
+    </header>
+    <div class="container layout layout--post">
+      <div class="post-main">
+        {img && (
+          <figure class="post-cover">
+            <picture>
+              <source media="(max-width: 700px)" srcset={img.cover.src800} />
+              <img src={img.cover.src} alt={alt} width={img.cover.w} height={img.cover.h} fetchpriority="high" decoding="async" />
+            </picture>
+            <figcaption><span class="credit">{t.coverCredit}{c?.landing ? <a href={c.landing} target="_blank" rel="noopener nofollow">{creditText(c.creator, locale)}</a> : creditText(c?.creator, locale)} · {c?.license}</span></figcaption>
+          </figure>
+        )}
+        <section class="tldr" aria-label={t.tldrAria}>
+          <h2>{t.tldrTitle}</h2>
+          <ul>{d.tldr.map((x) => <li>{x}</li>)}</ul>
+        </section>
+        <div class="prose"><Content /></div>
+        <Cta campaign={campaign} locale={locale} />
+        {d.faq.length > 0 && (
+          <section class="faq">
+            <h2>{t.faqTitle}</h2>
+            {d.faq.map((f, i) => (<details open={i === 0}><summary>{f.q}</summary><p>{f.a}</p></details>))}
+          </section>
+        )}
+        {d.sources.length > 0 && (
+          <section class="sources">
+            <h2>{t.sourcesTitle}</h2>
+            <ol>{d.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ol>
+          </section>
+        )}
+        <div class="post-tags">{d.tags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`}># {tag}</a>)}</div>
+        <nav class="prevnext" aria-label={t.prevnextAria}>
+          {older ? <a class="prevnext__item" href={articlePath(older.id, locale)} rel="prev"><span>{t.prev}</span><strong>{older.data.cardTitle ?? older.data.title}</strong></a> : <span />}
+          {newer ? <a class="prevnext__item prevnext__item--next" href={articlePath(newer.id, locale)} rel="next"><span>{t.next}</span><strong>{newer.data.cardTitle ?? newer.data.title}</strong></a> : <span />}
+        </nav>
+      </div>
+      <Sidebar campaign={campaign} toc={headings} exclude={entry.id} locale={locale} />
+    </div>
+    <section class="section container related" aria-labelledby="rel-h">
+      <div class="section-head"><h2 id="rel-h">{t.related}</h2></div>
+      <div class="grid3">{related.map((a) => <ArticleCard entry={a} locale={locale} />)}</div>
+    </section>
+  </article>
+</Base>
