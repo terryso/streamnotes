@@ -5,10 +5,16 @@ import Cta from '../Cta.astro';
 import Sidebar from '../Sidebar.astro';
 import ArticleCard from '../ArticleCard.astro';
 import Icon from '../Icon.astro';
+import { isPromoArticle } from '../../consts';
 import { imagesFor, readingMinutes, fmtDate, coverAlt, getArticlesFor, type AnyArticle } from '../../lib/articles';
 import { ui, categoryLabel, articlePath, categoryPath, homePath, pagePath, creditText, type Locale } from '../../lib/i18n';
 interface Props { entry: AnyArticle; all: AnyArticle[]; newer: AnyArticle | null; older: AnyArticle | null; locale: Locale }
-const { entry, all, newer, older, locale } = Astro.props;
+const { entry, all: allArticles, locale } = Astro.props;
+const hidePromo = entry.data.hidePromo;
+// hidePromo pages: drop promo articles from related / prev-next candidates.
+const all = hidePromo ? allArticles.filter((a) => !isPromoArticle(a)) : allArticles;
+let { newer, older } = Astro.props;
+if (hidePromo) { const i = all.findIndex((a) => a.id === entry.id); newer = all[i - 1] ?? null; older = all[i + 1] ?? null; }
 const t = ui(locale);
 const { Content, headings } = await render(entry);
 const d = entry.data;
@@ -52,7 +58,7 @@ if (d.faq.length) jsonLd.push({ '@context': 'https://schema.org', '@type': 'FAQP
 const c = img?.cover.credit;
 const searchHref = pagePath('/search/', locale);
 ---
-<Base locale={locale} title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={alt} jsonLd={jsonLd} campaign={campaign}
+<Base hidePromo={hidePromo} locale={locale} title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={alt} jsonLd={jsonLd} campaign={campaign}
   publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={categoryPath(d.category, locale)}
   noTwin={!hasTwin} zhPath={locale === 'en' ? twinHref : undefined} enPath={locale === 'zh' ? twinHref : undefined}>
   <article class="post">
@@ -89,7 +95,7 @@ const searchHref = pagePath('/search/', locale);
           <ul>{d.tldr.map((x) => <li>{x}</li>)}</ul>
         </section>
         <div class="prose"><Content /></div>
-        <Cta campaign={campaign} locale={locale} />
+        {!hidePromo && <Cta campaign={campaign} locale={locale} />}
         {d.faq.length > 0 && (
           <section class="faq">
             <h2>{t.faqTitle}</h2>
@@ -108,7 +114,7 @@ const searchHref = pagePath('/search/', locale);
           {newer ? <a class="prevnext__item prevnext__item--next" href={articlePath(newer.id, locale)} rel="next"><span>{t.next}</span><strong>{newer.data.cardTitle ?? newer.data.title}</strong></a> : <span />}
         </nav>
       </div>
-      <Sidebar campaign={campaign} toc={headings} exclude={entry.id} locale={locale} />
+      <Sidebar hidePromo={hidePromo} campaign={campaign} toc={headings} exclude={entry.id} locale={locale} />
     </div>
     <section class="section container related" aria-labelledby="rel-h">
       <div class="section-head"><h2 id="rel-h">{t.related}</h2></div>

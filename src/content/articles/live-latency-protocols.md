@@ -3,6 +3,7 @@ title: "直播延迟从哪里来？RTMP、HLS、LL-HLS、WebRTC 低延迟方案�
 description: "从采集、编码、推流、转码、分发到播放，逐段拆解直播延迟的来源，并对比 RTMP、HLS、LL-HLS、WebRTC、SRT 等协议的典型延迟与适用场景，给出降低延迟的实操清单。"
 pubDate: 2026-10-06
 category: tutorial
+hidePromo: true
 tags: [直播延迟, HLS, WebRTC, RTMP, 低延迟直播]
 tldr:
   - "直播延迟是采集、编码、推流、转码、CDN 分发、播放缓冲各环节延迟的叠加，其中“切片+播放缓冲”往往占大头。"

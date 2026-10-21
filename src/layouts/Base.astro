@@ -23,8 +23,11 @@ interface Props {
   enPath?: string;
   /** True when this page has no twin in the other locale (switcher falls back to the other home). */
   noTwin?: boolean;
+  /** Hide every POLYV CTA (header, footer solutions column, tabbar consult). */
+  hidePromo?: boolean;
 }
 const noTwin = Astro.props.noTwin ?? false;
+const hidePromo = Astro.props.hidePromo ?? false;
 const { title, description, ogType = 'website', ogImage = '/og-default.png', ogImageAlt, jsonLd = [], campaign = 'site', publishedTime, modifiedTime, noindex = false, preloadImage, active, locale = 'zh' } = Astro.props;
 const t = ui(locale);
 const isEn = locale === 'en';
@@ -137,7 +140,7 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
           <input id="hsearch-q" name="q" type="search" placeholder={t.searchPlaceholder} autocomplete="off" />
         </form>
         <a class="lang-switch" href={switchHref} hreflang={t.switchHreflang} lang={t.switchLang} aria-label={t.switchAria} data-lang-switch>{t.switchLabel}</a>
-        <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener sponsored">{t.headerTrial}</a>
+        {!hidePromo && <a class="btn btn-primary btn-sm header-cta" href={utm(POLYV_TRIAL, campaign, 'header')} target="_blank" rel="noopener sponsored">{t.headerTrial}</a>}
       </div>
     </div>
     <nav class="subnav" aria-label={t.navTopics}>
@@ -154,8 +157,8 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
     <slot />
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
+  {hidePromo && <style is:inline>{'@media (min-width:1025px){.footer-grid--nopromo{grid-template-columns:minmax(0,1.6fr) repeat(3,minmax(0,1fr))}}'}</style>}<footer class="site-footer">
+    <div class={hidePromo ? 'container footer-grid footer-grid--nopromo' : 'container footer-grid'}>
       <section class="footer-brand">
         <a class="brand brand--light" href={home}><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="14" height="14"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span><span class="brand-name">{t.siteName}</span></a>
         <p>{t.description}</p>
@@ -169,14 +172,14 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
         <h2 class="footer-h">{t.footerHot}</h2>
         <ul>{t.hotTags.slice(0, 5).map((tag) => <li><a href={`${searchHref}?q=${encodeURIComponent(tag)}`}>{tag}</a></li>)}</ul>
       </section>
-      <section>
+      {!hidePromo && (<section>
         <h2 class="footer-h">{t.footerSolutions}</h2>
         <ul>
           <li><a href={utm(POLYV_TRIAL, campaign, 'footer')} target="_blank" rel="noopener sponsored">{t.footerTrial}</a></li>
           <li><a href={utm(POLYV_CONTACT, campaign, 'footer', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">{t.footerContact}</a></li>
           <li>{t.phone(POLYV_PHONE)}</li>
         </ul>
-      </section>
+      </section>)}
       <section>
         <h2 class="footer-h">{t.footerAbout}</h2>
         <ul>
@@ -193,7 +196,9 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
     <a href={home} aria-current={path === home ? 'page' : undefined}><Icon name="home" /><span>{t.tabHome}</span></a>
     <a href={categoryPath('tutorial', locale)} aria-current={path.includes('/category/') ? 'page' : undefined}><Icon name="grid" /><span>{t.tabTopics}</span></a>
     <a href={searchHref} aria-current={path.includes('/search/') ? 'page' : undefined}><Icon name="search" /><span>{t.tabSearch}</span></a>
-    <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored" class="tabbar__cta"><Icon name="chat" /><span>{t.tabConsult}</span></a>
+    {hidePromo
+      ? <a href={aboutHref} aria-current={isActive(aboutHref) ? 'page' : undefined}><Icon name="menu" /><span>{t.navAbout}</span></a>
+      : <a href={utm(POLYV_CONTACT, campaign, 'tabbar', POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored" class="tabbar__cta"><Icon name="chat" /><span>{t.tabConsult}</span></a>}
   </nav>
 </body>
 </html>

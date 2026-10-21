@@ -140,6 +140,7 @@ npm run deploy
 - 免费试用：`https://my.polyv.net/v3/register/`；方案咨询：`https://www.polyv.net/company/#contact-us`；电话 400-638-8883。修改请改 `src/consts.ts` 的 `POLYV_TRIAL` / `POLYV_CONTACT`（`remark-enhance.mjs` 里另有一份）。
 - UTM：`utm_source=contentsite&utm_medium=<header|hero|leadband|article_mid|article|sidebar|footer|tabbar>&utm_campaign=<文章 slug | home | category-xxx | about …>`。
 - GA4：启用后，上述 CTA 区域内的点击上报自定义事件 `cta_click`（参数 `location`：header / hero / leadband / article_mid / article_end / sidebar / footer / tabbar，以及 link_url、link_text、page_path），可在 GA4 中标记为关键事件。
+- 单篇关闭推广：frontmatter 设 `hidePromo: true`（中英两版都要设）。该页不输出任何保利威 CTA（页头免费试用、文中 CTA、文末 CTA、侧边栏 CTA、页脚“企业视频方案”栏，移动端“咨询”换成“关于”），且相关阅读、上一篇/下一篇、侧边栏热门文章都不链接软广文章（`promo: true` 或 `src/consts.ts` 的 `PROMO_SLUGS`）。其它页面不受影响。当前启用：vod-encryption-guide、enterprise-live-platform-selection、live-latency-protocols、obs-streaming-settings、medical-conference-surgery-live。
 - 发布前检查：`rg -n '支持|赞助|合作方|合作推荐' dist --glob '*.html'` 不应出现关于本站被厂商赞助/支持的表述。
 
 ## 6. 未来 4 周选题日历（12 篇，每周 3 篇；★ = 软广，约 1/5）

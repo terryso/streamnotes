@@ -21,6 +21,10 @@ export const POLYV_CONTACT = 'https://www.polyv.net/company/';
 export const POLYV_CONTACT_HASH = '#contact-us';
 export const POLYV_PHONE = '400-638-8883';
 
+// Soft-promo article slugs (also flagged `promo: true`). Pages with `hidePromo: true` never link to these.
+export const PROMO_SLUGS = ['enterprise-live-apaas', 'private-deployment-polyv'];
+export const isPromoArticle = (a: { id: string; data: { promo?: boolean } }) => !!a.data.promo || PROMO_SLUGS.includes(a.id);
+
 export function utm(base: string, campaign: string, medium = 'article', hash = '') {
   const u = new URL(base);
   u.searchParams.set('utm_source', 'contentsite');

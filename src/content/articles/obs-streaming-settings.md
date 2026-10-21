@@ -3,6 +3,7 @@ title: "OBS 推流参数怎么设：码率、分辨率、关键帧间隔与编�
 description: "面向企业直播和课程直播的 OBS 推流设置指南：如何根据上行带宽确定码率，分辨率和帧率怎么取舍，关键帧间隔为什么建议 2 秒，x264 与硬件编码器（NVENC、QuickSync、AMF、Apple VT）如何选择，以及开播前的检查清单。"
 pubDate: 2026-10-20
 category: tutorial
+hidePromo: true
 tags: [OBS, 推流设置, 码率, 关键帧, 编码器]
 tldr:
   - "先测上行带宽，再定码率：推流总码率（视频+音频）建议不超过稳定上行带宽的 60%~70%，给网络波动留余量。"

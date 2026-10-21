@@ -3,6 +3,7 @@ title: "企业直播平台选型清单：SaaS、aPaaS、PaaS 与私有化部署�
 description: "从业务场景、集成深度、数据安全、并发与稳定性、互动与营销能力、成本六个维度，梳理企业直播平台的选型方法，对比 SaaS、aPaaS、PaaS 与私有化部署四种交付模式。"
 pubDate: 2026-10-10
 category: selection
+hidePromo: true
 tags: [企业直播, 直播平台选型, SaaS, aPaaS, 私有化部署]
 tldr:
   - "先定场景再选平台：培训、营销、会议、带货对互动、权限、数据的要求差异很大。"

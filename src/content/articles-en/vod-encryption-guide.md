@@ -3,6 +3,7 @@ title: "How to Encrypt Video on Demand: A Practical Guide to HLS AES-128, DRM, H
 description: "A systematic look at the four layers of VOD content protection—transport and storage security, HLS AES-128 and SAMPLE-AES, commercial DRM, and URL authentication, hotlink protection, and digital watermarking—with recommended combinations for different businesses."
 pubDate: 2026-10-08
 category: tutorial
+hidePromo: true
 tags: [Video encryption, VOD, DRM, HLS encryption, Hotlink protection, Video watermarking]
 tldr:
   - "No solution is truly screen-recording-proof. The goal of video protection is to raise the cost of piracy and make leaks traceable to their source."

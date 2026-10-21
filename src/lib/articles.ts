@@ -12,7 +12,8 @@ type ImgRec = {
   inline: any[];
 };
 
-const byDate = (a: AnyArticle, b: AnyArticle) => +b.data.pubDate - +a.data.pubDate;
+// Tie-break same-day posts by slug so order is deterministic across builds.
+const byDate = (a: AnyArticle, b: AnyArticle) => +b.data.pubDate - +a.data.pubDate || a.id.localeCompare(b.id);
 
 export async function getArticles(): Promise<Article[]> {
   return (await getCollection('articles', (e) => !e.data.draft)).sort(byDate) as Article[];

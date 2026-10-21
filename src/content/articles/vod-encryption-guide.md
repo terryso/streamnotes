@@ -3,6 +3,7 @@ title: "视频点播加密怎么做：HLS AES-128、DRM、防盗链与水印实�
 description: "系统梳理视频点播（VOD）内容保护的四层防线：传输与存储加密、HLS AES-128 与 SAMPLE-AES、商业 DRM、URL 鉴权防盗链与数字水印，并给出不同业务的组合建议。"
 pubDate: 2026-10-08
 category: tutorial
+hidePromo: true
 tags: [视频加密, 点播, DRM, HLS加密, 防盗链, 视频水印]
 tldr:
   - "没有“绝对防录屏”的方案，视频保护的目标是提高盗用成本，并能在泄露后追溯来源。"

@@ -3,6 +3,7 @@ title: "Where Does Live Streaming Latency Come From? RTMP, HLS, LL-HLS, and WebR
 description: "A stage-by-stage breakdown of live streaming latency—capture, encoding, ingest, transcoding, delivery, and playback—with a comparison of typical latency and use cases for RTMP, HLS, LL-HLS, WebRTC, and SRT, plus a practical checklist for reducing delay."
 pubDate: 2026-10-06
 category: tutorial
+hidePromo: true
 tags: [Live latency, HLS, WebRTC, RTMP, Low latency]
 tldr:
   - "Live latency is the sum of delays from capture, encoding, ingest, transcoding, CDN delivery, and player buffering. Segmenting plus player buffering is usually the biggest share."

@@ -1,22 +1,22 @@
 ---
-import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
+import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm, isPromoArticle } from '../consts';
 import { getArticlesFor, imagesFor } from '../lib/articles';
 import { ui, articlePath, pagePath, type Locale } from '../lib/i18n';
-interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string; locale?: Locale }
-const { campaign, medium = 'sidebar', toc = [], exclude, locale = 'zh' } = Astro.props;
+interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string; locale?: Locale; hidePromo?: boolean }
+const { campaign, medium = 'sidebar', toc = [], exclude, locale = 'zh', hidePromo = false } = Astro.props;
 const t = ui(locale);
-const popular = (await getArticlesFor(locale)).filter((a) => a.id !== exclude).slice(0, 4);
+const popular = (await getArticlesFor(locale)).filter((a) => a.id !== exclude && !(hidePromo && isPromoArticle(a))).slice(0, 4);
 const searchHref = pagePath('/search/', locale);
 ---
 <aside class="sidebar">
-  <section class="side-cta">
+  {!hidePromo && (<section class="side-cta">
     <span class="eyebrow eyebrow--light">{t.sideEyebrow}</span>
     <h3>{t.sideTitle}</h3>
     <p>{t.sideBody}</p>
     <a class="btn btn-white btn-block" href={utm(POLYV_TRIAL, campaign, medium)} target="_blank" rel="noopener sponsored">{t.sideTrial}</a>
     <a class="btn btn-ghost-light btn-block" href={utm(POLYV_CONTACT, campaign, medium, POLYV_CONTACT_HASH)} target="_blank" rel="noopener sponsored">{t.sideContact}</a>
     <p class="side-cta__phone">{t.phone(POLYV_PHONE)}</p>
-  </section>
+  </section>)}
   {toc.length > 0 && (
     <nav class="side-card side-toc" aria-label={t.tocAria}>
       <h3>{t.toc}</h3>

@@ -9,6 +9,8 @@ const articleSchema = z.object({
   category: z.enum(['tutorial', 'selection', 'industry', 'news']),
   tags: z.array(z.string()).default([]),
   promo: z.boolean().default(false),
+  /** Per-article opt-out: no POLYV CTAs anywhere on the page and no links to promo articles. */
+  hidePromo: z.boolean().default(false),
   cardTitle: z.string().optional(),
   cardDescription: z.string().optional(),
   draft: z.boolean().default(false),

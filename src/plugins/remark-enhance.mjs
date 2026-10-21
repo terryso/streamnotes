@@ -57,10 +57,11 @@ export default function remarkEnhance() {
     const h2 = tree.children.map((n, i) => (n.type === 'heading' && n.depth === 2 ? i : -1)).filter((i) => i >= 0);
     if (h2.length < 2) return;
     const inserts = [];
+    const hidePromo = !!file.data?.astro?.frontmatter?.hidePromo;
     const inl = rec?.inline || [];
     if (inl[0]) inserts.push([h2[1], figure(inl[0], en)]);
     const midIdx = h2[Math.max(2, Math.floor(h2.length / 2))] ?? h2[h2.length - 1];
-    inserts.push([midIdx, midCta(slug, en)]);
+    if (!hidePromo) inserts.push([midIdx, midCta(slug, en)]);
     if (inl[1]) {
       const pos = h2[Math.min(h2.length - 1, Math.max(3, Math.floor(h2.length * 0.75)))];
       inserts.push([pos, figure(inl[1], en)]);

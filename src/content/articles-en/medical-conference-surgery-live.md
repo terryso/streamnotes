@@ -3,6 +3,7 @@ title: "Medical Conferences and Surgical Teaching Livestreams: Image Quality, Ac
 description: "A practical guide for hospitals, societies, and medical educators: how to capture surgical teaching signals, protect image quality and color, tier viewer access, and handle patient privacy, informed consent, and prescription-product content in livestreams."
 pubDate: 2026-10-20
 category: industry
+hidePromo: true
 tags: [Medical livestreams, Surgical teaching, Access control, Patient privacy, Compliance]
 tldr:
   - "Surgical teaching is driven by OR and device video (endoscope, microscope, ultrasound)—usually via SDI/HDMI capture—not by pointing a camera at a monitor."

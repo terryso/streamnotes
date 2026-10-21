@@ -3,6 +3,7 @@ title: "How to Configure OBS for Streaming: Bitrate, Resolution, Keyframe Interv
 description: "An OBS streaming settings guide for enterprise and course livestreams: how to set bitrate from your upload bandwidth, how to balance resolution and frame rate, why a 2-second keyframe interval is recommended, how to choose between x264 and hardware encoders (NVENC, QuickSync, AMF, Apple VT), and a pre-broadcast checklist."
 pubDate: 2026-10-20
 category: tutorial
+hidePromo: true
 tags: [OBS, Streaming settings, Bitrate, Keyframes, Encoders]
 tldr:
   - "Measure upload bandwidth first, then set bitrate: keep total streaming bitrate (video + audio) at or below 60–70% of your stable upload bandwidth to leave headroom for fluctuations."
