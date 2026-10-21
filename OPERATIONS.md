@@ -16,12 +16,13 @@ src/layouts/Base.astro        <head>（meta / canonical / hreflang / OG / JSON-L
 src/components/Cta.astro      文末 CTA（免费试用 / 联系方案顾问）
 src/components/Sidebar.astro  侧边栏（CTA、目录、热门文章、标签）
 src/pages/                    首页、栏目页、文章页、about、404、rss.xml、robots.txt、llms.txt、llms-full.txt
-scripts/assets-deploy.py        当前部署方式：Workers 静态资源直传（session / upload / finalize）
+src/worker.js                 Worker 路由脚本（workers.dev 301、补斜杠 301、中英 404），wrangler 部署时作为 main
+wrangler.jsonc                部署配置（Custom Domain、ASSETS 绑定、run_worker_first）；`npm run deploy` 读取它
+scripts/assets-deploy.py        旧部署方式（静态资源直传 + MCP，已停用，仅作应急备用）
 scripts/add-article-images.py   为文章生成封面 / 插图 / og 图，并写入 src/data/images.json
 src/data/images.json            全站图片元数据（尺寸、alt、图注、作者与许可）
 src/plugins/remark-enhance.mjs  构建时插入文内插图和文中 CTA
-scripts/gen-embedded-worker.py  旧部署方式（单脚本打包，已停用）
-wrangler.jsonc                用 wrangler CLI 部署时的配置
+scripts/gen-embedded-worker.py  更早的部署方式（单脚本打包，已停用）
 ```
 
 ## 1. 新增一篇文章
@@ -66,40 +67,42 @@ related: [other-slug]          # 可选，手动指定相关阅读；不足 4 �
 - 发布后运行 `python3 scripts/crawl-check.py`：抓取 sitemap 中所有中英 URL（另含搜索、RSS、llms 文件），检查 200、hreflang 成对、canonical、html lang / og:locale、切换链接指向孪生页且为 200、英文页无残留中文 UI（白名单：流媒笔记、中文），以及中英 404。全部通过才算发布完成。
 - 中立性：英文版同样不得出现“本站由保利威赞助/支持/运营”等表述；软广文章（`promo: true`）英文版保留同样的软广属性和中性 cardTitle。
 
-## 2. 部署（当前：Workers Static Assets 直传）
+## 2. 部署（当前：wrangler CLI，唯一推荐方式）
 
 注意：本机器不要使用任何 HTTP/HTTPS 代理（不要设置 http_proxy/https_proxy），直接连接。
 
-改版后站点含配图，约 3 MB / 60+ 个文件，超过"打包进单个 Worker 脚本"方案的体积上限，所以改用 **Workers 静态资源**（官方直传流程 https://developers.cloudflare.com/workers/static-assets/direct-upload/）。Worker `streamnotes` 挂载 ASSETS，并带一段很小的路由脚本：
+Worker `streamnotes` = 静态资源（`dist/`，ASSETS 绑定）+ 路由脚本 `src/worker.js`，全部由 `wrangler.jsonc` 描述：
+
+- `main: src/worker.js`，`assets.binding: ASSETS`，`run_worker_first: true`（每个请求先过路由脚本）；
+- `routes: [{ pattern: streamnotes.terryso.dev, custom_domain: true }]`（Custom Domain），`workers_dev: true`；
+- `html_handling: auto-trailing-slash`、`not_found_handling: 404-page`；`public/_headers` 里的缓存头会生效（`/_astro/*` 1 年、`/images/*` 30 天）。
+
+`src/worker.js` 负责：
 
 - 把 `*.workers.dev` 的请求 301 到 `https://streamnotes.terryso.dev`；
 - 没有扩展名、也不以 `/` 结尾的路径，301 到带斜杠的地址；
-- 其余请求交给静态资源（`html_handling: auto-trailing-slash`、`not_found_handling: 404-page`，`public/_headers` 里的缓存头会生效：`/images/*` 缓存 30 天）。
+- 其余请求交给静态资源；`/en/` 下不存在的地址返回英文 404（`/en/404/`，HTTP 404），其它地址返回中文 `404.html`；`.txt` 统一 `text/plain; charset=utf-8`。
 
-完整步骤（账号 API 调用都走 Cloudflare MCP 连接器）：
+完整步骤：
 
 ```bash
 cd /workspace/live-video-site
+npx wrangler whoami                  # 确认已登录 oxtiger@gmail.com，账号 e81e236cdb3646d4fe1cf15bcd834cff
 set -a; source .env; set +a          # 包含 PUBLIC_GA4_ID=G-TD51SPC7RZ
-npm run build
-python3 scripts/assets-deploy.py session > /workspace/agent-tools/assets-session.js
+npm run deploy                       # = npm run build && npx wrangler deploy
+python3 scripts/crawl-check.py       # 发布后检查，必须输出 ALL CHECKS PASSED
 ```
-1. MCP `user-Cloudflare` → `execute`，`code="$file:/workspace/agent-tools/assets-session.js"`，`account_id=e81e236cdb3646d4fe1cf15bcd834cff`（建议加 `write_to_file`），把返回的 JSON（`jwt`、`buckets`）保存为 `/workspace/agent-tools/assets-session.json`。
-2. `python3 scripts/assets-deploy.py upload` —— 在本机用上传会话签发的临时上传 JWT 上传需要更新的文件（未改动的文件不会重复上传）。这一步在 MCP 沙箱里做不了：沙箱的 `cloudflare.request()` 不能自定义 Authorization 头。
-3. `python3 scripts/assets-deploy.py finalize > /workspace/agent-tools/assets-finalize.js`，再用 MCP `execute` 执行它：发布 Worker（资源和路由脚本），并保持 workers.dev 开启（会 301 跳到正式域名）。Custom Domain 绑定不受影响。
 
-上传会话 JWT 大约 1 小时内有效，三步要连续执行。
+- `npm run deploy` 已经包含 `npm run build`，不需要再单独构建；只想先确认配置时可以跑 `npx wrangler deploy --dry-run`（不会发布）。
+- 登录：本机 wrangler 用 OAuth 登录（`npx wrangler login`，凭据在 `~/.config/.wrangler`）。如果 `whoami` 显示未登录或 token 过期，重新 `npx wrangler login`；也可以改用 API Token：`export CLOUDFLARE_API_TOKEN=<token>`（权限：Workers Scripts: Edit，以及 zone terryso.dev 的 Workers Routes: Edit）。
+- wrangler 输出的 `Current Version ID` 就是本次部署版本；出问题时用 `npx wrangler deployments list` 查看、`npx wrangler rollback <version-id>` 回滚。
+- 修改路由逻辑只改 `src/worker.js`，修改资源/域名配置只改 `wrangler.jsonc`，不要在 Cloudflare 控制台手动改 Worker 代码（下次部署会被覆盖）。
 
-### 备选：wrangler CLI
-需要 Cloudflare API Token（权限：Workers Scripts: Edit）或 `npx wrangler login`：
-```bash
-export CLOUDFLARE_ACCOUNT_ID=e81e236cdb3646d4fe1cf15bcd834cff CLOUDFLARE_API_TOKEN=<token>
-npm run deploy
-```
-`wrangler.jsonc` 需要先补上 `"routes": [{ "pattern": "streamnotes.terryso.dev", "custom_domain": true }]`。注意：wrangler 部署的是纯静态资源，不含上面的 workers.dev 跳转脚本；如需保留跳转，在 wrangler.jsonc 里加 `main`、指向同样的路由脚本，并设置 `assets.binding` 和 `run_worker_first: true`。
+### 已停用：静态资源直传（scripts/assets-deploy.py）
+以前通过 Cloudflare MCP 连接器按官方直传流程（https://developers.cloudflare.com/workers/static-assets/direct-upload/）部署：`assets-deploy.py session` → MCP `execute` → `upload` → `finalize` → MCP `execute`。已停用，原因：MCP 连接器的 OAuth 刷新经常失败；旧版脚本内置的路由不处理英文 404。现在 `finalize` 会直接上传 `src/worker.js` 作为路由，行为与 wrangler 一致，但仍只作为 wrangler 不可用时的应急方案（上传会话 JWT 约 1 小时有效，三步要连续执行；`compatibility_date` 和 assets 配置需与 `wrangler.jsonc` 保持一致）。具体用法见脚本头部注释。
 
-### 旧方案（已停用）
-`scripts/gen-embedded-worker.py` 会把 dist 打包进单个 Worker 脚本。只适合不到约 1 MB 的纯文字站点，保留仅供参考。
+### 更早的方案（已停用）
+`scripts/gen-embedded-worker.py` 会把 dist 打包进单个 Worker 脚本。只适合不到约 1 MB 的纯文字站点，站点加入配图后已超出体积上限，保留仅供参考。
 
 ## 2.5 设计与配图
 
@@ -165,5 +168,5 @@ npm run deploy
 ## 7. 域名
 
 - 正式域名 `streamnotes.terryso.dev` 是 `streamnotes` Worker 的 Custom Domain（zone terryso.dev，同一 Cloudflare 账号）。DNS 记录和证书由 Cloudflare 自动创建并续期，不要手动修改。
-- 站点 URL 统一配置在 `astro.config.mjs` 的 `site` 中；canonical、sitemap、robots、RSS、llms.txt、OG 都从这里生成。更换域名时，修改这里和 `scripts/gen-embedded-worker.py` 中的 `CANONICAL_HOST`，然后重新构建并部署。
-- 用 wrangler 部署（方式 B）时，在 wrangler.jsonc 中加入 `"routes": [{ "pattern": "streamnotes.terryso.dev", "custom_domain": true }]`，保证 Custom Domain 设置一致；可以设置 `"workers_dev": false`，关闭 workers.dev 地址。
+- 站点 URL 统一配置在 `astro.config.mjs` 的 `site` 中；canonical、sitemap、robots、RSS、llms.txt、OG 都从这里生成。更换域名时，同时修改这里、`src/worker.js` 中的正式域名（workers.dev 跳转目标）和 `wrangler.jsonc` 的 `routes`，然后按第 2 节 `npm run deploy`。
+- Custom Domain 由 `wrangler.jsonc` 的 `"routes": [{ "pattern": "streamnotes.terryso.dev", "custom_domain": true }]` 声明，每次 `npm run deploy` 都会保持一致。`workers_dev: true` 保留 workers.dev 地址（由 `src/worker.js` 301 到正式域名）；如需彻底关闭可改为 `false`。

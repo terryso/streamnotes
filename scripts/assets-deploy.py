@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Deploy ./dist as Cloudflare Workers Static Assets using the documented direct-upload flow
+"""DEPRECATED / LEGACY -- do not use for normal deploys.
+The supported deploy path is wrangler (see OPERATIONS.md section 2):
+    cd /workspace/live-video-site && set -a; source .env; set +a && npm run deploy
+Kept only as a fallback if wrangler is unavailable. Its finalize step uploads src/worker.js
+verbatim as the router (same script wrangler deploys, incl. the English /en/ 404 page), so
+behaviour matches a wrangler deploy. Keep compatibility_date / assets config in sync with wrangler.jsonc.
+
+Deploy ./dist as Cloudflare Workers Static Assets using the documented direct-upload flow
 (https://developers.cloudflare.com/workers/static-assets/direct-upload/), driven by the
 Cloudflare MCP connector for authenticated account API calls.
 
@@ -7,14 +14,13 @@ Cloudflare MCP connector for authenticated account API calls.
      -> run with MCP execute (code="$file:..."), save the JSON result to /workspace/agent-tools/assets-session.json
   2) python3 scripts/assets-deploy.py upload   # uploads missing files with the session's upload JWT, writes completion token
   3) python3 scripts/assets-deploy.py finalize > /workspace/agent-tools/assets-finalize.js
-     -> run with MCP execute: publishes the Worker (assets + small router script) and keeps workers.dev on.
+     -> run with MCP execute: publishes the Worker (assets + src/worker.js router) and keeps workers.dev on.
 """
 import os, sys, json, base64, hashlib, mimetypes, urllib.request, uuid
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'dist')
 TOOLS = '/workspace/agent-tools'
 NAME = os.environ.get('WORKER_NAME', 'streamnotes')
 ACCOUNT = os.environ.get('CF_ACCOUNT_ID', 'e81e236cdb3646d4fe1cf15bcd834cff')
-CANONICAL_HOST = os.environ.get('CANONICAL_HOST', 'streamnotes.terryso.dev')
 mimetypes.add_type('text/plain', '.txt'); mimetypes.add_type('application/xml', '.xml'); mimetypes.add_type('image/svg+xml', '.svg'); mimetypes.add_type('image/webp', '.webp'); mimetypes.add_type('application/json', '.json')
 
 def files():
@@ -57,11 +63,9 @@ elif mode == 'upload':
 elif mode == 'finalize':
     token = json.load(open(f'{TOOLS}/assets-complete.json'))['completion_jwt']
     headers = open(os.path.join(ROOT, '_headers')).read() if os.path.exists(os.path.join(ROOT, '_headers')) else ''
-    code = ("export default { async fetch(request, env) { const url = new URL(request.url);"
-            " if (url.hostname !== %s && url.hostname.endsWith('.workers.dev')) { return Response.redirect('https://' + %s + url.pathname + url.search, 301); }"
-            " const last = url.pathname.split('/').pop(); if (last && !last.includes('.')) { return Response.redirect(url.origin + url.pathname + '/' + url.search, 301); }"
-            " const res = await env.ASSETS.fetch(request); if (url.pathname.endsWith('.txt') && res.ok) { const h = new Headers(res.headers); h.set('Content-Type', 'text/plain; charset=utf-8'); return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h }); }"
-            " return res; } };") % (json.dumps(CANONICAL_HOST), json.dumps(CANONICAL_HOST))
+    # Use the same router as wrangler (main = src/worker.js) so both paths behave identically.
+    worker_src = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src', 'worker.js')
+    code = open(worker_src, encoding='utf-8').read()
     metadata = {'main_module': 'index.js', 'compatibility_date': '2026-10-01',
                 'assets': {'jwt': token, 'config': {'html_handling': 'auto-trailing-slash', 'not_found_handling': '404-page', 'run_worker_first': True, '_headers': headers}},
                 'bindings': [{'type': 'assets', 'name': 'ASSETS'}]}

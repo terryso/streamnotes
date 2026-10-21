@@ -1,5 +1,6 @@
 {
   "name": "streamnotes",
+  "account_id": "e81e236cdb3646d4fe1cf15bcd834cff",
   "compatibility_date": "2026-10-01",
   "main": "src/worker.js",
   "workers_dev": true,
