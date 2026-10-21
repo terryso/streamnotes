@@ -256,6 +256,8 @@ button{font:inherit}
 
 /* ---------- footer ---------- */
 .site-footer{margin-top:72px;background:var(--navy);color:#94a3b8;font-size:14px;padding:56px 0 24px}
+/* category pages end with the lead band: let it sit flush on the footer */
+main:has(> .leadband:last-child) ~ .site-footer{margin-top:0}
 .site-footer a{color:#cbd5e1}.site-footer a:hover{color:#fff}
 .footer-grid{display:grid;grid-template-columns:minmax(0,1.6fr) repeat(4,minmax(0,1fr));gap:32px}
 .footer-brand p{margin:14px 0 0;line-height:1.7;max-width:360px}
