@@ -41,8 +41,15 @@ const jsonLd = [
       {cp.changes && cp.changes.length > 0 && (
         <>
           <h2>{L.changes}</h2>
-          <ul class="fact-list">{cp.changes.map((f) => <li>{f}</li>)}</ul>
+          <ul class="fact-list">{cp.changes.map((f) => typeof f === 'string' ? <li>{f}</li> : <li>{f.text} <a class="fact-src" href={articlePath(f.slug, locale)}>{L.source}{locale === 'zh' ? '：' : ': '}{bySlug[f.slug] ? (bySlug[f.slug].data.cardTitle ?? bySlug[f.slug].data.title) : f.slug}</a></li>)}</ul>
         </>
+      )}
+      {cp.table && (
+        <div class="cat-table"><table>
+          <caption>{cp.table.caption}</caption>
+          <thead><tr>{cp.table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+          <tbody>{cp.table.rows.map((r) => <tr>{r.map((cell, i) => i === 0 ? <th scope="row">{cell}</th> : <td>{cell}</td>)}</tr>)}</tbody>
+        </table></div>
       )}
       <h2>{L.start}</h2>
       <ol class="qa-guide">
@@ -57,6 +64,13 @@ const jsonLd = [
           );
         })}
       </ol>
+      {cp.checklists && cp.checklists.map((cl) => (
+        <>
+          <h2>{cl.title}</h2>
+          <ul class="cat-check">{cl.items.map((it) => <li>{it}</li>)}</ul>
+          <p class="cat-check__src"><a href={articlePath(cl.slug, locale)}>{L.source}{locale === 'zh' ? '：' : ': '}{bySlug[cl.slug] ? (bySlug[cl.slug].data.cardTitle ?? bySlug[cl.slug].data.title) : cl.slug}</a></p>
+        </>
+      ))}
       {cp.faq && cp.faq.length > 0 && (
         <>
           <h2>{L.faq}</h2>
