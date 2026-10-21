@@ -27,7 +27,7 @@ sources:
 related: [corporate-training-live, live-latency-protocols]
 ---
 
-Turning a livestream replay into a usable course or reference used to mean a lot of manual work: transcribing captions by hand, splitting the recording into chapters, and cutting out dead air. Advances in speech recognition and large language models are now speeding up every one of those steps. This article surveys where AI is landing in live streaming and VOD, and the compliance issues businesses need to keep in mind.
+The AI capabilities already mature in live streaming and VOD are speech-recognition captions, content summaries, and chapter segmentation; digital humans, AI co-hosts, and intelligent Q&A are entering specific scenarios but still need human oversight; and in China, AI-generated or synthetic content must be labeled under the Measures for Labeling AI-Generated and Synthetic Content. Turning a livestream replay into a usable course used to mean a lot of manual work—transcribing captions, splitting chapters, cutting dead air—and speech recognition and large language models are now speeding up every one of those steps. This article surveys where AI is landing and the compliance issues businesses need to keep in mind.
 
 > For now, the safer combination is AI for fast first-pass screening and humans for review and judgment calls on edge cases.
 

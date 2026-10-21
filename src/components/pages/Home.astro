@@ -6,7 +6,7 @@ import LeadBand from '../LeadBand.astro';
 import Icon from '../Icon.astro';
 import { CATEGORIES, POLYV_TRIAL, utm } from '../../consts';
 import { ui, categoryLabel, categoryPath, pagePath, scenarios, tagLink, type Locale } from '../../lib/i18n';
-import { getArticlesFor, imagesFor, siteImages, imgAlt } from '../../lib/articles';
+import { getArticlesFor, imagesFor, siteImages, imgAlt, fmtDate } from '../../lib/articles';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = ui(locale);
@@ -18,6 +18,8 @@ const band = siteImages.band;
 const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
 const counts = Object.fromEntries(catKeys.map((k) => [k, posts.filter((p) => p.data.category === k).length]));
 const searchHref = pagePath('/search/', locale);
+const lastUpdated = new Date(Math.max(...posts.map((p) => (p.data.updatedDate ?? p.data.pubDate).getTime())));
+const aboutHref = pagePath('/about/', locale);
 ---
 <Base locale={locale} campaign={campaign} preloadImage={hero.src900}>
   <section class="hero">
@@ -38,6 +40,16 @@ const searchHref = pagePath('/search/', locale);
       </ul>
     </div>
   </section>
+
+  <section class="container home-about" aria-labelledby="home-about-h"><div class="home-about__inner">
+    <h2 id="home-about-h">{t.homeAboutTitle}</h2>
+    <p>{t.homeAbout}</p>
+    <ul class="home-trust">
+      <li><a href={aboutHref}>{t.homeTrustStandards}</a></li>
+      <li>{t.homeTrustSources}</li>
+      <li><time datetime={lastUpdated.toISOString()}>{t.homeTrustUpdated(fmtDate(lastUpdated))}</time></li>
+    </ul>
+  </div></section>
 
   <section class="section container" aria-labelledby="latest-h">
     <div class="section-head">

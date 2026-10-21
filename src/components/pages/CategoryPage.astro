@@ -4,22 +4,27 @@ import Sidebar from '../Sidebar.astro';
 import ArticleCard from '../ArticleCard.astro';
 import LeadBand from '../LeadBand.astro';
 import { CATEGORIES } from '../../consts';
-import { CATEGORY_PAGE } from '../../data/category-intros';
+import { CATEGORY_PAGE, HUB_LABELS } from '../../data/category-intros';
 import { getArticlesFor } from '../../lib/articles';
-import { ui, categoryLabel, categoryPath, homePath, type Locale } from '../../lib/i18n';
+import { ui, categoryLabel, categoryPath, homePath, articlePath, pagePath, type Locale } from '../../lib/i18n';
 interface Props { cat: keyof typeof CATEGORIES; locale: Locale }
 const { cat, locale } = Astro.props;
 const t = ui(locale);
 const c = categoryLabel(cat, locale);
 const posts = (await getArticlesFor(locale)).filter((e) => e.data.category === cat);
 const cp = CATEGORY_PAGE[locale][cat];
+const L = HUB_LABELS[locale];
+const bySlug = Object.fromEntries(posts.map((p) => [p.id, p]));
+const guide = cp.guide.filter((g) => bySlug[g.slug]);
+const stepHref = (h?: string) => (!h ? undefined : h.startsWith('http') ? h : pagePath(h, locale));
 const campaign = `${locale === 'en' ? 'en-' : ''}category-${cat}`;
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: t.crumbHome, item: new URL(homePath(locale), Astro.site).toString() },
     { '@type': 'ListItem', position: 2, name: c.name, item: new URL(categoryPath(cat, locale), Astro.site).toString() },
   ] },
-  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: c.desc, inLanguage: t.htmlLang },
+  { '@context': 'https://schema.org', '@type': 'CollectionPage', name: c.name, description: cp.lead, inLanguage: t.htmlLang,
+    mainEntity: { '@type': 'ItemList', itemListElement: posts.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: new URL(articlePath(p.id, locale), Astro.site).toString(), name: p.data.cardTitle ?? p.data.title })) } },
 ];
 ---
 <Base locale={locale} title={c.name} seoTitle={cp.seoTitle} description={c.desc} jsonLd={jsonLd} campaign={campaign}>
@@ -31,10 +36,30 @@ const jsonLd = [
     </div>
   </section>
   <section class="section container">
-    <div class="cat-intro">{cp.intro.map((para) => <p>{para}</p>)}</div>
+    <div class="cat-hub">
+      <p class="cat-lead">{cp.lead}</p>
+      <h2>{L.start}</h2>
+      <ol class="qa-guide">
+        {guide.map((g) => {
+          const p = bySlug[g.slug];
+          return (
+            <li>
+              <h3 class="qa-guide__q">{g.q}</h3>
+              <p class="qa-guide__a">{g.a}</p>
+              <a class="qa-guide__link" href={articlePath(g.slug, locale)}>{L.read}{locale === 'zh' ? '：' : ': '}{p.data.cardTitle ?? p.data.title}</a>
+            </li>
+          );
+        })}
+      </ol>
+      <h2>{L.steps}</h2>
+      <ul class="cat-steps">{cp.steps.map((st) => <li>{st.text}{st.link && <> <a href={stepHref(st.href)}>{st.link}</a>{locale === 'zh' ? '。' : '.'}</>}</li>)}</ul>
+      <h2>{L.about}</h2>
+      {cp.about.map((para) => <p>{para}</p>)}
+    </div>
+    <h2 class="cat-all">{L.all(posts.length)}</h2>
     <div class="layout">
       <div class="alist">
-        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={2} locale={locale} />) : <p class="empty">{t.emptyCategory}</p>}
+        {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={3} locale={locale} />) : <p class="empty">{t.emptyCategory}</p>}
       </div>
       <Sidebar campaign={campaign} locale={locale} />
     </div>

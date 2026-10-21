@@ -25,7 +25,7 @@ sources:
 related: [enterprise-live-platform-selection, vod-encryption-guide]
 ---
 
-More and more companies are moving new-hire onboarding, product knowledge, partner enablement, and compliance training online. Yet many training livestreams end up as "we went live, nobody listened, and nobody remembered anything." Below is a complete training livestream workflow, laid out along the timeline.
+The short answer: define your learners and rehearse equipment and network before the session, add an interaction every 10–15 minutes during it, turn the recording into a searchable on-demand course afterwards, and measure impact with the Kirkpatrick four-level model. More and more companies are moving new-hire onboarding, product knowledge, partner enablement, and compliance training online, yet many training livestreams end up as "we went live, nobody listened, and nobody remembered anything." Below is the complete workflow, laid out along the timeline.
 
 > A training livestream isn't an in-person class moved in front of a camera. It's a complete process: design, delivery, capture, and evaluation.
 

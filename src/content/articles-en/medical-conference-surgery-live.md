@@ -32,7 +32,7 @@ sources:
 related: [live-latency-protocols, obs-streaming-settings, vod-encryption-guide, corporate-training-live]
 ---
 
-Academic congresses, case conferences, surgical teaching, and CME courses are driving more medical livestream demand. Unlike a typical enterprise broadcast, the picture may include real patient information, the audience may mix clinicians and the public, and the content often touches drugs and devices. Medical livestreams therefore have to clear three bars at once: **image quality, access control, and compliance**.
+Medical livestreams have to clear three bars at once: **image quality, access control, and compliance**—bring in device video, usually through SDI/HDMI capture, tier viewers as public / verified clinicians / named in-hospital staff, and obtain patient consent and de-identify the frame before teaching. Academic congresses, case conferences, surgical teaching, and CME courses are driving more medical livestream demand; unlike a typical enterprise broadcast, the picture may include real patient information, the audience may mix clinicians and the public, and the content often touches drugs and devices.
 
 > The hard part of medical livestreaming is not the push itself—it is being able to see clearly, deciding who may watch, and deciding what is allowed on air.
 

@@ -165,9 +165,24 @@ button{font:inherit}
 .pagehead{background:var(--soft);border-bottom:1px solid var(--line);padding:44px 0 36px}
 .pagehead h1{font-size:clamp(26px,3.4vw,40px);margin:6px 0 8px}
 .pagehead p{color:var(--muted);margin:0 0 4px;max-width:760px}
-.cat-intro{max-width:820px;margin:0 0 28px;font-size:15.5px;line-height:1.8}
-.cat-intro p{margin:0 0 12px}
-.cat-intro p:last-child{margin-bottom:0}
+.cat-hub{max-width:860px;margin:0 0 32px;font-size:15.5px;line-height:1.8}
+.cat-hub h2{font-size:21px;margin:28px 0 12px}
+.cat-hub p{margin:0 0 12px}
+.cat-lead{font-size:17px;font-weight:500;color:var(--ink,inherit)}
+.qa-guide{list-style:none;padding:0;margin:0;display:grid;gap:12px;counter-reset:qa}
+.qa-guide li{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--soft)}
+.qa-guide__q{font-size:16px;margin:0 0 6px}
+.qa-guide__a{margin:0 0 6px}
+.qa-guide__link{font-size:14px;font-weight:600}
+.cat-steps{margin:0;padding-left:20px}
+.cat-steps li{margin:0 0 6px}
+.home-about{padding-top:36px}
+.home-about__inner{max-width:960px}
+.home-about h2{font-size:22px;margin:0 0 10px}
+.home-about p{margin:0 0 12px;font-size:16px;line-height:1.8}
+.home-trust{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px;color:var(--muted)}
+.home-trust li::before{content:"✓ ";color:var(--brand,#2563eb)}
+.cat-all{font-size:21px;margin:8px 0 16px}
 .breadcrumb ol{list-style:none;display:flex;flex-wrap:wrap;gap:6px;padding:0;margin:0;font-size:13px;color:var(--muted)}
 .breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--brand)}
 .breadcrumb li+li::before{content:"/";margin-right:6px;color:#cbd5e1}

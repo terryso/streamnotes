@@ -1,7 +1,8 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { CATEGORIES } from '../../consts';
-import { ui, categoryLabel, categoryPath, pagePath, type Locale } from '../../lib/i18n';
+import { ui, categoryLabel, categoryPath, pagePath, articlePath, homePath, type Locale } from '../../lib/i18n';
+import { getArticlesFor } from '../../lib/articles';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = ui(locale);
@@ -10,6 +11,9 @@ const REPO = 'https://github.com/terryso/streamnotes';
 const ISSUES = `${REPO}/issues`;
 const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
 const credits = pagePath('/credits/', locale);
+const posts = await getArticlesFor(locale);
+const byCat = catKeys.map((k) => ({ k, posts: posts.filter((p) => p.data.category === k) }));
+const rss = pagePath('/rss.xml', locale);
 ---
 <Base locale={locale} title={t.aboutTitle} description={t.aboutDesc} campaign={locale === 'en' ? 'en-about' : 'about'}>
   <section class="section container"><article class="article prose-page">
@@ -19,10 +23,15 @@ const credits = pagePath('/credits/', locale);
         <p>{n}是一个独立的中文内容站，专注直播与视频点播（VOD）技术，面向企业技术负责人、产品经理，以及培训、市场与运营团队。我们解释协议与架构原理，整理平台选型方法和可执行的检查清单，记录行业落地实践与趋势变化。本站全部文章提供中英双语版本，可通过页面顶部的语言切换对照阅读。</p>
 
         <h2>内容范围</h2>
-        <p>文章分为四个栏目，每个栏目页都说明了该栏目收录什么、适合谁阅读：</p>
+        <p>目前共有 {posts.length} 篇文章，分为四个栏目，每篇都有中英文两个版本：</p>
         <ul>
-          {catKeys.map((k) => <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>：{categoryLabel(k, locale).desc}</li>)}
+          {byCat.map(({ k, posts: ps }) => (
+            <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>：{categoryLabel(k, locale).desc}
+              {ps.length > 0 && <ul>{ps.map((p) => <li><a href={articlePath(p.id, locale)}>{p.data.cardTitle ?? p.data.title}</a></li>)}</ul>}
+            </li>
+          ))}
         </ul>
+        <p>本站不做厂商价格对比或排名。</p>
 
         <h2>作者与编辑</h2>
         <p>本站文章由{t.author}撰写和维护。编辑部是一个独立的编辑团队，关注直播、点播与音视频工程，也关注这些技术在企业培训、营销、医疗、金融和政企场景中的应用。本站不公开个人履历，读者判断内容可靠性时，请以文中列出的参考资料和我们公开的编辑方法为准。</p>
@@ -33,6 +42,26 @@ const credits = pagePath('/credits/', locale);
           <li><strong>不编造数字：</strong>不发布无法核实的统计数据；涉及数字时，以公开资料为依据并列出出处。</li>
           <li><strong>结构清晰：</strong>每篇文章开头给出要点摘要（TL;DR），正文按小标题组织，文末附常见问题，方便快速判断是否符合自己的场景。</li>
           <li><strong>双语一致：</strong>中文与英文版本内容一一对应，结构、要点、常见问题和参考资料同步更新。</li>
+        </ul>
+
+        <h2>编辑流程</h2>
+        <ol>
+          <li><strong>选题：</strong>按编辑日历排期，每周二、周四、周六发布；选题围绕企业在直播和点播上的真实问题，例如延迟、加密、推流参数、平台交付模式和行业合规。</li>
+          <li><strong>查阅原始资料：</strong>先找标准、官方文档和法规原文，再动笔；无法核实的统计数字不写进正文。</li>
+          <li><strong>按固定结构撰写：</strong>每篇都包含要点摘要（TL;DR）、正文、常见问题和参考资料。站点构建时会校验文章元数据（例如要点摘要为必填项），缺少必填项的文章无法构建发布。</li>
+          <li><strong>中英双语同步：</strong>中文与英文版本同一天发布，使用相同的地址结构（/articles/… 与 /en/articles/…），要点、常见问题和参考资料一一对应。</li>
+          <li><strong>发布后检查：</strong>每次发布后自动抓取全站中英文页面，检查页面能否正常访问、两个语言版本是否互相链接、规范链接是否正确。</li>
+          <li><strong>复核与更正：</strong>收到反馈或发现资料变化时复核原文，修订后在文章上标注更新日期。</li>
+        </ol>
+
+        <h2>资料来源怎么选</h2>
+        <p>优先级从高到低依次是：标准与规范、官方技术文档、法规原文、方法论原始出处；厂商公开资料只在以该厂商为例的文章中使用。目前文章中实际引用的来源类型包括：</p>
+        <ul>
+          <li><strong>标准与规范：</strong>IETF RFC 8216（HLS）、RFC 9725（WHIP），W3C 的 WebRTC、Encrypted Media Extensions 与 WebVTT，NIST SP 800-145（云服务模式定义）。</li>
+          <li><strong>官方技术文档：</strong>Apple 开发者文档（低延迟 HLS、FairPlay Streaming）、OBS Studio 官方帮助中心与 Wiki、SRT 项目官方仓库、YouTube 与 Twitch 的官方推流帮助。</li>
+          <li><strong>法规原文：</strong>中国人大网发布的《个人信息保护法》、中国政府网发布的《广告法》和医药广告审查办法、国家网信办发布的《人工智能生成合成内容标识办法》通知。</li>
+          <li><strong>方法论原始出处：</strong>例如柯氏培训评估模型的官方说明。</li>
+          <li><strong>厂商官网公开资料：</strong>仅用于标题中注明“以某厂商为例”的文章，只引用官网可查证的信息。</li>
         </ul>
 
         <h2>如何比较方案与厂商</h2>
@@ -53,7 +82,7 @@ const credits = pagePath('/credits/', locale);
         </ul>
 
         <h2>联系与反馈</h2>
-        <p>本站源代码与内容托管在 GitHub：<a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>。勘误、补充资料或选题建议，请在 <a href={ISSUES} rel="noopener">GitHub Issues</a> 中提交，并附上页面地址和相关依据。</p>
+        <p>想及时看到新文章，可以订阅 <a href={rss}>RSS</a>。本站源代码与内容托管在 GitHub：<a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>。勘误、补充资料或选题建议，请在 <a href={ISSUES} rel="noopener">GitHub Issues</a> 中提交，并附上页面地址和相关依据。</p>
       </>
     ) : (
       <>
@@ -61,10 +90,15 @@ const credits = pagePath('/credits/', locale);
         <p>{n} ({t.siteNameAlt}) is an independent publication focused on live streaming and video-on-demand (VOD) technology. We write for enterprise technology leads, product managers, and training, marketing, and operations teams. We explain protocol and architecture fundamentals, turn platform selection into methods and checklists you can act on, and document real-world practice and industry trends. Every article is available in both Chinese and English; use the language switch at the top of any page to move between editions.</p>
 
         <h2>What we cover</h2>
-        <p>Articles are grouped into four topics. Each topic page explains what it contains and who it is for:</p>
+        <p>There are currently {posts.length} articles in four topics, each available in Chinese and English:</p>
         <ul>
-          {catKeys.map((k) => <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>: {categoryLabel(k, locale).desc}</li>)}
+          {byCat.map(({ k, posts: ps }) => (
+            <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>: {categoryLabel(k, locale).desc}
+              {ps.length > 0 && <ul>{ps.map((p) => <li><a href={articlePath(p.id, locale)}>{p.data.cardTitle ?? p.data.title}</a></li>)}</ul>}
+            </li>
+          ))}
         </ul>
+        <p>We do not publish vendor price comparisons or rankings.</p>
 
         <h2>Who writes it</h2>
         <p>Articles are written and maintained by {t.author}, an independent editorial team focused on live streaming, VOD, and video engineering, and on how these technologies are used in corporate training, marketing, healthcare, finance, and government. We do not publish personal biographies; to judge whether an article is reliable, rely on the sources it cites and the editorial method described on this page.</p>
@@ -75,6 +109,26 @@ const credits = pagePath('/credits/', locale);
           <li><strong>No invented numbers:</strong> we do not publish statistics we cannot verify; where figures appear, they come from public sources listed in the article.</li>
           <li><strong>Easy to scan:</strong> each article opens with a TL;DR, is organized under clear headings, and closes with an FAQ, so you can quickly tell whether it fits your situation.</li>
           <li><strong>Matching editions:</strong> the Chinese and English versions correspond one-to-one, and their structure, key points, FAQs, and sources are updated together.</li>
+        </ul>
+
+        <h2>Editorial process</h2>
+        <ol>
+          <li><strong>Topic selection:</strong> topics are scheduled on an editorial calendar and published every Tuesday, Thursday, and Saturday. They start from real problems organizations face with live video and VOD—latency, encryption, encoder settings, delivery models, and industry compliance.</li>
+          <li><strong>Primary research:</strong> we read the standards, official documentation, and original legal texts before writing; statistics we cannot verify stay out of the article.</li>
+          <li><strong>Fixed structure:</strong> every article has a TL;DR, the main text, an FAQ, and a source list. The site build validates article metadata (the TL;DR, for example, is required), so an article missing a required field cannot be built and published.</li>
+          <li><strong>Bilingual release:</strong> the Chinese and English editions are published on the same day under matching URLs (/articles/… and /en/articles/…), with matching key points, FAQs, and sources.</li>
+          <li><strong>Post-publish checks:</strong> after each release, every Chinese and English page is crawled automatically to confirm it loads, links to its other-language twin, and carries the correct canonical URL.</li>
+          <li><strong>Review and corrections:</strong> when feedback arrives or a source changes, we re-check the original and mark the article with an updated date after revising it.</li>
+        </ol>
+
+        <h2>How we choose sources</h2>
+        <p>In order of preference: standards and specifications, official technical documentation, original legal texts, and the original source of a method. Vendor materials are used only in articles that use that vendor as a worked example. Source types actually cited in our articles include:</p>
+        <ul>
+          <li><strong>Standards and specifications:</strong> IETF RFC 8216 (HLS) and RFC 9725 (WHIP); W3C WebRTC, Encrypted Media Extensions, and WebVTT; NIST SP 800-145 (cloud service model definitions).</li>
+          <li><strong>Official technical documentation:</strong> Apple developer documentation (Low-Latency HLS, FairPlay Streaming), the OBS Studio Help Portal and wiki, the official SRT project repository, and YouTube’s and Twitch’s official streaming help pages.</li>
+          <li><strong>Original legal texts:</strong> China’s Personal Information Protection Law (NPC website), Advertising Law and drug and medical-device advertising review measures (Chinese government website), and the Cyberspace Administration of China notice on labeling AI-generated and synthetic content.</li>
+          <li><strong>Original sources of methods:</strong> for example, the official description of the Kirkpatrick training evaluation model.</li>
+          <li><strong>Vendor public materials:</strong> used only in articles whose title says they use a specific vendor as an example, and limited to information verifiable on the vendor’s own site.</li>
         </ul>
 
         <h2>How we compare platforms and vendors</h2>
@@ -95,7 +149,7 @@ const credits = pagePath('/credits/', locale);
         </ul>
 
         <h2>Contact and feedback</h2>
-        <p>The site’s source code and content are hosted on GitHub: <a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>. To report a correction, suggest a source, or propose a topic, open an issue on <a href={ISSUES} rel="noopener">GitHub Issues</a> and include the page URL and supporting evidence.</p>
+        <p>To follow new articles, subscribe via <a href={rss}>RSS</a>. The site’s source code and content are hosted on GitHub: <a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>. To report a correction, suggest a source, or propose a topic, open an issue on <a href={ISSUES} rel="noopener">GitHub Issues</a> and include the page URL and supporting evidence.</p>
       </>
     )}
   </article></section>

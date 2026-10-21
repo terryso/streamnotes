@@ -26,7 +26,9 @@ sources:
 related: [private-deployment-polyv, corporate-training-live]
 ---
 
-"We want to start live streaming—which platform should we buy?" Enterprise digital teams hear this question all the time. Live streaming platforms differ not only in their feature lists but also in delivery model, integration approach, and long-term cost. This article offers a selection checklist you can use directly in an internal review.
+To choose an enterprise live streaming platform, define the scenario first, then pick a delivery model—SaaS, aPaaS, PaaS (cloud service SDKs), or private deployment, ordered from fastest to launch to most control—and evaluate it on six areas: scenario fit, integration, security and compliance, concurrency and stability, interaction and marketing tools, and total cost of ownership, confirmed by a real-scenario trial and load test. "We want to start live streaming—which platform should we buy?" is a question enterprise digital teams hear all the time, and platforms differ not only in features but in delivery model, integration approach, and long-term cost. This article offers a selection checklist you can use directly in an internal review.
+
+**How we evaluated:** this article compares delivery models and evaluation criteria; it does not rank vendors or recommend specific products. The split between SaaS, PaaS, and the other delivery models follows NIST SP 800-145, the NIST definition of cloud service models (see Sources at the end). Treat the checklist as a review framework, and confirm actual capabilities through a trial broadcast, load testing, and the vendor’s written commitments.
 
 > There is no "best" live streaming platform, only the most suitable delivery model: prove the value on SaaS first, then step up as compliance and integration needs require.
 

@@ -73,6 +73,9 @@ const zh = {
   credWhere: '使用位置', credAuthor: '作者', credSource: '来源', credLicense: '许可',
   credHero: '首页头图', credBand: '首页案例库背景', credCover: (t: string) => `${t}（封面）`, credInline: (t: string, i: number) => `${t}（插图 ${i}）`,
   // about
+  homeAboutTitle: '关于流媒笔记',
+  homeAbout: `${SITE_NAME}是一个独立的中英双语编辑型网站，由${AUTHOR}撰写和维护。我们写直播与视频点播（VOD）技术、平台选型方法和行业落地实践，面向企业技术负责人、产品经理，以及培训、市场与运营团队；法规部分以中国大陆的规定为主。按编辑日历，每周二、周四、周六发布新文章，中英文同步上线。`,
+  homeTrustStandards: '编辑标准与独立性声明', homeTrustSources: '每篇文章都列出参考资料（标准、官方文档、法规原文）', homeTrustUpdated: (d: string) => `最近更新：${d}`,
   aboutTitle: '关于本站：定位、编辑标准与独立性声明', aboutDesc: `关于${SITE_NAME}：站点定位、编辑标准、资料来源与更新更正规则、中立与独立性声明，以及如何通过 GitHub 反馈问题。`,
   homeSeoTitle: undefined as string | undefined,
 };
@@ -133,6 +136,9 @@ const en: Dict = {
   credIntro: 'All images on this site are public-domain works (CC0 / Public Domain Mark) found via Openverse, from sources including Wikimedia Commons (including CC0 works by Unsplash photographers), the rawpixel public-domain library, StockSnap, and the WordPress Photo Directory. CC0 does not require attribution, but we list creators and original sources here with thanks.',
   credWhere: 'Used on', credAuthor: 'Creator', credSource: 'Source', credLicense: 'License',
   credHero: 'Home page hero', credBand: 'Home page scenario band background', credCover: (t) => `${t} (cover)`, credInline: (t, i) => `${t} (figure ${i})`,
+  homeAboutTitle: 'About StreamNotes',
+  homeAbout: 'StreamNotes (流媒笔记) is an independent, bilingual Chinese–English editorial site written and maintained by StreamNotes Editorial. We cover live streaming and video-on-demand (VOD) technology, platform selection methods, and industry practice for enterprise technology leads, product managers, and training, marketing, and operations teams; regulatory content focuses mainly on rules in mainland China. Following our editorial calendar, new articles are published every Tuesday, Thursday, and Saturday, in Chinese and English at the same time.',
+  homeTrustStandards: 'Editorial standards & independence', homeTrustSources: 'Every article lists its sources (standards, official docs, original legal texts)', homeTrustUpdated: (d) => `Last updated: ${d}`,
   aboutTitle: 'About StreamNotes: Standards & Independence', aboutDesc: 'About StreamNotes: what the site covers, editorial standards, sourcing and update policy, independence statement, and how to send feedback via GitHub.',
   homeSeoTitle: 'StreamNotes – Live Streaming & VOD Technology Guides',
 };
