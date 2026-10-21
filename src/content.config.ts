@@ -3,6 +3,8 @@ import { glob } from 'astro/loaders';
 
 const articleSchema = z.object({
   title: z.string(),
+  /** Optional shorter text for the HTML <title> (H1 and og:title keep `title`). */
+  seoTitle: z.string().optional(),
   description: z.string(),
   pubDate: z.coerce.date(),
   updatedDate: z.coerce.date().optional(),

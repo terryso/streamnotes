@@ -16,7 +16,7 @@ for (const [slug, rec] of Object.entries((images as any).articles)) {
   r.inline.forEach((x: any, i: number) => rows.push({ where: t.credInline(titles[slug], i + 1), ...x }));
 }
 ---
-<Base locale={locale} title={t.credTitle} description={t.credDesc} campaign={locale === 'en' ? 'en-credits' : 'credits'}>
+<Base locale={locale} title={t.credPageTitle} description={t.credDesc} campaign={locale === 'en' ? 'en-credits' : 'credits'}>
   <section class="pagehead"><div class="container"><h1>{t.credTitle}</h1><p>{t.credIntro}</p></div></section>
   <section class="section container">
     <div class="table-wrap">

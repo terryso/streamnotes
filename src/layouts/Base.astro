@@ -1,6 +1,6 @@
 ---
 import { SITE_NAME, SITE_NAME_EN, CATEGORIES, GA4_ID, GSC_VERIFICATION, POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm } from '../consts';
-import { ui, categoryLabel, homePath, categoryPath, pagePath, twinPath, type Locale } from '../lib/i18n';
+import { ui, categoryLabel, homePath, categoryPath, pagePath, twinPath, tagLink, type Locale } from '../lib/i18n';
 import Icon from '../components/Icon.astro';
 import '../styles/global.css';
 
@@ -15,6 +15,8 @@ interface Props {
   publishedTime?: string;
   modifiedTime?: string;
   noindex?: boolean;
+  /** Shorter <title> text (suffix still appended); og:title keeps `title`. */
+  seoTitle?: string;
   preloadImage?: string;
   active?: string;
   locale?: Locale;
@@ -32,7 +34,8 @@ const { title, description, ogType = 'website', ogImage = '/og-default.png', ogI
 const t = ui(locale);
 const isEn = locale === 'en';
 const desc = description ?? t.description;
-const fullTitle = title ? `${title} | ${t.siteName}` : `${t.siteName} - ${t.tagline}`;
+const seoTitle = Astro.props.seoTitle;
+const fullTitle = title ? `${seoTitle ?? title} | ${t.siteName}` : (t.homeSeoTitle ?? `${t.siteName} - ${t.tagline}`);
 const path = Astro.url.pathname;
 const twins = twinPath(path);
 const zhPath = Astro.props.zhPath ?? twins.zh;
@@ -170,7 +173,7 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
       </section>
       <section>
         <h2 class="footer-h">{t.footerHot}</h2>
-        <ul>{t.hotTags.slice(0, 5).map((tag) => <li><a href={`${searchHref}?q=${encodeURIComponent(tag)}`}>{tag}</a></li>)}</ul>
+        <ul>{t.hotTags.slice(0, 5).map((tag) => <li><a {...tagLink(tag, locale)}>{tag}</a></li>)}</ul>
       </section>
       {!hidePromo && (<section>
         <h2 class="footer-h">{t.footerSolutions}</h2>

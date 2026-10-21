@@ -2,6 +2,7 @@
 title: "OBS 推流参数怎么设：码率、分辨率、关键帧间隔与编码器选择"
 description: "面向企业直播和课程直播的 OBS 推流设置指南：如何根据上行带宽确定码率，分辨率和帧率怎么取舍，关键帧间隔为什么建议 2 秒，x264 与硬件编码器（NVENC、QuickSync、AMF、Apple VT）如何选择，以及开播前的检查清单。"
 pubDate: 2026-10-20
+updatedDate: 2026-10-21
 category: tutorial
 hidePromo: true
 tags: [OBS, 推流设置, 码率, 关键帧, 编码器]
@@ -20,10 +21,10 @@ faq:
   - q: "推流画面卡顿一定是网络问题吗？"
     a: "不一定。还可能是编码过载（CPU 或 GPU 跟不上）或渲染延迟（场景太复杂）。可以在 OBS 的「统计」面板查看「因编码延迟而跳过的帧」「因网络而丢失的帧」和「因渲染延迟而丢失的帧」，分别对应编码、网络和渲染三类问题。"
 sources:
-  - title: "OBS Studio 官方知识库"
-    url: https://obsproject.com/kb/
-  - title: "OBS Studio Overview（官方入门说明）"
-    url: https://obsproject.com/kb/obs-studio-overview
+  - title: "OBS Studio 官方帮助中心（Help Portal）"
+    url: https://obsproject.com/zh-cn/help
+  - title: "OBS Studio 官方 Wiki（GitHub）"
+    url: https://github.com/obsproject/obs-studio/wiki
   - title: "YouTube 帮助 - 选择直播编码器设置、比特率和分辨率"
     url: https://support.google.com/youtube/answer/2853702
   - title: "Twitch 帮助 - Broadcasting Guidelines"

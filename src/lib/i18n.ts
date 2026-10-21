@@ -68,12 +68,13 @@ const zh = {
   // 404
   nfTitle: '页面未找到', nfDesc: '页面不存在或已移动。', nfBody: '你访问的页面不存在或已移动，', nfHome: '返回首页',
   // credits
-  credTitle: '图片版权说明', credDesc: '流媒笔记站内图片的来源、作者与授权许可说明。',
+  credTitle: '图片版权说明', credPageTitle: '图片版权说明：站内配图来源、作者与授权许可', credDesc: '流媒笔记站内图片的来源、作者与授权许可说明。',
   credIntro: '本站配图均来自公共领域（CC0 / Public Domain Mark）图片，经 Openverse 检索，来源包括 Wikimedia Commons（含 Unsplash 作者以 CC0 发布的作品）、rawpixel 公共领域图库、StockSnap 与 WordPress Photo Directory。CC0 不要求署名，我们仍在此列出作者与原始出处以示感谢。',
   credWhere: '使用位置', credAuthor: '作者', credSource: '来源', credLicense: '许可',
   credHero: '首页头图', credBand: '首页案例库背景', credCover: (t: string) => `${t}（封面）`, credInline: (t: string, i: number) => `${t}（插图 ${i}）`,
   // about
-  aboutTitle: '关于本站', aboutDesc: `关于${SITE_NAME}：内容定位、编辑原则与中立声明。`,
+  aboutTitle: '关于本站：定位、编辑标准与独立性声明', aboutDesc: `关于${SITE_NAME}：站点定位、编辑标准、资料来源与更新更正规则、中立与独立性声明，以及如何通过 GitHub 反馈问题。`,
+  homeSeoTitle: undefined as string | undefined,
 };
 
 type Dict = typeof zh;
@@ -128,11 +129,12 @@ const en: Dict = {
   searchBigPlaceholder: 'Enter keywords, e.g. low latency, private deployment, training', searchButton: 'Search',
   searchFound: '{n} article(s) found for “{q}”', searchAll: 'All articles: {n}',
   nfTitle: 'Page not found', nfDesc: 'This page does not exist or has moved.', nfBody: 'The page you requested does not exist or has moved. ', nfHome: 'Back to home',
-  credTitle: 'Image credits', credDesc: 'Sources, creators, and licenses for images used on StreamNotes.',
+  credTitle: 'Image credits', credPageTitle: 'Image Credits & Licenses', credDesc: 'Sources, creators, and licenses for images used on StreamNotes.',
   credIntro: 'All images on this site are public-domain works (CC0 / Public Domain Mark) found via Openverse, from sources including Wikimedia Commons (including CC0 works by Unsplash photographers), the rawpixel public-domain library, StockSnap, and the WordPress Photo Directory. CC0 does not require attribution, but we list creators and original sources here with thanks.',
   credWhere: 'Used on', credAuthor: 'Creator', credSource: 'Source', credLicense: 'License',
   credHero: 'Home page hero', credBand: 'Home page scenario band background', credCover: (t) => `${t} (cover)`, credInline: (t, i) => `${t} (figure ${i})`,
-  aboutTitle: 'About StreamNotes', aboutDesc: 'About StreamNotes: editorial focus, principles, and independence statement.',
+  aboutTitle: 'About StreamNotes: Standards & Independence', aboutDesc: 'About StreamNotes: what the site covers, editorial standards, sourcing and update policy, independence statement, and how to send feedback via GitHub.',
+  homeSeoTitle: 'StreamNotes – Live Streaming & VOD Technology Guides',
 };
 
 export const UI: Record<Locale, Dict> = { zh, en };
@@ -181,4 +183,31 @@ export function scenarios(locale: Locale): Scenario[] {
     private: ['Private deployment', 'Security, compliance, and integration for finance and government'],
   };
   return zhList.map((s) => ({ ...s, name: enText[s.key][0], desc: enText[s.key][1] }));
+}
+
+/**
+ * Popular tags link to a real (non-parameter) landing page where one fits, so crawlers
+ * don't follow /search/?q=… variants. Targets are never promo articles (safe on hidePromo pages).
+ * Tags without a good landing page fall back to a nofollow search link.
+ */
+const HOT_TAG_TARGETS: (string | null)[] = [
+  'articles/corporate-training-live/',            // 企业培训 / Corporate training
+  null,                                           // 营销直播 / Marketing livestream
+  'articles/enterprise-live-platform-selection/', // 私有化部署 / Private deployment
+  'articles/live-latency-protocols/',             // 低延迟直播 / Low latency
+  'articles/vod-encryption-guide/',               // 视频加密 / Video encryption
+  'articles/live-latency-protocols/',             // WebRTC
+  'articles/live-latency-protocols/',             // HLS
+  'articles/ai-in-live-vod/',                     // AI字幕 / AI captions
+  'articles/enterprise-live-platform-selection/', // 直播平台选型 / Platform selection
+  'articles/obs-streaming-settings/',             // OBS
+];
+export function searchTagHref(tag: string, locale: Locale = 'zh') {
+  return `${prefix(locale)}/search/?q=${encodeURIComponent(tag)}`;
+}
+export function tagLink(tag: string, locale: Locale = 'zh'): { href: string; rel?: string } {
+  const list = locale === 'en' ? HOT_TAGS_EN : (HOT_TAGS as readonly string[]);
+  const i = list.indexOf(tag);
+  const target = i >= 0 ? HOT_TAG_TARGETS[i] : null;
+  return target ? { href: `${prefix(locale)}/${target}` } : { href: searchTagHref(tag, locale), rel: 'nofollow' };
 }

@@ -1,7 +1,7 @@
 ---
 import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm, isPromoArticle } from '../consts';
 import { getArticlesFor, imagesFor } from '../lib/articles';
-import { ui, articlePath, pagePath, type Locale } from '../lib/i18n';
+import { ui, articlePath, pagePath, tagLink, type Locale } from '../lib/i18n';
 interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string; locale?: Locale; hidePromo?: boolean }
 const { campaign, medium = 'sidebar', toc = [], exclude, locale = 'zh', hidePromo = false } = Astro.props;
 const t = ui(locale);
@@ -39,6 +39,6 @@ const searchHref = pagePath('/search/', locale);
   </section>
   <section class="side-card">
     <h3>{t.tagsTitle}</h3>
-    <div class="tags">{t.hotTags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`}>{tag}</a>)}</div>
+    <div class="tags">{t.hotTags.map((tag) => <a class="chip" {...tagLink(tag, locale)}>{tag}</a>)}</div>
   </section>
 </aside>

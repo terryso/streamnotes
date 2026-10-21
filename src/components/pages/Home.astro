@@ -5,7 +5,7 @@ import ArticleCard from '../ArticleCard.astro';
 import LeadBand from '../LeadBand.astro';
 import Icon from '../Icon.astro';
 import { CATEGORIES, POLYV_TRIAL, utm } from '../../consts';
-import { ui, categoryLabel, categoryPath, pagePath, scenarios, type Locale } from '../../lib/i18n';
+import { ui, categoryLabel, categoryPath, pagePath, scenarios, tagLink, type Locale } from '../../lib/i18n';
 import { getArticlesFor, imagesFor, siteImages, imgAlt } from '../../lib/articles';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
@@ -74,7 +74,7 @@ const searchHref = pagePath('/search/', locale);
 
   <section class="section container" aria-labelledby="tags-h">
     <div class="section-head"><h2 id="tags-h">{t.hotTagsTitle}</h2></div>
-    <div class="tags tags--lg">{t.hotTags.map((tag) => <a class="chip chip--lg" href={`${searchHref}?q=${encodeURIComponent(tag)}`}># {tag}</a>)}</div>
+    <div class="tags tags--lg">{t.hotTags.map((tag) => <a class="chip chip--lg" {...tagLink(tag, locale)}># {tag}</a>)}</div>
   </section>
 
   <LeadBand campaign={campaign} locale={locale} />

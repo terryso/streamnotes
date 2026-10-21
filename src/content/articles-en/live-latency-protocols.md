@@ -1,5 +1,6 @@
 ---
 title: "Where Does Live Streaming Latency Come From? RTMP, HLS, LL-HLS, and WebRTC Low-Latency Options Explained"
+seoTitle: "Live Latency Explained: RTMP, HLS, WebRTC"
 description: "A stage-by-stage breakdown of live streaming latency—capture, encoding, ingest, transcoding, delivery, and playback—with a comparison of typical latency and use cases for RTMP, HLS, LL-HLS, WebRTC, and SRT, plus a practical checklist for reducing delay."
 pubDate: 2026-10-06
 category: tutorial

@@ -16,7 +16,7 @@ const cfg = { lang: locale, found: t.searchFound, allTpl: t.searchAll };
         <input id="q" name="q" type="search" placeholder={t.searchBigPlaceholder} autocomplete="off" />
         <button class="btn btn-primary" type="submit">{t.searchButton}</button>
       </form>
-      <div class="tags">{t.hotTags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`}>{tag}</a>)}</div>
+      <div class="tags">{t.hotTags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`} rel="nofollow">{tag}</a>)}</div>
     </div>
   </section>
   <section class="section container">

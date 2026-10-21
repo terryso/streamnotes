@@ -1,5 +1,6 @@
 ---
 title: "Building a Video Platform for Finance and Government: From SaaS to Private Deployment (with POLYV as an Example)"
+seoTitle: "Video Platforms for Finance and Government"
 description: "A video platform selection guide for financial institutions and government organizations: the core requirements of security and compliance, identity and permissions, content control, and system integration; a comparison of four build paths—standard SaaS, SDK integration, a video middle platform, and full private deployment; and how to evaluate them, using POLYV's published solutions as an example."
 pubDate: 2026-10-16
 category: selection

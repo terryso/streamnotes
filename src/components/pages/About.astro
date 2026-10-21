@@ -1,36 +1,101 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { ui, type Locale } from '../../lib/i18n';
+import { CATEGORIES } from '../../consts';
+import { ui, categoryLabel, categoryPath, pagePath, type Locale } from '../../lib/i18n';
 interface Props { locale: Locale }
 const { locale } = Astro.props;
 const t = ui(locale);
 const n = t.siteName;
+const REPO = 'https://github.com/terryso/streamnotes';
+const ISSUES = `${REPO}/issues`;
+const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
+const credits = pagePath('/credits/', locale);
 ---
 <Base locale={locale} title={t.aboutTitle} description={t.aboutDesc} campaign={locale === 'en' ? 'en-about' : 'about'}>
   <section class="section container"><article class="article prose-page">
     {locale === 'zh' ? (
       <>
         <h1>关于{n}</h1>
-        <p>{n}是一个聚焦直播与视频点播（VOD）技术的中文内容站，面向企业技术负责人、产品经理与培训、市场运营团队，分享协议与架构原理、平台选型方法、行业落地实践与趋势观察。</p>
-        <p>本站全部文章提供中英双语版本，可通过页面顶部的语言切换在两种语言间对照阅读。</p>
-        <h2>编辑原则</h2>
+        <p>{n}是一个独立的中文内容站，专注直播与视频点播（VOD）技术，面向企业技术负责人、产品经理，以及培训、市场与运营团队。我们解释协议与架构原理，整理平台选型方法和可执行的检查清单，记录行业落地实践与趋势变化。本站全部文章提供中英双语版本，可通过页面顶部的语言切换对照阅读。</p>
+
+        <h2>内容范围</h2>
+        <p>文章分为四个栏目，每个栏目页都说明了该栏目收录什么、适合谁阅读：</p>
         <ul>
-          <li>技术内容以公开标准、官方文档为依据，并在文末列出参考资料。</li>
-          <li>不发布无法核实的统计数据，不贬低任何具体厂商。</li>
-          <li>保持独立：本站不由任何厂商赞助或运营；部分页面的“免费试用”“预约咨询”按钮会跳转至第三方厂商官网。</li>
+          {catKeys.map((k) => <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>：{categoryLabel(k, locale).desc}</li>)}
         </ul>
+
+        <h2>作者与编辑</h2>
+        <p>本站文章由{t.author}撰写和维护。编辑部是一个独立的编辑团队，关注直播、点播与音视频工程，也关注这些技术在企业培训、营销、医疗、金融和政企场景中的应用。本站不公开个人履历，读者判断内容可靠性时，请以文中列出的参考资料和我们公开的编辑方法为准。</p>
+
+        <h2>编辑标准</h2>
+        <ul>
+          <li><strong>有出处：</strong>技术内容以公开标准、官方文档和法规原文为依据，每篇文章末尾列出参考资料，读者可以对照原文核实。</li>
+          <li><strong>不编造数字：</strong>不发布无法核实的统计数据；涉及数字时，以公开资料为依据并列出出处。</li>
+          <li><strong>结构清晰：</strong>每篇文章开头给出要点摘要（TL;DR），正文按小标题组织，文末附常见问题，方便快速判断是否符合自己的场景。</li>
+          <li><strong>双语一致：</strong>中文与英文版本内容一一对应，结构、要点、常见问题和参考资料同步更新。</li>
+        </ul>
+
+        <h2>如何比较方案与厂商</h2>
+        <ul>
+          <li>选型类文章按维度比较方案，例如业务场景、集成深度、数据安全、并发与稳定性、互动能力和成本，而不是给出“哪家最好”的排名。</li>
+          <li>需要提及具体厂商时，只引用其官网公开、可查证的信息；当一篇文章以某个厂商的公开资料为例时，会在标题或正文中注明。</li>
+          <li>不贬低任何具体厂商。对比的目的是帮助读者提出正确的问题，最终决策应结合自身需求和厂商的书面承诺。</li>
+        </ul>
+
+        <h2>独立性声明</h2>
+        <p>{n}不由任何厂商赞助或运营。部分页面的“免费试用”“预约咨询”等按钮会跳转至第三方厂商官网；这些按钮只是指向外部网站的链接，不代表该厂商参与本站的编辑或运营。</p>
+
+        <h2>更新与更正</h2>
+        <ul>
+          <li>每篇文章显示发布日期；内容修订后会标注更新日期。标准、产品功能或法规发生变化时，我们会复核相关文章并更新。</li>
+          <li>发现事实错误、过时信息或失效链接，欢迎反馈。确认后我们会同时修正中英文版本，并更新文章的更新日期。</li>
+          <li>配图均为公共领域图片，来源、作者与许可见<a href={credits}>图片版权说明</a>。</li>
+        </ul>
+
+        <h2>联系与反馈</h2>
+        <p>本站源代码与内容托管在 GitHub：<a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>。勘误、补充资料或选题建议，请在 <a href={ISSUES} rel="noopener">GitHub Issues</a> 中提交，并附上页面地址和相关依据。</p>
       </>
     ) : (
       <>
         <h1>About {n}</h1>
-        <p>{n} ({t.siteNameAlt}) is a publication focused on live streaming and video-on-demand (VOD) technology. We write for enterprise technology leads, product managers, and training and marketing teams, covering protocol and architecture fundamentals, platform selection methods, real-world industry practice, and market trends.</p>
-        <p>Every article is available in both Chinese and English. Use the language switch at the top of any page to move between the two editions.</p>
-        <h2>Editorial principles</h2>
+        <p>{n} ({t.siteNameAlt}) is an independent publication focused on live streaming and video-on-demand (VOD) technology. We write for enterprise technology leads, product managers, and training, marketing, and operations teams. We explain protocol and architecture fundamentals, turn platform selection into methods and checklists you can act on, and document real-world practice and industry trends. Every article is available in both Chinese and English; use the language switch at the top of any page to move between editions.</p>
+
+        <h2>What we cover</h2>
+        <p>Articles are grouped into four topics. Each topic page explains what it contains and who it is for:</p>
         <ul>
-          <li>Technical content is grounded in public standards and official documentation, with sources listed at the end of each article.</li>
-          <li>We do not publish statistics we cannot verify, and we do not disparage any specific vendor.</li>
-          <li>Independence: this site is not sponsored or operated by any vendor. On some pages, “free trial” and “book a consultation” buttons link to a third-party vendor’s website.</li>
+          {catKeys.map((k) => <li><a href={categoryPath(k, locale)}>{categoryLabel(k, locale).name}</a>: {categoryLabel(k, locale).desc}</li>)}
         </ul>
+
+        <h2>Who writes it</h2>
+        <p>Articles are written and maintained by {t.author}, an independent editorial team focused on live streaming, VOD, and video engineering, and on how these technologies are used in corporate training, marketing, healthcare, finance, and government. We do not publish personal biographies; to judge whether an article is reliable, rely on the sources it cites and the editorial method described on this page.</p>
+
+        <h2>Editorial standards</h2>
+        <ul>
+          <li><strong>Sourced:</strong> technical content is grounded in public standards, official documentation, and the original text of regulations. Every article ends with a source list so you can check the originals.</li>
+          <li><strong>No invented numbers:</strong> we do not publish statistics we cannot verify; where figures appear, they come from public sources listed in the article.</li>
+          <li><strong>Easy to scan:</strong> each article opens with a TL;DR, is organized under clear headings, and closes with an FAQ, so you can quickly tell whether it fits your situation.</li>
+          <li><strong>Matching editions:</strong> the Chinese and English versions correspond one-to-one, and their structure, key points, FAQs, and sources are updated together.</li>
+        </ul>
+
+        <h2>How we compare platforms and vendors</h2>
+        <ul>
+          <li>Selection articles compare options by criteria—business scenario, integration depth, data security, concurrency and stability, engagement features, and cost—rather than ranking “the best” vendor.</li>
+          <li>When a specific vendor is mentioned, we use only information it publishes officially and that can be verified. When an article uses one vendor’s public materials as a worked example, the title or body says so.</li>
+          <li>We do not disparage any vendor. Comparisons are meant to help you ask the right questions; final decisions should rest on your own requirements and a vendor’s written commitments.</li>
+        </ul>
+
+        <h2>Independence statement</h2>
+        <p>{n} is not sponsored or operated by any vendor. On some pages, buttons such as “free trial” and “book a consultation” link to a third-party vendor’s website; they simply link to an external website and do not mean that vendor takes part in editing or running this site.</p>
+
+        <h2>Updates and corrections</h2>
+        <ul>
+          <li>Every article shows its publication date, and revised articles show an updated date. When standards, product capabilities, or regulations change, we review the affected articles and update them.</li>
+          <li>If you spot a factual error, outdated information, or a broken link, please tell us. Once confirmed, we fix both language editions and update the article’s date.</li>
+          <li>All images are public-domain works; see <a href={credits}>Image credits</a> for sources, creators, and licenses.</li>
+        </ul>
+
+        <h2>Contact and feedback</h2>
+        <p>The site’s source code and content are hosted on GitHub: <a href={REPO} rel="noopener">github.com/terryso/streamnotes</a>. To report a correction, suggest a source, or propose a topic, open an issue on <a href={ISSUES} rel="noopener">GitHub Issues</a> and include the page URL and supporting evidence.</p>
       </>
     )}
   </article></section>

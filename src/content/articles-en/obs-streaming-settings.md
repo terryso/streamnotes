@@ -1,7 +1,9 @@
 ---
 title: "How to Configure OBS for Streaming: Bitrate, Resolution, Keyframe Interval, and Encoder Choice"
+seoTitle: "OBS Streaming Settings: Bitrate & Keyframes"
 description: "An OBS streaming settings guide for enterprise and course livestreams: how to set bitrate from your upload bandwidth, how to balance resolution and frame rate, why a 2-second keyframe interval is recommended, how to choose between x264 and hardware encoders (NVENC, QuickSync, AMF, Apple VT), and a pre-broadcast checklist."
 pubDate: 2026-10-20
+updatedDate: 2026-10-21
 category: tutorial
 hidePromo: true
 tags: [OBS, Streaming settings, Bitrate, Keyframes, Encoders]
@@ -20,10 +22,10 @@ faq:
   - q: "Is stuttering always a network problem?"
     a: "Not necessarily. It can also come from encoding overload (the CPU or GPU can't keep up) or rendering lag (the scene is too complex). In OBS's Stats panel, check frames skipped due to encoding lag, frames dropped due to network, and frames missed due to rendering lag—these map to encoding, network, and rendering problems respectively."
 sources:
-  - title: "OBS Studio official knowledge base"
-    url: https://obsproject.com/kb/
-  - title: "OBS Studio Overview (official getting-started guide)"
-    url: https://obsproject.com/kb/obs-studio-overview
+  - title: "OBS Studio official Help Portal"
+    url: https://obsproject.com/help
+  - title: "OBS Studio official wiki (GitHub)"
+    url: https://github.com/obsproject/obs-studio/wiki
   - title: "YouTube Help - Choose live encoder settings, bitrates, and resolutions"
     url: https://support.google.com/youtube/answer/2853702
   - title: "Twitch Help - Broadcasting Guidelines"

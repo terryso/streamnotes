@@ -1,5 +1,6 @@
 ---
 title: "Medical Conferences and Surgical Teaching Livestreams: Image Quality, Access Control, and Compliance"
+seoTitle: "Medical Conference & Surgical Livestreams"
 description: "A practical guide for hospitals, societies, and medical educators: how to capture surgical teaching signals, protect image quality and color, tier viewer access, and handle patient privacy, informed consent, and prescription-product content in livestreams."
 pubDate: 2026-10-20
 category: industry

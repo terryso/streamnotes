@@ -58,7 +58,7 @@ if (d.faq.length) jsonLd.push({ '@context': 'https://schema.org', '@type': 'FAQP
 const c = img?.cover.credit;
 const searchHref = pagePath('/search/', locale);
 ---
-<Base hidePromo={hidePromo} locale={locale} title={d.title} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={alt} jsonLd={jsonLd} campaign={campaign}
+<Base hidePromo={hidePromo} locale={locale} title={d.title} seoTitle={d.seoTitle} description={d.description} ogType="article" ogImage={img?.og} ogImageAlt={alt} jsonLd={jsonLd} campaign={campaign}
   publishedTime={d.pubDate.toISOString()} modifiedTime={(d.updatedDate ?? d.pubDate).toISOString()} preloadImage={img?.cover.src800} active={categoryPath(d.category, locale)}
   noTwin={!hasTwin} zhPath={locale === 'en' ? twinHref : undefined} enPath={locale === 'zh' ? twinHref : undefined}>
   <article class="post">
@@ -108,7 +108,7 @@ const searchHref = pagePath('/search/', locale);
             <ol>{d.sources.map((s) => <li><a href={s.url} target="_blank" rel="noopener">{s.title}</a></li>)}</ol>
           </section>
         )}
-        <div class="post-tags">{d.tags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`}># {tag}</a>)}</div>
+        <div class="post-tags">{d.tags.map((tag) => <a class="chip" href={`${searchHref}?q=${encodeURIComponent(tag)}`} rel="nofollow"># {tag}</a>)}</div>
         <nav class="prevnext" aria-label={t.prevnextAria}>
           {older ? <a class="prevnext__item" href={articlePath(older.id, locale)} rel="prev"><span>{t.prev}</span><strong>{older.data.cardTitle ?? older.data.title}</strong></a> : <span />}
           {newer ? <a class="prevnext__item prevnext__item--next" href={articlePath(newer.id, locale)} rel="next"><span>{t.next}</span><strong>{newer.data.cardTitle ?? newer.data.title}</strong></a> : <span />}

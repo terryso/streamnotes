@@ -1,5 +1,6 @@
 ---
 title: "Corporate Training Livestreams in Practice: A Complete Workflow from Pre-Session Prep to Post-Session Review"
+seoTitle: "Corporate Training Livestreams in Practice"
 description: "A practical operations playbook for corporate training livestreams, covering needs analysis and format design, registration and equipment rehearsals, in-session interaction and facilitation, replays and knowledge capture, and how to evaluate results with the Kirkpatrick four-level model."
 pubDate: 2026-10-12
 category: industry

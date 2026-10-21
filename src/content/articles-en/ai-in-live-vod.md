@@ -1,5 +1,6 @@
 ---
 title: "How AI Is Changing Live Streaming and VOD: Real-Time Captions, Smart Summaries, Digital Humans, and Moderation"
+seoTitle: "How AI Is Changing Live Streaming and VOD"
 description: "A survey of where AI is landing in live streaming and video on demand—speech-recognition captions and translation, summaries and chapters, smart clipping, digital-human hosts, multimodal moderation, and Q&A—plus the compliance rules for labeling AI-generated content that businesses need to watch."
 pubDate: 2026-10-14
 category: news
