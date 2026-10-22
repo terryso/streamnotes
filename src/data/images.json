@@ -521,6 +521,46 @@
      }
     }
    ]
+  },
+  "miniprogram-live-guide": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "白色桌面上放在笔记本电脑旁的智能手机",
+    "credit": {
+     "creator": "Negative Space",
+     "source": "stocksnap",
+     "source_name": "StockSnap",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://stocksnap.io/photo/smartphone-mobile-O4V3KXZI1T",
+     "title": "Smartphone Mobile"
+    },
+    "src": "/images/miniprogram-live-guide/cover.webp",
+    "src800": "/images/miniprogram-live-guide/cover-800.webp",
+    "altEn": "Smartphone next to a laptop on a white desk"
+   },
+   "og": "/images/miniprogram-live-guide/og.jpg",
+   "inline": [
+    {
+     "src": "/images/miniprogram-live-guide/inline-1.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "白色桌面上的智能手机、笔记本和钢笔",
+     "caption": "动手写代码前，先确认小程序的主体与类目",
+     "credit": {
+      "creator": "Negative Space",
+      "source": "stocksnap",
+      "source_name": "StockSnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/smartphone-mobile-IU6HNPC2NT",
+      "title": "Smartphone Mobile"
+     },
+     "altEn": "Smartphone, notebook, and pen on a white desk",
+     "captionEn": "Before writing code, confirm your Mini Program’s entity and category"
+    }
+   ]
   }
  },
  "site": {
