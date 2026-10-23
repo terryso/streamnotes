@@ -124,8 +124,10 @@ button{font:inherit}
 .leadband__rss:hover{color:#fff}.leadband__rss svg{display:inline-block}
 
 /* list + filters */
-.layout{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:48px;align-items:start}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,320px);gap:48px;align-items:start;container-type:inline-size;container-name:page-layout}
 .layout > *{min-width:0}
+.layout-main{display:flex;flex-direction:column;gap:0;min-width:0}
+.layout--category .cat-hub{max-width:none}
 .tabs{display:flex;gap:8px;margin:0 0 20px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
 .tabs::-webkit-scrollbar{display:none}
 .tabs button{flex-shrink:0;min-height:38px;padding:0 16px;border-radius:999px;border:1px solid var(--line);background:#fff;color:var(--ink-2);font-size:14px;cursor:pointer}
@@ -220,7 +222,7 @@ button{font:inherit}
 .post-cover figcaption,.figure figcaption{font-size:13px;color:var(--muted);margin-top:8px;text-align:center}
 .credit{display:block;font-size:12px;color:#94a3b8}
 .credit a{color:#94a3b8;text-decoration:underline;text-underline-offset:2px}
-.layout--post{margin-top:40px;grid-template-columns:minmax(0,1fr) 320px}
+.layout--post{margin-top:40px;grid-template-columns:minmax(0,1fr) minmax(0,320px)}
 .post-main{min-width:0}
 .tldr{background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe;border-radius:var(--radius);padding:20px 22px;margin:0 0 28px}
 .tldr h2{font-size:16px;margin:0 0 10px;color:var(--brand-d)}
@@ -299,6 +301,12 @@ main:has(> .leadband:last-child) ~ .site-footer{margin-top:0}
 .footer-h{color:#fff;font-size:15px;margin:4px 0 14px}
 .footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#64748b}
 .tabbar{display:none}
+
+/* Collapse main + sidebar when the layout column is too narrow for a comfortable two-column row */
+@container page-layout (max-width:920px){
+  .layout,.layout--post{grid-template-columns:minmax(0,1fr);gap:40px}
+  .sidebar{position:static}
+}
 
 /* ============ responsive ============ */
 @media (max-width:1180px){
