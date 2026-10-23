@@ -36,6 +36,8 @@ const jsonLd = [
     </div>
   </section>
   <section class="section container">
+    <div class="layout layout--category">
+      <div class="layout-main">
     <div class="cat-hub">
       <p class="cat-lead">{cp.lead}</p>
       {cp.changes && cp.changes.length > 0 && (
@@ -94,9 +96,9 @@ const jsonLd = [
       {cp.about.map((para) => <p>{para}</p>)}
     </div>
     <h2 class="cat-all">{L.all(posts.length)}</h2>
-    <div class="layout">
       <div class="alist">
         {posts.length ? posts.map((p) => <ArticleCard entry={p} variant="row" level={3} locale={locale} />) : <p class="empty">{t.emptyCategory}</p>}
+      </div>
       </div>
       <Sidebar campaign={campaign} locale={locale} />
     </div>
