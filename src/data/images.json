@@ -561,6 +561,64 @@
      "captionEn": "Before writing code, confirm your Mini Program’s entity and category"
     }
    ]
+  },
+  "harmonyos-next-av": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "白色印刷电路板与电子元件特写",
+    "credit": {
+     "creator": "gunthercox",
+     "title": "White Printed Circuit Board and Components",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=27749085"
+    },
+    "src": "/images/harmonyos-next-av/cover.webp",
+    "src800": "/images/harmonyos-next-av/cover-800.webp",
+    "altEn": "Close-up of a white printed circuit board with electronic components"
+   },
+   "og": "/images/harmonyos-next-av/og.jpg",
+   "inline": [
+    {
+     "src": "/images/harmonyos-next-av/inline-1.webp",
+     "w": 1200,
+     "h": 900,
+     "alt": "手工蚀刻后的电路板特写",
+     "caption": "音视频适配要先对齐平台媒体能力与协议边界",
+     "credit": {
+      "creator": "Tinux",
+      "title": "Circuit board after manual etching",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "landing": "https://commons.wikimedia.org/w/index.php?curid=113714930"
+     },
+     "altEn": "Close-up of a circuit board after manual etching",
+     "captionEn": "AV adaptation starts by aligning platform media capability and protocol boundaries"
+    },
+    {
+     "src": "/images/harmonyos-next-av/inline-2.webp",
+     "w": 1200,
+     "h": 1806,
+     "alt": "数据中心机架背面密集的线缆与接口",
+     "caption": "推流、转码与分发链路决定观众端能否沿用现有地址",
+     "credit": {
+      "creator": "Derrick Coetzee",
+      "title": "Rear of rack at NERSC data center - closeup",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "landing": "https://commons.wikimedia.org/w/index.php?curid=17460421"
+     },
+     "altEn": "Dense cabling and ports on the rear of a data-center rack",
+     "captionEn": "Publish, transcoding, and delivery decide whether viewers can keep existing URLs"
+    }
+   ]
   }
  },
  "site": {
