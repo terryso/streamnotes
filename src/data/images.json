@@ -619,6 +619,64 @@
      "captionEn": "Publish, transcoding, and delivery decide whether viewers can keep existing URLs"
     }
    ]
+  },
+  "b2b-webinar-lead-funnel": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "空荡的会议室观众席与前方演讲台、投影幕",
+    "credit": {
+     "creator": "Nilo Velez",
+     "title": "An empty conference room with rows of chairs facing a stage area",
+     "source": "wordpress",
+     "source_name": "WordPress Photo Directory",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://wordpress.org/photos/photo/5176786995/"
+    },
+    "src": "/images/b2b-webinar-lead-funnel/cover.webp",
+    "src800": "/images/b2b-webinar-lead-funnel/cover-800.webp",
+    "altEn": "Empty auditorium seats facing a stage with lectern and projection screen"
+   },
+   "og": "/images/b2b-webinar-lead-funnel/og.jpg",
+   "inline": [
+    {
+     "src": "/images/b2b-webinar-lead-funnel/inline-1.webp",
+     "w": 1023,
+     "h": 683,
+     "alt": "木桌上的笔记本电脑、咖啡杯与手机俯拍",
+     "caption": "报名确认与会前培育邮件，往往决定最终出席率",
+     "credit": {
+      "creator": "pixellaphoto",
+      "title": "black-and-white-coffee-cup-apple",
+      "source": "flickr",
+      "source_name": "Flickr",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.flickr.com/photos/137643065@N06/23697457474"
+     },
+     "altEn": "Top-down view of a laptop, coffee mug, and phone on a wooden desk",
+     "captionEn": "Confirmation and pre-event nurture emails often decide the final show rate"
+    },
+    {
+     "src": "/images/b2b-webinar-lead-funnel/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "明亮空会议室中的长桌与办公椅",
+     "caption": "会后把出席与互动数据交到 CRM，线索才跟得动",
+     "credit": {
+      "creator": "rawpixel",
+      "title": "empty conference room square table",
+      "source": "rawpixel",
+      "source_name": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/3282671/free-photo-image-office-meeting-space"
+     },
+     "altEn": "Bright empty conference room with a long table and office chairs",
+     "captionEn": "Leads only move when attendance and interaction data reach the CRM"
+    }
+   ]
   }
  },
  "site": {
