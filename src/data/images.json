@@ -677,6 +677,64 @@
      "captionEn": "Leads only move when attendance and interaction data reach the CRM"
     }
    ]
+  },
+  "abr-ladder-design": {
+   "cover": {
+    "w": 1024,
+    "h": 576,
+    "alt": "蓝光照明的数据中心机房，成排黑色机柜与顶部线槽",
+    "credit": {
+     "creator": "rawpixel",
+     "title": "Free computer server room image",
+     "source": "rawpixel",
+     "source_name": "rawpixel",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://www.rawpixel.com/image/5906639/photo-image-light-desktop-wallpapers-public-domain"
+    },
+    "src": "/images/abr-ladder-design/cover.webp",
+    "src800": "/images/abr-ladder-design/cover-800.webp",
+    "altEn": "Blue-lit data center aisle with rows of black server cabinets and overhead cable trays"
+   },
+   "og": "/images/abr-ladder-design/og.jpg",
+   "inline": [
+    {
+     "src": "/images/abr-ladder-design/inline-1.webp",
+     "w": 1024,
+     "h": 768,
+     "alt": "白色机房中成排的黑色服务器机架与蓝色线缆",
+     "caption": "多档转码与分片缓存，最终都落在可扩展的分发与存储基础设施上",
+     "credit": {
+      "creator": "rawpixel",
+      "title": "Free computer server room image",
+      "source": "rawpixel",
+      "source_name": "rawpixel",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5912401/image-public-domain-black-technology"
+     },
+     "altEn": "Rows of black server racks with blue cabling in a white equipment room",
+     "captionEn": "Multi-rung transcoding and segment caching ultimately sit on scalable delivery and storage infrastructure"
+    },
+    {
+     "src": "/images/abr-ladder-design/inline-2.webp",
+     "w": 1024,
+     "h": 678,
+     "alt": "白色背景上的蓝色以太网线与水晶头特写",
+     "caption": "ABR 切档依赖稳定的分片传输；链路质量变化时播放器才会在阶梯上下移动",
+     "credit": {
+      "creator": "Open Grid Scheduler / Grid Engine",
+      "title": "Blue Ethernet Cable",
+      "source": "flickr",
+      "source_name": "Flickr",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.flickr.com/photos/29155878@N03/16267326303"
+     },
+     "altEn": "Close-up of a blue Ethernet cable and RJ45 connector on a white background",
+     "captionEn": "ABR switches ride on steady segment delivery; when link quality changes, the player moves up or down the ladder"
+    }
+   ]
   }
  },
  "site": {
