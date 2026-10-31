@@ -735,6 +735,64 @@
      "captionEn": "ABR switches ride on steady segment delivery; when link quality changes, the player moves up or down the ladder"
     }
    ]
+  },
+  "vod-platform-selection": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "空无的现代会议室，长木桌与黑色网椅，背景为大面积工业风落地窗",
+    "credit": {
+     "creator": "Crew crew",
+     "title": "File:Small conference room (Unsplash).jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Small_conference_room_(Unsplash).jpg"
+    },
+    "src": "/images/vod-platform-selection/cover.webp",
+    "src800": "/images/vod-platform-selection/cover-800.webp",
+    "altEn": "Empty modern conference room with a long wood table, black mesh chairs, and industrial floor-to-ceiling windows"
+   },
+   "og": "/images/vod-platform-selection/og.jpg",
+   "inline": [
+    {
+     "src": "/images/vod-platform-selection/inline-1.webp",
+     "w": 1200,
+     "h": 701,
+     "alt": "浅色背景上两根黄色以太网线与透明 RJ45 水晶头特写",
+     "caption": "分发与防盗链最终落在可缓存的分片传输上；链路与鉴权设计会影响播放稳定性",
+     "credit": {
+      "creator": "Wikideas1",
+      "title": "File:Ethernet connector.webp",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Ethernet_connector.webp"
+     },
+     "altEn": "Close-up of two yellow Ethernet cables with clear RJ45 connectors on a light surface",
+     "captionEn": "Delivery and hotlink protection ultimately ride on cacheable segment transport; link and auth design affect playback stability"
+    },
+    {
+     "src": "/images/vod-platform-selection/inline-2.webp",
+     "w": 1200,
+     "h": 1003,
+     "alt": "黄色护套光纤连接器与黑色防尘帽特写",
+     "caption": "片库存储、转码产物与 CDN 回源，都依赖可扩展的对象存储与网络出口能力",
+     "credit": {
+      "creator": "Anthonya",
+      "title": "File:Biconic Fiber Optic Connector.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Biconic_Fiber_Optic_Connector.jpg"
+     },
+     "altEn": "Close-up of a yellow-jacketed fiber optic connector with a black dust cap",
+     "captionEn": "Catalog storage, encode outputs, and CDN origin pulls all depend on scalable object storage and network egress"
+    }
+   ]
   }
  },
  "site": {
