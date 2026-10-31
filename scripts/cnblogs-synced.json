@@ -27,6 +27,13 @@
       "title": "多码率自适应（ABR）原理：转码阶梯怎么设计更省流量",
       "url": "https://www.cnblogs.com/NickYao/p/23476016",
       "syncedAt": "2026-10-29T09:10:36+08:00"
+    },
+    {
+      "slug": "vod-platform-selection",
+      "postid": "23503980",
+      "title": "点播平台选型清单：存储、转码、加密、播放器与数据能力怎么评估",
+      "url": "https://www.cnblogs.com/NickYao/p/23503980",
+      "syncedAt": "2026-10-31T09:14:14+08:00"
     }
   ]
 }
