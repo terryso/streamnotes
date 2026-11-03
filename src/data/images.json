@@ -793,6 +793,64 @@
      "captionEn": "Catalog storage, encode outputs, and CDN origin pulls all depend on scalable object storage and network egress"
     }
    ]
+  },
+  "bank-securities-private-live": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "黄昏时分紫粉色云层下的城市金融区天际线，水面上有一艘帆船",
+    "credit": {
+     "creator": "srikanta H. U",
+     "title": "File:Pink and purple skyline (Unsplash).jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Pink_and_purple_skyline_(Unsplash).jpg"
+    },
+    "src": "/images/bank-securities-private-live/cover.webp",
+    "src800": "/images/bank-securities-private-live/cover-800.webp",
+    "altEn": "City financial district skyline under pink and purple clouds at dusk, with a sailboat on the water"
+   },
+   "og": "/images/bank-securities-private-live/og.jpg",
+   "inline": [
+    {
+     "src": "/images/bank-securities-private-live/inline-1.webp",
+     "w": 1200,
+     "h": 800,
+     "alt": "暗色录音室中带防喷罩和防震架的银色电容麦克风",
+     "caption": "投教与营销直播的每一句话都可能被当作对客表述，脚本审核和实时巡查同样重要",
+     "credit": {
+      "creator": "Jonathan Velasquez",
+      "title": "File:Silver and black studio microphone condenser.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Silver_and_black_studio_microphone_condenser.jpg"
+     },
+     "altEn": "Silver condenser microphone with a pop filter and shock mount in a dark recording studio",
+     "captionEn": "Every line in an investor education or marketing stream can be read as a statement to clients, so script review and live monitoring matter equally"
+    },
+    {
+     "src": "/images/bank-securities-private-live/inline-2.webp",
+     "w": 1200,
+     "h": 855,
+     "alt": "桌面上的笔记本电脑屏幕显示数据看板，含折线面积图与环形图",
+     "caption": "直播后的观看与互动数据回流到 CRM，按客户分层安排后续跟进",
+     "credit": {
+      "creator": "Carlos Muza",
+      "title": "File:Statistics on a laptop (Unsplash).jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Statistics_on_a_laptop_(Unsplash).jpg"
+     },
+     "altEn": "Laptop on a desk showing a data dashboard with area charts and a donut chart",
+     "captionEn": "Viewing and interaction data flows back to the CRM after the stream, so follow-up can be planned by client segment"
+    }
+   ]
   }
  },
  "site": {
