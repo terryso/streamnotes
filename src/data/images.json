@@ -851,6 +851,64 @@
      "captionEn": "Viewing and interaction data flows back to the CRM after the stream, so follow-up can be planned by client segment"
     }
    ]
+  },
+  "live-weak-network-optimization": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "暗色背景下向远处延伸的发光光纤束，呈蓝白色光线",
+    "credit": {
+     "creator": "Christopher Burns",
+     "title": "File:Fiber Optic (Unsplash).jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Fiber_Optic_(Unsplash).jpg"
+    },
+    "src": "/images/live-weak-network-optimization/cover.webp",
+    "src800": "/images/live-weak-network-optimization/cover-800.webp",
+    "altEn": "Glowing fiber-optic strands in blue and white light extending into the distance against a dark background"
+   },
+   "og": "/images/live-weak-network-optimization/og.jpg",
+   "inline": [
+    {
+     "src": "/images/live-weak-network-optimization/inline-1.webp",
+     "w": 1200,
+     "h": 900,
+     "alt": "航拍农田中一座孤立的移动通信基站铁塔",
+     "caption": "外场和移动推流常依赖蜂窝网络，上行带宽和丢包会随信号与人流变化，需预留余量",
+     "credit": {
+      "creator": "Wikideas1",
+      "title": "File:Cellular tower-3.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Cellular_tower-3.jpg"
+     },
+     "altEn": "Aerial view of a lone cellular base station tower among farm fields",
+     "captionEn": "Field and mobile publishing often relies on cellular networks, where uplink bandwidth and loss shift with signal and crowds, so leave headroom"
+    },
+    {
+     "src": "/images/live-weak-network-optimization/inline-2.webp",
+     "w": 1200,
+     "h": 800,
+     "alt": "机柜中网络交换机端口上插满蓝色、黄色、红色和绿色网线",
+     "caption": "弱网问题要靠可复现的网络模拟和分组监控指标来验证，而不是凭感觉调参",
+     "credit": {
+      "creator": "Raysonho @ Open Grid Scheduler / Grid Engine",
+      "title": "File:EthernetSwitch.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:EthernetSwitch.jpg"
+     },
+     "altEn": "Network switch ports in a rack packed with blue, yellow, red, and green Ethernet cables",
+     "captionEn": "Weak-network fixes should be validated with reproducible network emulation and segmented monitoring metrics, not tuned by feel"
+    }
+   ]
   }
  },
  "site": {
