@@ -34,6 +34,13 @@
       "title": "点播平台选型清单：存储、转码、加密、播放器与数据能力怎么评估",
       "url": "https://www.cnblogs.com/NickYao/p/23503980",
       "syncedAt": "2026-10-31T09:14:14+08:00"
+    },
+    {
+      "slug": "live-weak-network-optimization",
+      "postid": "23555299",
+      "title": "直播弱网优化：抗丢包、码率自适应与断线重连的工程实践",
+      "url": "https://www.cnblogs.com/NickYao/p/23555299",
+      "syncedAt": "2026-11-05T09:10:22+08:00"
     }
   ]
 }
