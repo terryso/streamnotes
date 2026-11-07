@@ -909,6 +909,64 @@
      "captionEn": "Weak-network fixes should be validated with reproducible network emulation and segmented monitoring metrics, not tuned by feel"
     }
    ]
+  },
+  "digital-human-live-compliance": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "蓝色电路纹理上叠加的金属挂锁特写，象征安全与合规",
+    "credit": {
+     "creator": "jaydeep_",
+     "title": "File:Cybersecurity.png",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Cybersecurity.png"
+    },
+    "src": "/images/digital-human-live-compliance/cover.webp",
+    "src800": "/images/digital-human-live-compliance/cover-800.webp",
+    "altEn": "Close-up of a metal padlock over a blue circuit-board texture, suggesting security and compliance"
+   },
+   "og": "/images/digital-human-live-compliance/og.jpg",
+   "inline": [
+    {
+     "src": "/images/digital-human-live-compliance/inline-1.webp",
+     "w": 1200,
+     "h": 800,
+     "alt": "法庭木槌搁在垫座上的特写，背景虚化",
+     "caption": "数字人直播合规已从原则倡导进入可执行的标识与责任条款，授权与审核需要可举证的制度落地",
+     "credit": {
+      "creator": "Joe Gratz",
+      "title": "File:Courtroom One Gavel - Flickr - Joe Gratz.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Courtroom_One_Gavel_-_Flickr_-_Joe_Gratz.jpg"
+     },
+     "altEn": "Close-up of a wooden courtroom gavel resting on its sound block with a soft background",
+     "captionEn": "Digital-human livestream compliance has moved from principles to enforceable labeling and liability rules; authorization and review need auditable processes"
+    },
+    {
+     "src": "/images/digital-human-live-compliance/inline-2.webp",
+     "w": 1200,
+     "h": 1600,
+     "alt": "机柜中排列的服务器与线缆，灯光映照金属框架",
+     "caption": "隐式标识依赖文件元数据与导出链路，需要在制作端与分发端一起落地，而不是只靠画面角标",
+     "credit": {
+      "creator": "OboeBlanket",
+      "title": "File:Legrand S.A. server rack.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Legrand_S.A._server_rack.jpg"
+     },
+     "altEn": "Servers and cabling arranged in a rack cabinet with light reflecting on the metal frame",
+     "captionEn": "Implicit labels depend on file metadata and export pipelines, so production and distribution both need to implement them—not just an on-screen badge"
+    }
+   ]
   }
  },
  "site": {
