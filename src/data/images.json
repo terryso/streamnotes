@@ -967,6 +967,64 @@
      "captionEn": "Implicit labels depend on file metadata and export pipelines, so production and distribution both need to implement them—not just an on-screen badge"
     }
    ]
+  },
+  "overseas-live-streaming": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "夜色中的地球城市灯光图，各大洲的聚居区在黑暗背景上点状发光",
+    "credit": {
+     "creator": "Craig Mayhew and Robert Simmon / NASA GSFC",
+     "title": "File:Earth's City Lights by DMSP, 1994-1995 (large).jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "PDM",
+     "license_url": "https://creativecommons.org/publicdomain/mark/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Earth%27s_City_Lights_by_DMSP,_1994-1995_(large).jpg"
+    },
+    "src": "/images/overseas-live-streaming/cover.webp",
+    "src800": "/images/overseas-live-streaming/cover-800.webp",
+    "altEn": "A night-time map of Earth with city lights glowing in clusters across the continents against a dark background"
+   },
+   "og": "/images/overseas-live-streaming/og.jpg",
+   "inline": [
+    {
+     "src": "/images/overseas-live-streaming/inline-1.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "蓝天下两座白色抛物面卫星天线并排朝向天空，后方是树林和设备用房",
+     "caption": "跨境传输会拉长往返时延，贡献端和分发端都要按目标市场预留备路，而不是只依赖一条跨洋链路",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Satellite dish space technolgy",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/6042594/photo-image-public-domain-blue-technology"
+     },
+     "altEn": "Two white parabolic satellite dishes side by side under a blue sky, with trees and an equipment building behind them",
+     "captionEn": "Cross-border contribution stretches round-trip time, so both the ingest and distribution paths need regional backups rather than a single transoceanic link"
+    },
+    {
+     "src": "/images/overseas-live-streaming/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "交换机端口上插着蓝色和红色网线，焦点落在两根蓝色水晶头上",
+     "caption": "海外观众能否打开直播，首先取决于解析和边缘接入是否就近，而不是把所有请求都拉回同一出口",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "LAN cables plug in",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/6034454/lan-cables-plug-in-free-public-domain-cc0-photo"
+     },
+     "altEn": "Blue and red Ethernet cables plugged into a network switch, with two blue RJ45 connectors in focus",
+     "captionEn": "Whether overseas viewers can open the stream depends first on nearby DNS and edge access, not on pulling every request back to one egress"
+    }
+   ]
   }
  },
  "site": {
