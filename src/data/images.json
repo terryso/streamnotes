@@ -1025,6 +1025,64 @@
      "captionEn": "Whether overseas viewers can open the stream depends first on nearby DNS and edge access, not on pulling every request back to one egress"
     }
    ]
+  },
+  "multicam-live-production": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "空无一人的音乐厅内景：木质墙面与层层蓝色座椅环绕舞台，舞台上摆着乐谱架和座椅，天花板装有演出灯具",
+    "credit": {
+     "creator": "Radek Grzybowski",
+     "title": "File:Empty concert hall in Katowice (Unsplash).jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Empty_concert_hall_in_Katowice_(Unsplash).jpg"
+    },
+    "src": "/images/multicam-live-production/cover.webp",
+    "src800": "/images/multicam-live-production/cover-800.webp",
+    "altEn": "An empty concert hall with timber walls and tiered blue seats around a stage, music stands and chairs on the floor, and performance lights in the ceiling"
+   },
+   "og": "/images/multicam-live-production/og.jpg",
+   "inline": [
+    {
+     "src": "/images/multicam-live-production/inline-1.webp",
+     "w": 1024,
+     "h": 768,
+     "alt": "从舞台下方仰拍的灯架：一排筒灯悬挂在金属桁架上，两侧是蓝色幕布和舞台吊杆",
+     "caption": "各路摄像机要在同一套现场灯光下对齐白平衡和曝光，开播前用同一参照物把每一台机器走一遍",
+     "credit": {
+      "creator": "Vikebe",
+      "title": "File:Stage lighting - Theatre Hall De Vooruit as seen from below.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Stage_lighting_-_Theatre_Hall_De_Vooruit_as_seen_from_below.jpg"
+     },
+     "altEn": "A lighting truss photographed from below, with a row of cylindrical fixtures hanging above blue drapes and stage fly bars",
+     "captionEn": "Every camera should be white-balanced and exposed under the same house lighting; walk each one across the same reference before you go live"
+    },
+    {
+     "src": "/images/multicam-live-production/inline-2.webp",
+     "w": 1200,
+     "h": 797,
+     "alt": "深色背景前一支金色网格面罩的手持麦克风特写，看不到品牌标识",
+     "caption": "多机位现场往往是声音先出问题：主备话筒、播放声和节目录音要分开设计，并用测试信号核对音画同步",
+     "credit": {
+      "creator": "Kai Oberhäuser",
+      "title": "File:Microphone (Unsplash).jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Microphone_(Unsplash).jpg"
+     },
+     "altEn": "A close-up of a gold handheld microphone with a mesh grille against a dark background, with no visible brand mark",
+     "captionEn": "On a multi-camera shoot, audio usually fails first: design the primary and backup mics, playback, and program record as separate paths, and check lip-sync with a test signal"
+    }
+   ]
   }
  },
  "site": {
