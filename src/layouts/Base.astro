@@ -98,26 +98,44 @@ const catKeys = Object.keys(CATEGORIES) as (keyof typeof CATEGORIES)[];
   {GSC_VERIFICATION && <meta name="google-site-verification" content={GSC_VERIFICATION} />}
   {allLd.map((ld) => <script type="application/ld+json" set:html={JSON.stringify(ld)} />)}
   {GA4_ID && (
-    <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`}></script>
-      <script is:inline define:vars={{ GA4_ID }}>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', GA4_ID);
-        var CTA_ZONES = [['.site-header','header'],['.hero','hero'],['.leadband','leadband'],['.cta-inline','article_mid'],['.cta-end','article_end'],['.side-cta','sidebar'],['.site-footer','footer'],['.tabbar','tabbar']];
-        document.addEventListener('click', function (e) {
-          var a = e.target.closest && e.target.closest('a[href]');
-          if (!a) return;
-          for (var i = 0; i < CTA_ZONES.length; i++) {
-            if (a.closest(CTA_ZONES[i][0]) && (a.classList.contains('btn') || CTA_ZONES[i][1] !== 'header')) {
-              gtag('event', 'cta_click', { location: CTA_ZONES[i][1], link_url: a.href, link_text: (a.textContent || '').trim().slice(0, 60), page_path: location.pathname });
-              return;
-            }
+    <script is:inline define:vars={{ GA4_ID }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA4_ID);
+      var gaStarted = false, gaReady = false, ctaQueue = [];
+      function flushCta() {
+        gaReady = true;
+        for (var i = 0; i < ctaQueue.length; i++) gtag('event', 'cta_click', ctaQueue[i]);
+        ctaQueue = [];
+      }
+      function loadGa() {
+        if (gaStarted) return;
+        gaStarted = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+        s.onload = flushCta;
+        document.head.appendChild(s);
+      }
+      var CTA_ZONES = [['.site-header','header'],['.hero','hero'],['.leadband','leadband'],['.cta-inline','article_mid'],['.cta-end','article_end'],['.side-cta','sidebar'],['.site-footer','footer'],['.tabbar','tabbar']];
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]');
+        if (!a) return;
+        for (var i = 0; i < CTA_ZONES.length; i++) {
+          if (a.closest(CTA_ZONES[i][0]) && (a.classList.contains('btn') || CTA_ZONES[i][1] !== 'header')) {
+            var payload = { location: CTA_ZONES[i][1], link_url: a.href, link_text: (a.textContent || '').trim().slice(0, 60), page_path: location.pathname };
+            if (gaReady) gtag('event', 'cta_click', payload);
+            else { ctaQueue.push(payload); loadGa(); }
+            return;
           }
-        });
-      </script>
-    </>
+        }
+      });
+      var startGa = function () { loadGa(); };
+      if (window.requestIdleCallback) requestIdleCallback(startGa, { timeout: 3000 });
+      else if (document.readyState === 'complete') setTimeout(startGa, 0);
+      else window.addEventListener('load', function () { setTimeout(startGa, 0); });
+    </script>
   )}
 </head>
 <body>

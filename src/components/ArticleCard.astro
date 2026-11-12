@@ -1,12 +1,15 @@
 ---
 import { ui, categoryLabel, articlePath, categoryPath, type Locale } from '../lib/i18n';
-import { imagesFor, fmtDate, readingMinutes, type AnyArticle } from '../lib/articles';
+import { imagesFor, coverSrcset, fmtDate, readingMinutes, type AnyArticle } from '../lib/articles';
 import Icon from './Icon.astro';
-interface Props { entry: AnyArticle; variant?: 'card' | 'row'; level?: 2 | 3; eager?: boolean; locale?: Locale }
-const { entry, variant = 'card', level = 3, eager = false, locale = 'zh' } = Astro.props;
+interface Props { entry: AnyArticle; variant?: 'card' | 'row'; level?: 2 | 3; eager?: boolean; locale?: Locale; sizes?: string }
+const { entry, variant = 'card', level = 3, eager = false, locale = 'zh', sizes } = Astro.props;
 const t = ui(locale);
 const d = entry.data;
 const img = imagesFor(entry.id);
+const srcset = img ? coverSrcset(img.cover) : '';
+const cardSizes = sizes ?? '(max-width: 380px) 100px, (max-width: 720px) 120px, (max-width: 1024px) calc((100vw - 96px) / 3), 280px';
+const rowSizes = '(max-width: 380px) 96px, (max-width: 720px) 112px, 240px';
 const H = level === 2 ? 'h2' : 'h3';
 const href = articlePath(entry.id, locale);
 const catHref = categoryPath(d.category, locale);
@@ -17,7 +20,7 @@ const title = d.cardTitle ?? d.title;
 {variant === 'card' ? (
   <article class="acard">
     <a class="acard__media" href={href} tabindex="-1" aria-hidden="true">
-      {img && <img src={img.cover.src800} alt="" width="800" height="450" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
+      {img && <img src={img.cover.src800} srcset={srcset} sizes={cardSizes} alt="" width="800" height="450" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
     </a>
     <div class="acard__body">
       <div class="meta"><a class="tag" href={catHref}>{catName}</a></div>
@@ -29,7 +32,7 @@ const title = d.cardTitle ?? d.title;
 ) : (
   <article class="arow" data-category={d.category}>
     <a class="arow__media" href={href} tabindex="-1" aria-hidden="true">
-      {img && <img src={img.cover.src800} alt="" width="800" height="450" loading="lazy" decoding="async" />}
+      {img && <img src={img.cover.src800} srcset={srcset} sizes={rowSizes} alt="" width="800" height="450" loading={eager ? 'eager' : 'lazy'} decoding="async" />}
     </a>
     <div class="arow__body">
       <div class="meta"><a class="tag" href={catHref}>{catName}</a></div>

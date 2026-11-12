@@ -1,6 +1,6 @@
 ---
 import { POLYV_TRIAL, POLYV_CONTACT, POLYV_CONTACT_HASH, POLYV_PHONE, utm, isPromoArticle } from '../consts';
-import { getArticlesFor, imagesFor } from '../lib/articles';
+import { getArticlesFor, imagesFor, coverSrcset } from '../lib/articles';
 import { ui, articlePath, pagePath, tagLink, type Locale } from '../lib/i18n';
 interface Props { campaign: string; medium?: string; toc?: { depth: number; slug: string; text: string }[]; exclude?: string; locale?: Locale; hidePromo?: boolean }
 const { campaign, medium = 'sidebar', toc = [], exclude, locale = 'zh', hidePromo = false } = Astro.props;
@@ -30,7 +30,7 @@ const searchHref = pagePath('/search/', locale);
         const img = imagesFor(a.id);
         return (
           <li><a href={articlePath(a.id, locale)}>
-            {img && <img src={img.cover.src800} alt="" width="96" height="54" loading="lazy" decoding="async" />}
+            {img && <img src={img.cover.src800} srcset={coverSrcset(img.cover)} sizes="96px" alt="" width="96" height="54" loading="lazy" decoding="async" />}
             <span>{a.data.cardTitle ?? a.data.title}</span>
           </a></li>
         );

@@ -7,7 +7,7 @@ export type ArticleEn = CollectionEntry<'articlesEn'>;
 export type AnyArticle = Article | ArticleEn;
 
 type ImgRec = {
-  cover: { src: string; src800: string; w: number; h: number; alt: string; altEn?: string; credit: any };
+  cover: { src: string; src800: string; src720?: string; src400?: string; w: number; h: number; alt: string; altEn?: string; credit: any };
   og: string;
   inline: any[];
 };
@@ -27,6 +27,13 @@ export async function getArticlesFor(locale: Locale): Promise<AnyArticle[]> {
 
 export function imagesFor(slug: string): ImgRec | undefined {
   return (images as any).articles[slug];
+}
+/** 400w for thumbs, 720w for a phone-width card at ~1.75x, 800w above that. */
+export function coverSrcset(cover?: { src800?: string; src720?: string; src400?: string } | null): string {
+  if (!cover?.src800) return '';
+  const src400 = cover.src400 || cover.src800.replace(/cover-800\.webp$/, 'cover-400.webp');
+  const src720 = cover.src720 || cover.src800.replace(/cover-800\.webp$/, 'cover-720.webp');
+  return `${src400} 400w, ${src720} 720w, ${cover.src800} 800w`;
 }
 export function coverAlt(slug: string, locale: Locale = 'zh'): string {
   const img = imagesFor(slug);
