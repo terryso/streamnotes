@@ -300,7 +300,7 @@ main:has(> .leadband:last-child) ~ .site-footer{margin-top:0}
 .footer-links-inline{display:flex;gap:14px}
 .footer-grid ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
 .footer-h{color:#fff;font-size:15px;margin:4px 0 14px}
-.footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#64748b}
+.footer-bottom{margin-top:40px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08);font-size:12px;color:#6e819e}
 .tabbar{display:none}
 
 /* Collapse main + sidebar when the layout column is too narrow for a comfortable two-column row */

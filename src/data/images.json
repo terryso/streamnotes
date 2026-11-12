@@ -16,7 +16,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/live-latency-protocols/cover.webp",
-    "src800": "/images/live-latency-protocols/cover-800.webp"
+    "src800": "/images/live-latency-protocols/cover-800.webp",
+    "src720": "/images/live-latency-protocols/cover-720.webp",
+    "src400": "/images/live-latency-protocols/cover-400.webp"
    },
    "inline": [
     {
@@ -74,7 +76,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/vod-encryption-guide/cover.webp",
-    "src800": "/images/vod-encryption-guide/cover-800.webp"
+    "src800": "/images/vod-encryption-guide/cover-800.webp",
+    "src720": "/images/vod-encryption-guide/cover-720.webp",
+    "src400": "/images/vod-encryption-guide/cover-400.webp"
    },
    "inline": [
     {
@@ -132,7 +136,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/enterprise-live-platform-selection/cover.webp",
-    "src800": "/images/enterprise-live-platform-selection/cover-800.webp"
+    "src800": "/images/enterprise-live-platform-selection/cover-800.webp",
+    "src720": "/images/enterprise-live-platform-selection/cover-720.webp",
+    "src400": "/images/enterprise-live-platform-selection/cover-400.webp"
    },
    "inline": [
     {
@@ -190,7 +196,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/corporate-training-live/cover.webp",
-    "src800": "/images/corporate-training-live/cover-800.webp"
+    "src800": "/images/corporate-training-live/cover-800.webp",
+    "src720": "/images/corporate-training-live/cover-720.webp",
+    "src400": "/images/corporate-training-live/cover-400.webp"
    },
    "inline": [
     {
@@ -248,7 +256,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/ai-in-live-vod/cover.webp",
-    "src800": "/images/ai-in-live-vod/cover-800.webp"
+    "src800": "/images/ai-in-live-vod/cover-800.webp",
+    "src720": "/images/ai-in-live-vod/cover-720.webp",
+    "src400": "/images/ai-in-live-vod/cover-400.webp"
    },
    "inline": [
     {
@@ -306,7 +316,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/private-deployment-polyv/cover.webp",
-    "src800": "/images/private-deployment-polyv/cover-800.webp"
+    "src800": "/images/private-deployment-polyv/cover-800.webp",
+    "src720": "/images/private-deployment-polyv/cover-720.webp",
+    "src400": "/images/private-deployment-polyv/cover-400.webp"
    },
    "inline": [
     {
@@ -364,7 +376,9 @@
      "source_name": "Wikimedia Commons"
     },
     "src": "/images/obs-streaming-settings/cover.webp",
-    "src800": "/images/obs-streaming-settings/cover-800.webp"
+    "src800": "/images/obs-streaming-settings/cover-800.webp",
+    "src720": "/images/obs-streaming-settings/cover-720.webp",
+    "src400": "/images/obs-streaming-settings/cover-400.webp"
    },
    "inline": [
     {
@@ -422,7 +436,9 @@
      "title": "An empty conference room with rows of chairs facing a stage"
     },
     "src": "/images/enterprise-live-apaas/cover.webp",
-    "src800": "/images/enterprise-live-apaas/cover-800.webp"
+    "src800": "/images/enterprise-live-apaas/cover-800.webp",
+    "src720": "/images/enterprise-live-apaas/cover-720.webp",
+    "src400": "/images/enterprise-live-apaas/cover-400.webp"
    },
    "og": "/images/enterprise-live-apaas/og.jpg",
    "inline": [
@@ -480,7 +496,9 @@
      "landing": "https://commons.wikimedia.org/w/index.php?curid=185786830"
     },
     "src": "/images/medical-conference-surgery-live/cover.webp",
-    "src800": "/images/medical-conference-surgery-live/cover-800.webp"
+    "src800": "/images/medical-conference-surgery-live/cover-800.webp",
+    "src720": "/images/medical-conference-surgery-live/cover-720.webp",
+    "src400": "/images/medical-conference-surgery-live/cover-400.webp"
    },
    "og": "/images/medical-conference-surgery-live/og.jpg",
    "inline": [
@@ -538,6 +556,8 @@
     },
     "src": "/images/miniprogram-live-guide/cover.webp",
     "src800": "/images/miniprogram-live-guide/cover-800.webp",
+    "src720": "/images/miniprogram-live-guide/cover-720.webp",
+    "src400": "/images/miniprogram-live-guide/cover-400.webp",
     "altEn": "Smartphone next to a laptop on a white desk"
    },
    "og": "/images/miniprogram-live-guide/og.jpg",
@@ -578,6 +598,8 @@
     },
     "src": "/images/harmonyos-next-av/cover.webp",
     "src800": "/images/harmonyos-next-av/cover-800.webp",
+    "src720": "/images/harmonyos-next-av/cover-720.webp",
+    "src400": "/images/harmonyos-next-av/cover-400.webp",
     "altEn": "Close-up of a white printed circuit board with electronic components"
    },
    "og": "/images/harmonyos-next-av/og.jpg",
@@ -636,6 +658,8 @@
     },
     "src": "/images/b2b-webinar-lead-funnel/cover.webp",
     "src800": "/images/b2b-webinar-lead-funnel/cover-800.webp",
+    "src720": "/images/b2b-webinar-lead-funnel/cover-720.webp",
+    "src400": "/images/b2b-webinar-lead-funnel/cover-400.webp",
     "altEn": "Empty auditorium seats facing a stage with lectern and projection screen"
    },
    "og": "/images/b2b-webinar-lead-funnel/og.jpg",
@@ -694,6 +718,8 @@
     },
     "src": "/images/abr-ladder-design/cover.webp",
     "src800": "/images/abr-ladder-design/cover-800.webp",
+    "src720": "/images/abr-ladder-design/cover-720.webp",
+    "src400": "/images/abr-ladder-design/cover-400.webp",
     "altEn": "Blue-lit data center aisle with rows of black server cabinets and overhead cable trays"
    },
    "og": "/images/abr-ladder-design/og.jpg",
@@ -752,6 +778,8 @@
     },
     "src": "/images/vod-platform-selection/cover.webp",
     "src800": "/images/vod-platform-selection/cover-800.webp",
+    "src720": "/images/vod-platform-selection/cover-720.webp",
+    "src400": "/images/vod-platform-selection/cover-400.webp",
     "altEn": "Empty modern conference room with a long wood table, black mesh chairs, and industrial floor-to-ceiling windows"
    },
    "og": "/images/vod-platform-selection/og.jpg",
@@ -810,6 +838,8 @@
     },
     "src": "/images/bank-securities-private-live/cover.webp",
     "src800": "/images/bank-securities-private-live/cover-800.webp",
+    "src720": "/images/bank-securities-private-live/cover-720.webp",
+    "src400": "/images/bank-securities-private-live/cover-400.webp",
     "altEn": "City financial district skyline under pink and purple clouds at dusk, with a sailboat on the water"
    },
    "og": "/images/bank-securities-private-live/og.jpg",
@@ -868,6 +898,8 @@
     },
     "src": "/images/live-weak-network-optimization/cover.webp",
     "src800": "/images/live-weak-network-optimization/cover-800.webp",
+    "src720": "/images/live-weak-network-optimization/cover-720.webp",
+    "src400": "/images/live-weak-network-optimization/cover-400.webp",
     "altEn": "Glowing fiber-optic strands in blue and white light extending into the distance against a dark background"
    },
    "og": "/images/live-weak-network-optimization/og.jpg",
@@ -926,6 +958,8 @@
     },
     "src": "/images/digital-human-live-compliance/cover.webp",
     "src800": "/images/digital-human-live-compliance/cover-800.webp",
+    "src720": "/images/digital-human-live-compliance/cover-720.webp",
+    "src400": "/images/digital-human-live-compliance/cover-400.webp",
     "altEn": "Close-up of a metal padlock over a blue circuit-board texture, suggesting security and compliance"
    },
    "og": "/images/digital-human-live-compliance/og.jpg",
@@ -984,6 +1018,8 @@
     },
     "src": "/images/overseas-live-streaming/cover.webp",
     "src800": "/images/overseas-live-streaming/cover-800.webp",
+    "src720": "/images/overseas-live-streaming/cover-720.webp",
+    "src400": "/images/overseas-live-streaming/cover-400.webp",
     "altEn": "A night-time map of Earth with city lights glowing in clusters across the continents against a dark background"
    },
    "og": "/images/overseas-live-streaming/og.jpg",
@@ -1042,6 +1078,8 @@
     },
     "src": "/images/multicam-live-production/cover.webp",
     "src800": "/images/multicam-live-production/cover-800.webp",
+    "src720": "/images/multicam-live-production/cover-720.webp",
+    "src400": "/images/multicam-live-production/cover-400.webp",
     "altEn": "An empty concert hall with timber walls and tiered blue seats around a stage, music stands and chairs on the floor, and performance lights in the ceiling"
    },
    "og": "/images/multicam-live-production/og.jpg",

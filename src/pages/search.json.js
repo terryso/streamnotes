@@ -1,4 +1,4 @@
-import { getArticles, getArticlesEn, imagesFor } from '../lib/articles';
+import { getArticles, getArticlesEn, imagesFor, coverSrcset } from '../lib/articles';
 import { CATEGORIES } from '../consts';
 import { CATEGORIES_EN } from '../lib/i18n';
 
@@ -14,6 +14,7 @@ export async function GET() {
       g: p.data.tags,
       lang: 'zh',
       i: imagesFor(p.id)?.cover.src800 || '',
+      s: imagesFor(p.id) ? coverSrcset(imagesFor(p.id).cover) : '',
       k: (p.body || '').replace(/[#>*`|\-\[\]()]/g, ' ').replace(/\s+/g, ' ').slice(0, 1500),
     })),
     ...en.map((p) => ({
@@ -24,6 +25,7 @@ export async function GET() {
       g: p.data.tags,
       lang: 'en',
       i: imagesFor(p.id)?.cover.src800 || '',
+      s: imagesFor(p.id) ? coverSrcset(imagesFor(p.id).cover) : '',
       k: (p.body || '').replace(/[#>*`|\-\[\]()]/g, ' ').replace(/\s+/g, ' ').slice(0, 1500),
     })),
   ];
