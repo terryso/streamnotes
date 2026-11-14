@@ -1121,6 +1121,48 @@
      "captionEn": "On a multi-camera shoot, audio usually fails first: design the primary and backup mics, playback, and program record as separate paths, and check lip-sync with a test signal"
     }
    ]
+  },
+  "multi-platform-simulcast": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "晴朗蓝天下的山顶上，一座红白相间的通信发射塔矗立在设备机房上方，四周是针叶林和连绵的石灰岩山脉",
+    "credit": {
+     "creator": "AVDLCZ",
+     "title": "File:Katrin Radio Tower.jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://commons.wikimedia.org/wiki/File:Katrin_Radio_Tower.jpg"
+    },
+    "src": "/images/multi-platform-simulcast/cover.webp",
+    "src800": "/images/multi-platform-simulcast/cover-800.webp",
+    "src720": "/images/multi-platform-simulcast/cover-720.webp",
+    "src400": "/images/multi-platform-simulcast/cover-400.webp",
+    "altEn": "A red-and-white communications tower rising above an equipment building on a mountaintop under a clear blue sky, surrounded by conifers and limestone peaks"
+   },
+   "og": "/images/multi-platform-simulcast/og.jpg",
+   "inline": [
+    {
+     "src": "/images/multi-platform-simulcast/inline-1.webp",
+     "w": 1200,
+     "h": 761,
+     "alt": "一部黑色智能手机的锁屏一角特写，屏幕显示时间和电量图标，背景虚化，看不到品牌标识",
+     "caption": "公域平台的观众大多在手机上观看：引流链接和留资页要先在手机上走一遍，确认能顺畅回到自有直播间",
+     "credit": {
+      "creator": "Skitterphoto",
+      "title": "File:Smartphone display screen.jpg",
+      "source": "wikimedia",
+      "source_name": "Wikimedia Commons",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://commons.wikimedia.org/wiki/File:Smartphone_display_screen.jpg"
+     },
+     "altEn": "A close-up of the corner of a black smartphone's lock screen showing the time and battery icons, with a blurred background and no visible brand mark",
+     "captionEn": "Most public-platform viewers watch on phones: walk through your referral links and sign-up page on a phone first to make sure they lead smoothly back to your own live room"
+    }
+   ]
   }
  },
  "site": {
