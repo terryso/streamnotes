@@ -1163,6 +1163,66 @@
      "captionEn": "Most public-platform viewers watch on phones: walk through your referral links and sign-up page on a phone first to make sure they lead smoothly back to your own live room"
     }
    ]
+  },
+  "live-to-vod-workflow": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "黑白照片里的图书馆书库过道，两侧通高书架排满书脊，尽头放着桌椅，天花板上有灯具",
+    "credit": {
+     "creator": "UCLA Library University Archives",
+     "title": "File:Music Library Shelves in the Powell Library Building.jpg",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=163577230"
+    },
+    "src": "/images/live-to-vod-workflow/cover.webp",
+    "src800": "/images/live-to-vod-workflow/cover-800.webp",
+    "src720": "/images/live-to-vod-workflow/cover-720.webp",
+    "src400": "/images/live-to-vod-workflow/cover-400.webp",
+    "altEn": "A black-and-white photograph of a library stacks aisle, with tall shelves of books on both sides, a desk and chairs at the far end, and ceiling lights above"
+   },
+   "og": "/images/live-to-vod-workflow/og.jpg",
+   "inline": [
+    {
+     "src": "/images/live-to-vod-workflow/inline-1.webp",
+     "w": 1024,
+     "h": 682,
+     "alt": "特写中的调音台面板，一排排旋钮和下方的推子，部分通道指示灯亮起",
+     "caption": "节目输出应同时推流和本地录像，声音和画面在录制端就要对齐，而不是等到转点播时再补救",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Mixing desk, allen heath mixer",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5803511/photo-image-public-domain-studio"
+     },
+     "altEn": "Close-up of a mixing console, with rows of knobs and faders below, some channel lights illuminated",
+     "captionEn": "Record the program output locally while you stream it; sync audio and video at the recording point rather than trying to fix it when you convert to VOD"
+    },
+    {
+     "src": "/images/live-to-vod-workflow/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "打开盖板的机械硬盘特写，可以看见磁碟盘片和磁头臂",
+     "caption": "滑动窗口里的直播分段会被删除；要提供完整回放，必须从一开始就保留全部媒体段，或另外完整落盘",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Close-up head open hard drive",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/3295250/free-photo-image-creative-commons-cc0-computer"
+     },
+     "altEn": "Close-up of an opened hard disk drive, showing the platter and actuator arm",
+     "captionEn": "Segments in a sliding-window live playlist are deleted; a complete replay needs every media segment kept from the start, or a separate full recording"
+    }
+   ]
   }
  },
  "site": {
