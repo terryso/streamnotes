@@ -69,6 +69,13 @@
       "title": "直播转点播怎么做：录制、回放、切片与章节的实践建议",
       "url": "https://www.cnblogs.com/NickYao/p/23689824",
       "syncedAt": "2026-11-17T09:12:52+08:00"
+    },
+    {
+      "slug": "live-vod-qoe-metrics",
+      "postid": "23738077",
+      "title": "直播与点播数据指标怎么看：并发、观看时长、完播率、卡顿率与首帧时间",
+      "url": "https://www.cnblogs.com/NickYao/p/23738077",
+      "syncedAt": "2026-11-21T09:09:17+08:00"
     }
   ]
 }
