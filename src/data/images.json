@@ -1223,6 +1223,66 @@
      "captionEn": "Segments in a sliding-window live playlist are deleted; a complete replay needs every media segment kept from the start, or a separate full recording"
     }
    ]
+  },
+  "live-vod-qoe-metrics": {
+   "cover": {
+    "w": 1600,
+    "h": 900,
+    "alt": "暗色背景中亮着红色刻度的汽车速度表特写，指针停在零位",
+    "credit": {
+     "creator": "freestocks.org",
+     "title": "Speedometer (23332656190)",
+     "source": "wikimedia",
+     "source_name": "Wikimedia Commons",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/deed.en/",
+     "landing": "https://commons.wikimedia.org/w/index.php?curid=131378662"
+    },
+    "src": "/images/live-vod-qoe-metrics/cover.webp",
+    "src800": "/images/live-vod-qoe-metrics/cover-800.webp",
+    "src720": "/images/live-vod-qoe-metrics/cover-720.webp",
+    "src400": "/images/live-vod-qoe-metrics/cover-400.webp",
+    "altEn": "Close-up of a car speedometer with red illuminated markings on a dark background, the needle resting at zero"
+   },
+   "og": "/images/live-vod-qoe-metrics/og.jpg",
+   "inline": [
+    {
+     "src": "/images/live-vod-qoe-metrics/inline-1.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "桌上一台打开的笔记本电脑，屏幕上显示折线图和饼图，旁边放着一部手机",
+     "caption": "业务指标回答“有没有人看、看了多久”，每个数字都要写清分子、分母和统计窗口",
+     "credit": {
+      "creator": "Negative Space",
+      "title": "Analytics Charts",
+      "source": "stocksnap",
+      "source_name": "StockSnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/analytics-charts-JVSII4KCCK"
+     },
+     "altEn": "An open laptop on a desk showing a line chart and a pie chart, with a smartphone beside it",
+     "captionEn": "Business metrics answer whether people watched and for how long; every number needs an explicit numerator, denominator, and time window"
+    },
+    {
+     "src": "/images/live-vod-qoe-metrics/inline-2.webp",
+     "w": 1200,
+     "h": 790,
+     "alt": "浅色背景前木质底座、黄铜立柱的沙漏，下半部分积着紫红色细沙",
+     "caption": "首帧时间和卡顿都是“等待”，但起点和归类不同：起播等待、拖动后缓冲和播放中卡顿要分开统计",
+     "credit": {
+      "creator": "bluedigitalist",
+      "title": "An hourglass with wooden top and bottom and gold metal structure",
+      "source": "wordpress",
+      "source_name": "WordPress Photo Directory",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://wordpress.org/photos/photo/98365ccf5b/"
+     },
+     "altEn": "An hourglass with a wooden base and brass posts against a light background, magenta sand collected in the lower bulb",
+     "captionEn": "Startup time and stalls are both waiting, but they start at different points: count the startup wait, post-seek buffering, and mid-playback stalls separately"
+    }
+   ]
   }
  },
  "site": {
