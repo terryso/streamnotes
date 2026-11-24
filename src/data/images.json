@@ -1283,6 +1283,66 @@
      "captionEn": "Startup time and stalls are both waiting, but they start at different points: count the startup wait, post-seek buffering, and mid-playback stalls separately"
     }
    ]
+  },
+  "live-interaction-design": {
+   "cover": {
+    "w": 1024,
+    "h": 576,
+    "alt": "明亮的会议室里一张长桌和一圈深色椅子，窗外是砖墙建筑，桌上托盘里放着绿植",
+    "credit": {
+     "creator": "rawpixel 公共领域图库",
+     "title": "empty conference room office table",
+     "source": "rawpixel",
+     "source_name": "rawpixel 公共领域图库",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://www.rawpixel.com/image/3282948/free-photo-image-virtual-background-conference-room-cc0"
+    },
+    "src": "/images/live-interaction-design/cover.webp",
+    "src800": "/images/live-interaction-design/cover-800.webp",
+    "src720": "/images/live-interaction-design/cover-720.webp",
+    "src400": "/images/live-interaction-design/cover-400.webp",
+    "altEn": "A bright meeting room with a long table and dark chairs, a tray of plants in the center, and brick buildings visible through tall windows"
+   },
+   "og": "/images/live-interaction-design/og.jpg",
+   "inline": [
+    {
+     "src": "/images/live-interaction-design/inline-1.webp",
+     "w": 1024,
+     "h": 684,
+     "alt": "俯拍空无一人的音乐厅，舞台上摆着乐谱架和椅子，层层观众席呈深蓝色",
+     "caption": "互动要让“在场”发生：先定这场直播要用聊天、问答还是投票完成什么任务，再打开相应的功能",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "high view empty concert hall",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/3282739/free-photo-image-theater-crowd-architecture"
+     },
+     "altEn": "High-angle view of an empty concert hall, with music stands and chairs on stage and tiered blue audience seats",
+     "captionEn": "Interaction should make the audience present: decide whether chat, Q&A, or polls serve the event, then turn on only those tools"
+    },
+    {
+     "src": "/images/live-interaction-design/inline-2.webp",
+     "w": 1024,
+     "h": 466,
+     "alt": "玻璃隔断旁的空会议室，一张长桌周围摆着黑色网椅，对面大厅空无一人",
+     "caption": "有价值的问题不该留在公屏里被刷走；把问答做成独立队列，才方便整理、回答并带进回放",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "empty table several chairs small",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/3294212/free-photo-image-interior-table-cafe-room-boardroom"
+     },
+     "altEn": "An empty meeting room behind a glass partition, with a long table surrounded by black mesh chairs and a vacant hall beyond",
+     "captionEn": "Valuable questions should not be lost in the public chat; a separate Q&A queue is easier to organize, answer, and carry into the replay"
+    }
+   ]
   }
  },
  "site": {
