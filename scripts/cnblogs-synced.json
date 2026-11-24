@@ -76,6 +76,13 @@
       "title": "直播与点播数据指标怎么看：并发、观看时长、完播率、卡顿率与首帧时间",
       "url": "https://www.cnblogs.com/NickYao/p/23738077",
       "syncedAt": "2026-11-21T09:09:17+08:00"
+    },
+    {
+      "slug": "live-interaction-design",
+      "postid": "23762140",
+      "title": "企业直播互动怎么做：聊天、问答、投票与抽奖的设计要点",
+      "url": "https://www.cnblogs.com/NickYao/p/23762140",
+      "syncedAt": "2026-11-24T09:24:02+08:00"
     }
   ]
 }
