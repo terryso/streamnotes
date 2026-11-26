@@ -1343,6 +1343,66 @@
      "captionEn": "Valuable questions should not be lost in the public chat; a separate Q&A queue is easier to organize, answer, and carry into the replay"
     }
    ]
+  },
+  "webcast-vs-meeting": {
+   "cover": {
+    "w": 960,
+    "h": 540,
+    "alt": "黑暗中的空影院，红色座椅分列两侧，中间过道的台阶被灯光照亮",
+    "credit": {
+     "creator": "Felix Mooneeram",
+     "title": "Auditorium Stadium",
+     "source": "stocksnap",
+     "source_name": "StockSnap",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://stocksnap.io/photo/auditorium-stadium-7TO5UMVM58"
+    },
+    "src": "/images/webcast-vs-meeting/cover.webp",
+    "src800": "/images/webcast-vs-meeting/cover-800.webp",
+    "src720": "/images/webcast-vs-meeting/cover-720.webp",
+    "src400": "/images/webcast-vs-meeting/cover-400.webp",
+    "altEn": "An empty cinema in darkness, with rows of red seats on both sides and a center aisle whose steps are lit"
+   },
+   "og": "/images/webcast-vs-meeting/og.jpg",
+   "inline": [
+    {
+     "src": "/images/webcast-vs-meeting/inline-1.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "俯拍一排排红白相间的礼堂座椅，座位空无一人",
+     "caption": "企业直播是一对多播出：大多数人是观众，规模靠分发而不是靠每人都开一条上行",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Auditorium chair",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/6032860/auditorium-chair-free-public-domain-cc0-photo"
+     },
+     "altEn": "Overhead view of empty auditorium seats in red and white, arranged in long rows",
+     "captionEn": "A webcast is one-to-many: most people are viewers, and scale comes from distribution, not from everyone sending a stream"
+    },
+    {
+     "src": "/images/webcast-vs-meeting/inline-2.webp",
+     "w": 960,
+     "h": 640,
+     "alt": "落地窗旁的空会议室，长桌两边摆着椅子，尽头墙上挂着关闭的显示屏",
+     "caption": "视频会议解决的是在场讨论：需要发言、共享和共同编辑时，围桌式的交互比单向播出更合适",
+     "credit": {
+      "creator": "Benjamin Child",
+      "title": "Table Chairs",
+      "source": "stocksnap",
+      "source_name": "StockSnap",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://stocksnap.io/photo/table-chairs-7OPWOSQFXS"
+     },
+     "altEn": "An empty conference room by floor-to-ceiling windows, with chairs along a long table and a dark display on the far wall",
+     "captionEn": "A meeting is for discussion in the room: when people need to speak, share, and work together, two-way interaction fits better than a one-way broadcast"
+    }
+   ]
   }
  },
  "site": {
