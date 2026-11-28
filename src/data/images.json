@@ -1403,6 +1403,66 @@
      "captionEn": "A meeting is for discussion in the room: when people need to speak, share, and work together, two-way interaction fits better than a one-way broadcast"
     }
    ]
+  },
+  "live-access-control": {
+   "cover": {
+    "w": 1024,
+    "h": 576,
+    "alt": "空无一人的办公楼门厅，深色地砖和两根白柱之间是玻璃旋转门，门外是庭院和白色建筑",
+    "credit": {
+     "creator": "Markus Spiske",
+     "title": "Empty hallway with glass walls and doors",
+     "source": "rawpixel",
+     "source_name": "rawpixel 公共领域图库",
+     "license": "CC0",
+     "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+     "landing": "https://www.rawpixel.com/image/432523/free-photo-image-hallway-empty-hall-cc0"
+    },
+    "src": "/images/live-access-control/cover.webp",
+    "src800": "/images/live-access-control/cover-800.webp",
+    "src720": "/images/live-access-control/cover-720.webp",
+    "src400": "/images/live-access-control/cover-400.webp",
+    "altEn": "An empty office lobby with dark floor tiles and two white columns, glass entrance doors opening onto a courtyard and white buildings"
+   },
+   "og": "/images/live-access-control/og.jpg",
+   "inline": [
+    {
+     "src": "/images/live-access-control/inline-1.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "阳光斜照在一扇浅灰色关闭的门上，银色把手和锁孔投下一小片阴影",
+     "caption": "先选定访问模型，再谈实现：门口这道闸要按内容敏感度和观众范围来设计，而不是复用同一条公开链接",
+     "credit": {
+      "creator": "rawpixel 公共领域图库",
+      "title": "Free closed door closeup image",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/5911312/image-public-domain-shadow-room"
+     },
+     "altEn": "Sunlight falls across a closed light-gray door, with a silver handle and keyhole casting a short shadow",
+     "captionEn": "Choose the access model first: the gate at the door should match content sensitivity and audience scope, not a reused public link"
+    },
+    {
+     "src": "/images/live-access-control/inline-2.webp",
+     "w": 1024,
+     "h": 683,
+     "alt": "深褐色木门上的金属搭扣锁着一把挂锁，木板和螺丝清晰可见",
+     "caption": "减少链接被转发，靠的是短时且绑定身份的播放凭证，以及能收回的授权，而不是幻想绝对防扩散",
+     "credit": {
+      "creator": "Markus Spiske",
+      "title": "Closeup of padlock on a wooden door",
+      "source": "rawpixel",
+      "source_name": "rawpixel 公共领域图库",
+      "license": "CC0",
+      "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+      "landing": "https://www.rawpixel.com/image/463170/free-photo-image-padlock-door-lock-metal"
+     },
+     "altEn": "A padlock fastened through a metal hasp on a dark brown wooden door, with the planks and screws clearly visible",
+     "captionEn": "Limit resharing with short-lived, identity-bound playback credentials and revocable access, not with a promise that spreading the content is impossible"
+    }
+   ]
   }
  },
  "site": {
